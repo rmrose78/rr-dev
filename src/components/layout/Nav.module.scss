@@ -1,0 +1,210 @@
+@use '@/styles/_variables.scss' as *;
+@use '@/styles/_mixins.scss' as *;
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem $section-px-mobile;
+  background: rgba(4, 13, 26, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid $border-subtle;
+
+  @include desktop {
+    padding: 1.25rem $section-px-desktop;
+  }
+}
+
+.logo {
+  font-family: $font-mono;
+  font-size: 0.9rem;
+  color: $electric-blue;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  z-index: 110;
+
+  span {
+    color: $text-muted;
+  }
+}
+
+.navCenter {
+  display: none;
+  gap: 2.2rem;
+  list-style: none;
+
+  @include desktop {
+    display: flex;
+  }
+
+  a {
+    font-family: $font-mono;
+    font-size: 0.75rem;
+    color: $text-secondary;
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color $transition-base;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: $electric-blue;
+      transition: width 0.25s;
+    }
+
+    &:hover {
+      color: $electric-blue;
+
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.navRight {
+  display: none;
+  align-items: center;
+  gap: 1.25rem;
+
+  @include desktop {
+    display: flex;
+  }
+}
+
+.iconLink {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: $font-mono;
+  font-size: 0.72rem;
+  color: $text-muted;
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: color $transition-base;
+
+  &:hover {
+    color: $electric-blue;
+  }
+
+  svg {
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+  }
+}
+
+.cta {
+  font-family: $font-mono;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $electric-blue;
+  border: 1px solid $electric-blue;
+  padding: 0.45rem 1.1rem;
+  background: transparent;
+  cursor: pointer;
+  transition: background $transition-base;
+  border-radius: 2px;
+
+  &:hover {
+    background: $electric-glow;
+  }
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 110;
+
+  @include desktop {
+    display: none;
+  }
+
+  span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: $text-secondary;
+    transition:
+      transform 0.25s,
+      opacity 0.25s;
+    transform-origin: center;
+  }
+
+  &.open {
+    span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    span:nth-child(2) {
+      opacity: 0;
+    }
+    span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+  }
+}
+
+.mobileMenu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 13, 26, 0.98);
+  z-index: 105;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+
+  &.open {
+    display: flex;
+  }
+
+  @include desktop {
+    display: none !important;
+  }
+
+  a {
+    font-family: $font-heading;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: $text-secondary;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: color $transition-base;
+
+    &:hover {
+      color: $electric-blue;
+    }
+  }
+}
+
+.mobileIcons {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+
+  a {
+    font-size: 0.85rem !important;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: $text-muted !important;
+  }
+}

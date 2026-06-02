@@ -1,0 +1,213 @@
+@use '@/styles/_variables.scss' as *;
+@use '@/styles/_mixins.scss' as *;
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6rem $section-px-mobile 3rem;
+  overflow: hidden;
+
+  @include desktop {
+    padding: 0 $section-px-desktop;
+  }
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+
+  @include desktop {
+    opacity: 0.45;
+  }
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  max-width: 780px;
+}
+
+.label {
+  font-family: $font-mono;
+  font-size: 0.72rem;
+  color: $electric-blue;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+
+  @include desktop {
+    font-size: 0.78rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.heading {
+  font-family: $font-heading;
+  font-size: clamp(2.8rem, 10vw, 6.5rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: $text-primary;
+
+  // "Rose" gets electric blue treatment
+  .last {
+    color: $electric-blue;
+  }
+}
+
+.typewriterRow {
+  display: flex;
+  align-items: center;
+  margin-top: 0.85rem;
+  min-height: 2rem;
+}
+
+.typewriter {
+  font-family: $font-heading;
+  font-size: clamp(1rem, 4vw, 1.6rem);
+  font-weight: 400;
+  color: $text-secondary;
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background: $electric-blue;
+  margin-left: 3px;
+  vertical-align: text-middle;
+  animation: blink 1s step-end infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.bio {
+  font-size: 0.95rem;
+  color: $text-secondary;
+  line-height: 1.8;
+  max-width: 540px;
+  margin-top: 1.25rem;
+
+  @include desktop {
+    font-size: 1rem;
+    margin-top: 1.75rem;
+  }
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 2rem;
+
+  @include small {
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  @include desktop {
+    margin-top: 2.5rem;
+  }
+}
+
+.btnPrimary {
+  font-family: $font-mono;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $navy;
+  background: $electric-blue;
+  padding: 0.85rem 1.8rem;
+  border-radius: 2px;
+  text-align: center;
+  transition:
+    opacity $transition-base,
+    transform $transition-base;
+
+  &:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+}
+
+.btnGhost {
+  font-family: $font-mono;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $text-secondary;
+  background: transparent;
+  border: 1px solid $border-subtle;
+  padding: 0.85rem 1.8rem;
+  border-radius: 2px;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color $transition-base,
+    color $transition-base;
+
+  &:hover {
+    border-color: $electric-blue;
+    color: $electric-blue;
+  }
+}
+
+.scrollCue {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.scrollLine {
+  display: block;
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, $electric-blue, transparent);
+  animation: pulse 2s ease-in-out infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+.scrollText {
+  font-family: $font-mono;
+  font-size: 0.65rem;
+  color: $text-muted;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}

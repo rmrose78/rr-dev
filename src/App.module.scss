@@ -1,0 +1,8 @@
+@use '@/styles/_variables.scss' as *;
+@use '@/styles/_mixins.scss' as *;
+
+.mainSection {
+  height: 100vh;
+  padding-top: 8rem;
+  @include flex-center;
+}
