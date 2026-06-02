@@ -64,7 +64,10 @@ export default function Nav({ onContactClick }: NavProps) {
 
           <button
             className={styles.cta}
-            onClick={onContactClick}
+            onClick={(e) => {
+              e.stopPropagation()
+              onContactClick()
+            }}
             aria-label="Open Contact Form"
           >
             Get in touch

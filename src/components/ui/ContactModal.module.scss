@@ -1,0 +1,115 @@
+@use '@/styles/_variables.scss' as *;
+@use '@/styles/_mixins.scss' as *;
+
+.modalTitle {
+  font-family: $font-heading;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $text-primary;
+  margin-bottom: 0.35rem;
+}
+
+.modalSub {
+  font-family: $font-mono;
+  font-size: 0.78rem;
+  color: $text-secondary;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.75rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.label {
+  font-family: $font-mono;
+  font-size: 0.72rem;
+  color: $text-secondary;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.input,
+.textarea {
+  background: rgba(4, 13, 26, 0.6);
+  border: 1px solid $border-subtle;
+  border-radius: 2px;
+  color: $text-primary;
+  font-family: $font-body;
+  font-size: 0.95rem;
+  padding: 0.65rem 0.85rem;
+  width: 100%;
+  transition: border-color $transition-base;
+
+  &:focus {
+    outline: none;
+    border-color: $electric-blue;
+  }
+
+  &::placeholder {
+    color: $text-muted;
+  }
+
+  // Override browser autofill background
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px rgba(4, 13, 26, 0.6) inset;
+    -webkit-text-fill-color: $text-primary;
+    border-color: $electric-blue;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.btnPrimary {
+  font-family: $font-mono;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $navy;
+  background: $electric-blue;
+  border: none;
+  padding: 0.85rem 1.8rem;
+  border-radius: 2px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 0.5rem;
+  transition: opacity $transition-base;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.errorMsg {
+  font-size: 0.85rem;
+  color: #f87171;
+  margin-bottom: 0.75rem;
+}
+
+.successState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1rem 0;
+  gap: 0.75rem;
+}
+
+.successIcon {
+  font-size: 2rem;
+  color: $teal;
+}

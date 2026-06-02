@@ -1,0 +1,67 @@
+@use '@/styles/_variables.scss' as *;
+@use '@/styles/_mixins.scss' as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 13, 26, 0.92);
+  backdrop-filter: blur(8px);
+  z-index: 200;
+}
+
+.contentWrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 201;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  pointer-events: none;
+}
+
+.modal {
+  background: $navy-800;
+  border: 1px solid $border-subtle;
+  width: 100%;
+  max-width: 480px;
+  padding: 2rem 1.5rem;
+  border-radius: 4px;
+  position: relative;
+  pointer-events: all;
+  max-height: 90vh;
+  overflow-y: auto;
+
+  @include small {
+    padding: 2.5rem;
+  }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: $text-muted;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color $transition-base;
+
+  &:hover {
+    color: $text-primary;
+  }
+}
+
+.title {
+  font-family: $font-heading;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $text-primary;
+  margin-bottom: 0.35rem;
+}
+
+.visuallyHidden {
+  @include visually-hidden;
+}
