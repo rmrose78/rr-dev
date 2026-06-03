@@ -1,0 +1,53 @@
+@use '@/styles/_variables.scss' as *;
+@use '@/styles/_mixins.scss' as *;
+
+.card {
+  background: rgba(12, 32, 64, 0.6);
+  border: 1px solid $border-subtle;
+  border-radius: 4px;
+  padding: 1.1rem;
+  position: relative;
+  overflow: hidden;
+
+  @include desktop {
+    padding: 1.5rem;
+  }
+
+  // Electric left border accent
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: $electric-blue;
+  }
+}
+
+.label {
+  font-family: $font-mono;
+  font-size: 0.65rem;
+  color: $text-muted;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.value {
+  font-family: $font-heading;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: $text-primary;
+
+  @include desktop {
+    font-size: 1.6rem;
+  }
+}
+
+.sub {
+  font-size: 0.78rem;
+  color: $text-muted;
+  margin-top: 0.2rem;
+  line-height: 1.4;
+}
