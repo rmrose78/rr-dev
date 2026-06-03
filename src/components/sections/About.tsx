@@ -10,19 +10,19 @@ const STAT_CARDS = [
     sub: 'React + TypeScript at TaxSlayer',
   },
   {
+    label: 'Education',
+    value: 'B.S. Biomedical Engineering',
+    sub: 'Honors, UTSA 2020',
+  },
+  {
+    label: 'Veteran',
+    value: 'U.S. Army',
+    sub: 'Human Intelligence (35M), Afghanistan 2012',
+  },
+  {
     label: 'Prior Clearance',
     value: 'TS/SCI',
-    sub: 'Active 2010–2015, U.S. Army (lapsed)',
-  },
-  {
-    label: 'Background',
-    value: 'B.S. BME',
-    sub: 'Biomedical Engineering (Honors), UTSA 2020',
-  },
-  {
-    label: 'Accessibility',
-    value: 'Section 508',
-    sub: 'WCAG compliant, production shipped',
+    sub: 'Active 2010–2015 (lapsed)',
   },
 ]
 
@@ -59,28 +59,29 @@ export default function About() {
           <p className={styles.text}>
             I'm a Frontend Developer with nearly four years of production
             experience in React and TypeScript. My path here went through{' '}
-            <strong>Biomedical Engineering</strong> at UTSA, a U.S. Army
-            deployment to Afghanistan, and frontend training through{' '}
-            <strong>#VetsWhoCode</strong>.
+            <strong>Biomedical Engineering</strong> at UTSA, service as a{' '}
+            <strong>U.S.&nbsp;Army Veteran</strong>, and frontend training
+            through <strong>#VetsWhoCode</strong>.
           </p>
 
           <p className={styles.text}>
-            My goal is building software for <strong>research teams</strong>:
-            tools for biomedical scientists, engineers, and analysts that make
-            complex work more accessible. I care about clean code and interfaces
-            that actually serve the people using them.
+            I care about clean, maintainable code and building interfaces that
+            actually serve the people using them. That includes accessibility. I
+            build with Section 508 and WCAG compliance as a standard practice,
+            not an afterthought. I'm drawn to work where the domain matters,
+            whether that's healthcare, research, or public service.
           </p>
 
           <p className={styles.text}>
-            Based in Pasadena, MD. Open to remote or hybrid roles in the
-            Maryland/DC corridor.
+            Based in Pasadena, MD. Open to remote, hybrid, or onsite
+            opportunities in the Maryland/DC corridor.
           </p>
 
           <div className={styles.tags}>
             {[
-              'U.S. Army Veteran',
+              'React / TypeScript',
+              'C# MVC',
               'Prior TS/SCI',
-              'Biomedical Engineering',
               'Section 508 / WCAG',
               'Pasadena, MD',
             ].map((tag) => (
