@@ -31,9 +31,22 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
     setFields((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
+  function isFormValid(): boolean {
+    return (
+      fields.name.trim() !== '' &&
+      fields.email.trim() !== '' &&
+      fields.message.trim() !== ''
+    )
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setStatus('submitting')
+
+    if (!isFormValid()) {
+      setStatus('error')
+      return
+    }
 
     try {
       const res = await fetch('https://api.web3forms.com/submit', {
@@ -133,7 +146,9 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
 
             {status === 'error' && (
               <p className={styles.errorMsg} role="alert">
-                Something went wrong. Please try again or email me directly.
+                {!isFormValid()
+                  ? 'Please fill out all fields.'
+                  : 'Something went wrong. Please try again or email me directly.'}{' '}
               </p>
             )}
 

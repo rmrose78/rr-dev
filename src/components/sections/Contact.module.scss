@@ -1,0 +1,95 @@
+@use '@/styles/_variables.scss' as *;
+@use '@/styles/_mixins.scss' as *;
+
+.section {
+  padding: 4rem $section-px-mobile 6rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+
+  @include desktop {
+    padding: 5rem $section-px-desktop 8rem;
+  }
+}
+
+// Card container with top gradient line accent
+.inner {
+  background: rgba(12, 32, 64, 0.4);
+  border: 1px solid $border-subtle;
+  border-radius: 4px;
+  padding: 2.5rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+
+  @include desktop {
+    padding: 4rem 3rem;
+  }
+
+  // Gradient line across the top of the card
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      $electric-blue,
+      transparent
+    );
+    opacity: 0.4;
+  }
+}
+
+.sectionLabel {
+  font-family: $font-mono;
+  font-size: 0.72rem;
+  color: $electric-blue;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-family: $font-heading;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-weight: 700;
+  color: $text-primary;
+  margin-bottom: 1rem;
+}
+
+.sub {
+  font-size: 0.95rem;
+  color: $text-secondary;
+  max-width: 480px;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+
+  @include desktop {
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+  }
+}
+
+.btn {
+  font-family: $font-mono;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $navy;
+  background: $electric-blue;
+  border: none;
+  padding: 0.85rem 2.5rem;
+  border-radius: 2px;
+  cursor: pointer;
+  transition:
+    opacity $transition-base,
+    transform $transition-base;
+
+  &:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+}
