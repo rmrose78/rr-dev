@@ -7,6 +7,8 @@ import Skills from '@/components/sections/Skills'
 import Experience from '@/components/sections/Experience'
 import Contact from '@/components/sections/Contact'
 import Footer from '@/components/layout/Footer'
+import PageBackground from '@/components/ui/PageBackground'
+import styles from './App.module.scss'
 
 export default function App() {
   const [contactOpen, setContactOpen] = useState(false)
@@ -22,16 +24,18 @@ export default function App() {
   return (
     <>
       <Nav onContactClick={openContactModal} />
-      <main>
+
+      <main className={styles.main}>
+        <PageBackground />
         <Hero onContactClick={openContactModal} />
         <About />
         <Skills />
         <Experience />
         <Contact onContactClick={openContactModal} />
-        <Footer />
-
-        <ContactModal open={contactOpen} onClose={closeContactModal} />
       </main>
+
+      <Footer />
+      <ContactModal open={contactOpen} onClose={closeContactModal} />
     </>
   )
 }
