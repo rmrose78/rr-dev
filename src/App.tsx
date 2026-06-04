@@ -23,9 +23,12 @@ export default function App() {
 
   return (
     <>
+      <a href="#main-content" className={styles.skipLink}>
+        Skip to main content
+      </a>
       <Nav onContactClick={openContactModal} />
 
-      <main className={styles.main}>
+      <main id="main-content" className={styles.main}>
         <PageBackground />
         <Hero onContactClick={openContactModal} />
         <About />

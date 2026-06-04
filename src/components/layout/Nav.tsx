@@ -92,6 +92,13 @@ export default function Nav({ onContactClick }: NavProps) {
         className={`${styles.mobileMenu} ${menuOpen ? styles.open : ''}`}
         aria-hidden={!menuOpen}
       >
+        <button
+          className={styles.mobileClose}
+          onClick={closeMenu}
+          aria-label="Close navigation menu"
+        >
+          &times;
+        </button>
         {NAV_LINKS.map((link) => (
           <a
             href={link.href}

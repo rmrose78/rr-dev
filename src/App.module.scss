@@ -10,3 +10,22 @@
 .main {
   position: relative;
 }
+
+.skipLink {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  background: $electric-blue;
+  color: $navy;
+  padding: 0.5rem 1rem;
+  font-family: $font-mono;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 2px;
+  z-index: 999;
+  transition: top $transition-base;
+
+  &:focus {
+    top: 1rem;
+  }
+}
