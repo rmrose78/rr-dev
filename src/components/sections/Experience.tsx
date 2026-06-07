@@ -16,8 +16,8 @@ const EXPERIENCE = [
   },
   {
     meta: 'May 2021 – Oct 2021',
-    role: 'Contractor, Validation Engineer',
-    org: 'Cardinal Health',
+    role: 'Validation Engineer',
+    org: 'Cardinal Health via Contract',
     bullets: [
       'Authored FDA-compliant manufacturing procedures to prevent cross-contamination in drug combination production.',
       'Supported QA resolving non-conformance issues and managed change orders to improve process safety.',

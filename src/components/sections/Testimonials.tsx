@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { motion, useAnimationControls } from 'framer-motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import LinkedInIcon from '@/components/ui/LinkedInIcon'
 import styles from './Testimonials.module.scss'
@@ -20,6 +21,8 @@ const TESTIMONIALS = [
   },
 ]
 
+const RESET_WAIT_MS = 2000
+
 // Duplicate cards for deamless marquee loop
 const MARQUEE_CARDS = [...TESTIMONIALS, ...TESTIMONIALS]
 
@@ -34,6 +37,120 @@ const revealVariants = {
 
 export default function Testimonials() {
   const shouldReduceMotion = useReducedMotion()
+  const trackRef = useRef<HTMLDivElement>(null)
+  const wrapRef = useRef<HTMLDivElement>(null)
+  const [dragLeft, setDragLeft] = useState(-1000)
+  const controls = useAnimationControls()
+
+  function delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms))
+  }
+
+  // Loop - reusable by both autoScroll and resumeScroll
+  const scrollLoop = useCallback(async () => {
+    while (true) {
+      await controls.start({
+        x: dragLeft,
+        transition: { duration: 20, ease: 'linear' },
+      })
+      // Animate back to start smoothly
+      await delay(RESET_WAIT_MS)
+      await controls.start({
+        x: 0,
+        transition: { duration: 1.5, ease: 'easeInOut' },
+      })
+    }
+  }, [dragLeft, controls])
+
+  useEffect(function calculateDragConstraints() {
+    function calculate() {
+      if (!trackRef.current || !wrapRef.current) return
+      const trackWidth = trackRef.current.scrollWidth
+      const wrapWidth = wrapRef.current.offsetWidth
+      setDragLeft(-(trackWidth - wrapWidth))
+    }
+
+    calculate()
+    window.addEventListener('resize', calculate)
+    return () => window.removeEventListener('resize', calculate)
+  }, [])
+
+  useEffect(
+    function autoScroll() {
+      if (shouldReduceMotion || dragLeft === -1000) return
+
+      let canceled = false
+
+      async function loop() {
+        while (!canceled) {
+          await controls.start({
+            x: dragLeft,
+            transition: { duration: 20, ease: 'linear' }, // slow scroll left
+          })
+          if (canceled) break
+          await delay(RESET_WAIT_MS)
+
+          if (canceled) break
+          // Full loop from start
+          await controls.start({
+            x: 0,
+            transition: { duration: 1.5, ease: 'easeInOut' },
+          })
+        }
+      }
+
+      loop()
+
+      return () => {
+        canceled = true
+        controls.stop()
+      }
+    },
+    [dragLeft, shouldReduceMotion, controls]
+  )
+
+  function resumeScroll() {
+    if (!trackRef.current) return
+
+    const style = window.getComputedStyle(trackRef.current)
+    const matrix = new DOMMatrix(style.transform)
+    const currentX = matrix.m41
+
+    if (currentX <= dragLeft + 10) {
+      // At or near the end -- pause then return to start
+
+      delay(RESET_WAIT_MS).then(async () => {
+        await controls.start({
+          x: 0,
+          transition: {
+            duration: 1.5,
+            ease: 'easeInOut',
+          },
+        })
+        scrollLoop()
+      })
+    } else if (currentX < 0) {
+      // Mid-track - resume scrolling from current position
+
+      const remaining = Math.abs(dragLeft - currentX) / Math.abs(dragLeft)
+      controls
+        .start({
+          x: dragLeft,
+          transition: {
+            duration: remaining * 20,
+            ease: 'linear',
+          },
+        })
+        .then(async () => {
+          await delay(RESET_WAIT_MS)
+          await controls.start({
+            x: 0,
+            transition: { duration: 1.5, ease: 'easeInOut' },
+          })
+          scrollLoop()
+        })
+    } else scrollLoop()
+  }
 
   return (
     <section id="testimonials" aria-labelledby="testimonials-heading">
@@ -53,13 +170,24 @@ export default function Testimonials() {
         </motion.div>
 
         <div
+          ref={wrapRef}
           className={styles.marqueeWrap}
           aria-label="Scrolling reccomendations"
         >
           <div className={styles.fadeLeft} />
           <div className={styles.fadeRight} />
 
-          <div className={styles.track}>
+          <motion.div
+            ref={trackRef}
+            className={styles.track}
+            animate={controls}
+            drag="x"
+            dragConstraints={{ right: 0, left: dragLeft }}
+            dragElastic={0.1}
+            whileTap={{ cursor: 'grabbing' }}
+            onDragStart={() => controls.stop()}
+            onDragEnd={resumeScroll}
+          >
             {MARQUEE_CARDS.map((t, i) => (
               <div
                 key={`${t.name}-${i}`}
@@ -75,7 +203,7 @@ export default function Testimonials() {
                 </div>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
         <motion.div

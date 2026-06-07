@@ -88,27 +88,16 @@
   display: flex;
   gap: 1.5rem;
   width: max-content;
-  animation: scroll 30s linear infinite;
+  cursor: grab;
+  padding: 1rem 0;
 
-  // Pause on hover
-  &:hover {
-    animation-play-state: paused;
-  }
+  // No CSS animation -- Framer Motion drag handles movement
 
   @media (prefers-reduced-motion: reduce) {
-    animation: none;
     flex-wrap: wrap;
     width: 100%;
     padding: 0 $section-px-mobile;
-  }
-}
-
-@keyframes scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
+    cursor: default;
   }
 }
 
