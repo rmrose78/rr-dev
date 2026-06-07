@@ -5,6 +5,7 @@ import ContactModal from '@/components/ui/ContactModal'
 import About from '@/components/sections/About'
 import Skills from '@/components/sections/Skills'
 import Experience from '@/components/sections/Experience'
+import Testimonials from '@/components/sections/Testimonials'
 import Contact from '@/components/sections/Contact'
 import Footer from '@/components/layout/Footer'
 import PageBackground from '@/components/ui/PageBackground'
@@ -34,6 +35,7 @@ export default function App() {
         <About />
         <Skills />
         <Experience />
+        <Testimonials />
         <Contact onContactClick={openContactModal} />
       </main>
 
