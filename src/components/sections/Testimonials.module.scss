@@ -213,3 +213,15 @@
     fill: currentColor;
   }
 }
+
+.staticWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0 $section-px-mobile;
+
+  @include desktop {
+    padding: 0 $section-px-desktop;
+    flex-direction: row;
+  }
+}
