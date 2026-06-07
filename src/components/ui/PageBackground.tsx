@@ -11,8 +11,10 @@ function Cluster({
     <div className={`${styles.cluster} ${className}`}>
       <div className={styles.ringOuter} />
       <div className={styles.grid} />
-      <div className={styles.crossH} />
-      <div className={styles.crossV} />
+      <div className={styles.crossWrapper}>
+        <div className={styles.crossH} />
+        <div className={styles.crossV} />
+      </div>
       {showDots && (
         <>
           <div className={styles.dotCenter} />
@@ -25,7 +27,6 @@ function Cluster({
     </div>
   )
 }
-
 export default function PageBackground() {
   return (
     <div className={styles.background} aria-hidden="true">

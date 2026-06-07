@@ -81,12 +81,31 @@
   );
 }
 
+.crossWrapper {
+  position: absolute;
+  inset: -25%;
+  animation: rotateCross 240s linear infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes rotateCross {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 // Crosshairs extend past outer ring
 .crossH {
   position: absolute;
   top: 50%;
-  left: -25%;
-  right: -25%;
+  left: 0;
+  right: 0;
   height: 1px;
   transform: translateY(-50%);
   background: linear-gradient(
@@ -101,8 +120,8 @@
 .crossV {
   position: absolute;
   left: 50%;
-  top: -25%;
-  bottom: -25%;
+  top: 0;
+  bottom: 0;
   width: 1px;
   transform: translateX(-50%);
   background: linear-gradient(
