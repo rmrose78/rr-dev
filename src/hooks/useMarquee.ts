@@ -14,13 +14,13 @@ export function useMarquee() {
   // Tracks the pending reset timer to cancel it
   const resetTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  function cancelPending() {
+  const cancelPending = useCallback(() => {
     controls.stop()
     if (resetTimer.current) {
       clearTimeout(resetTimer.current)
       resetTimer.current = null
     }
-  }
+  }, [controls])
 
   function delayWithRef(
     ms: number,
@@ -75,6 +75,7 @@ export function useMarquee() {
   useEffect(
     function autoScroll() {
       if (dragLeft === -1000) return
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
       let canceled = false
 
@@ -93,7 +94,7 @@ export function useMarquee() {
         cancelPending()
       }
     },
-    [dragLeft, controls, scrollToEnd, returnToStart]
+    [dragLeft, controls, scrollToEnd, returnToStart, cancelPending]
   )
 
   function resumeScroll() {

@@ -57,10 +57,10 @@ export default function Testimonials() {
         <div
           ref={wrapRef}
           className={styles.marqueeWrap}
-          aria-label="Scrolling reccomendations"
+          aria-label="Scrolling recommendations"
         >
-          <div className={styles.fadeLeft} />
-          <div className={styles.fadeRight} />
+          <div className={styles.fadeLeft} aria-hidden="true" />
+          <div className={styles.fadeRight} aria-hidden="true" />
 
           <motion.div
             ref={trackRef}
