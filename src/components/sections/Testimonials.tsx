@@ -19,6 +19,13 @@ const TESTIMONIALS = [
     role: 'Senior Frontend Developer, TaxSlayer',
     url: 'https://www.linkedin.com/in/orion-palmer',
   },
+  {
+    quote:
+      'What sets Ryan apart is his ability to translate highly technical concepts into clear, actionable guidance. His collaborative approach, patience, and strong communication skills made him an exceptional partner. Any team would be fortunate to have him.',
+    name: 'Michelle Mosher',
+    role: 'Growth Product Manager, TaxSlayer',
+    url: 'https://www.linkedin.com/in/michellelmosher',
+  },
 ]
 
 // Duplicate cards for deamless marquee loop
