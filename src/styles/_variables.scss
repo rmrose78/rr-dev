@@ -35,7 +35,7 @@ $navy-700: #0f2d57;
 // Text colors
 $text-primary: #e8f4fd;
 $text-secondary: #8ab4cc;
-$text-muted: #4a6b8a;
+$text-muted: #6690b5; // 5.77:1 on $navy — was #4a6b8a (3.49:1, failed WCAG AA 4.5:1)
 
 // Utility
 $electric-dim: #1e7aaa;

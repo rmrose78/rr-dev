@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Modal from './Modal'
+import { WEB3FORMS_KEY } from '@/utils/env'
 import styles from './ContactModal.module.scss'
 
 interface ContactModalProps {
@@ -53,7 +54,7 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          access_key: import.meta.env.VITE_WEB3FORMS_KEY,
+          access_key: WEB3FORMS_KEY,
           ...fields,
         }),
       })
