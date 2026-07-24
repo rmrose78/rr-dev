@@ -13,6 +13,9 @@ before writing any code or making any decisions.
   `.claude/skills/visual-check/SKILL.md`. Never run this without being
   asked — it's a heavier token cost than everything else in this repo's
   workflow
+- "run a11y sweep" / "check accessibility violations" → read
+  `.claude/skills/a11y-sweep/SKILL.md`. Never run this without being
+  asked — same rule as visual check
 
 ## Commands
 - Start dev server: `npm run dev`
@@ -21,6 +24,8 @@ before writing any code or making any decisions.
 - Lint: `npm run lint`
 - Build: `npm run build`
 - Format: `npm run format`
+- Real-browser accessibility sweep: `npm run test:a11y`
+- Lighthouse accessibility check (dev server must be running): `npm run lighthouse:a11y`
 
 ## Critical Rules
 - Never commit `.env` or `.env.local`

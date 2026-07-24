@@ -1,6 +1,7 @@
 export default {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
+  testPathIgnorePatterns: ['/node_modules/', '<rootDir>/e2e/'],
   setupFilesAfterEnv: [
     '@testing-library/jest-dom',
     'jest-axe/extend-expect',
