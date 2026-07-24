@@ -1,11 +1,11 @@
 # rr-dev
 
-Personal portfolio site for Ryan Rose — frontend developer.
+Personal portfolio site for Ryan Rose, frontend developer.
 
 ## Stack
 
 - Vite 8 + React 19 + TypeScript
-- SCSS Modules with Tailwind v4 via `@import "tailwindcss"`
+- SCSS Modules only, no Tailwind
 - Framer Motion for animations
 - Radix UI for accessible primitives (Dialog, VisuallyHidden)
 - Jest + React Testing Library + jest-axe for unit/component/a11y tests
