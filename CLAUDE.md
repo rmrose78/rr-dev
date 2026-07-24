@@ -24,6 +24,7 @@ before writing any code or making any decisions.
 - Lint: `npm run lint`
 - Build: `npm run build`
 - Format: `npm run format`
+- Full pre-commit gate (build + lint + test): `npm run precommit`
 - Real-browser accessibility sweep: `npm run test:a11y`
 - Lighthouse accessibility check (dev server must be running): `npm run lighthouse:a11y`
 
