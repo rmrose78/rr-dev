@@ -8,7 +8,8 @@ Personal portfolio site for Ryan Rose, frontend developer.
 - SCSS Modules only, no Tailwind
 - Framer Motion for animations
 - Radix UI for accessible primitives (Dialog, VisuallyHidden)
-- Jest + React Testing Library for unit/component tests
+- Jest + React Testing Library + jest-axe for unit/component/a11y tests
+- ESLint with eslint-plugin-jsx-a11y for lint-time accessibility checks
 
 ## Conventions
 
@@ -21,7 +22,12 @@ Personal portfolio site for Ryan Rose, frontend developer.
 
 ## Accessibility
 
-Section 508 / WCAG 2.1 AA is first-class throughout. Every interactive element needs a keyboard path. Modals trap focus and return it on close. Animations respect `prefers-reduced-motion`.
+Section 508 / WCAG 2.1 AA is first-class throughout, and it's test-backed,
+not just a claim: every component has a jest-axe test, color/background
+pairs are checked against a WCAG contrast-ratio calculator
+(`src/utils/contrast-ratio.ts`), and eslint-plugin-jsx-a11y runs at lint
+time. Every interactive element needs a keyboard path. Modals trap focus
+and return it on close. Animations respect `prefers-reduced-motion`.
 
 ## Scripts
 

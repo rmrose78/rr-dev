@@ -72,14 +72,12 @@ export default function Skills() {
               <p className={styles.groupLabel}>{group.label}</p>
               <ul
                 className={styles.pills}
-                role="list"
                 aria-label={`${group.label} skills`}
               >
                 {group.skills.map((skill) => (
                   <li
                     key={skill}
                     className={group.primary ? styles.pillPrimary : styles.pill}
-                    role="listitem"
                   >
                     {skill}
                   </li>
