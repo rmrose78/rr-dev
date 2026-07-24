@@ -13,6 +13,9 @@ before writing any code or making any decisions.
   `.claude/skills/visual-check/SKILL.md`. Never run this without being
   asked — it's a heavier token cost than everything else in this repo's
   workflow
+- "run a11y sweep" / "check accessibility violations" → read
+  `.claude/skills/a11y-sweep/SKILL.md`. Never run this without being
+  asked — same rule as visual check
 
 ## Commands
 - Start dev server: `npm run dev`
@@ -21,6 +24,9 @@ before writing any code or making any decisions.
 - Lint: `npm run lint`
 - Build: `npm run build`
 - Format: `npm run format`
+- Full pre-commit gate (build + lint + test): `npm run precommit`
+- Real-browser accessibility sweep: `npm run test:a11y`
+- Lighthouse accessibility check (dev server must be running): `npm run lighthouse:a11y`
 
 ## Critical Rules
 - Never commit `.env` or `.env.local`
@@ -40,6 +46,10 @@ before writing any code or making any decisions.
 - Run tests before every commit
 - Never run Playwright visual verification automatically — always ask
   first, or wait to be explicitly told to run it
+- No accessibility compliance score or badge (e.g. "100% Lighthouse") on
+  the live site — it's a snapshot claim that can go stale or overstate
+  what automated tools actually catch. Showcase the testing practice
+  instead; see "Current Priority" for why
 - All AI-assisted feature work goes through the pipeline: `/1-grill-me` →
   `/2-to-prd` → `/3-to-issues` → `/4-tdd`. Every issue gets its own GitHub
   issue and its own branch (`<issue-number>-<slug>`) before any code is
@@ -80,6 +90,16 @@ that unlocked and what's still open:
   `src/utils/design-tokens.contrast.test.ts`) exists and is green — it
   caught and this session fixed one real WCAG AA failure
   ($text-muted was 3.49:1 against navy, now 5.77:1).
+- Real-browser accessibility sweep added (`npm run test:a11y`, Playwright +
+  axe-core, plus a supplementary `npm run lighthouse:a11y`) — closes the
+  jsdom contrast blind spot jest-axe has and checks the whole composed
+  page, not just isolated components. It already found and fixed a real
+  bug: the mobile nav menu's content wasn't in a landmark region when open.
+- Decided against showing an accessibility score/badge on the site itself
+  (see the Critical Rules entry above for why) — the README's
+  Accessibility section documents the testing practice instead, and the
+  planned projects/case-study section is the next place to make that
+  visible to visitors.
 - Not yet done, and the next real work: the hero/above-the-fold section
   has not been rebuilt, and there is no projects/architecture showcase
   section yet. Run `/1-grill-me` to work through both — above-the-fold

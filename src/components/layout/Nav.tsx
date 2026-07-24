@@ -87,8 +87,9 @@ export default function Nav({ onContactClick }: NavProps) {
         </button>
       </nav>
 
-      <div
+      <nav
         id="mobile-menu"
+        aria-label="Mobile navigation"
         className={`${styles.mobileMenu} ${menuOpen ? styles.open : ''}`}
         aria-hidden={!menuOpen}
       >
@@ -138,7 +139,7 @@ export default function Nav({ onContactClick }: NavProps) {
             Get in Touch
           </button>
         </div>
-      </div>
+      </nav>
     </>
   )
 }

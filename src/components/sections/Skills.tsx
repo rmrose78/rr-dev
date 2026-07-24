@@ -70,19 +70,27 @@ export default function Skills() {
           {SKILL_GROUPS.map((group) => (
             <div key={group.label} className={styles.group}>
               <p className={styles.groupLabel}>{group.label}</p>
+              {/* list-style: none strips list semantics from the a11y tree
+                  in Safari/VoiceOver unless role="list"/"listitem" are
+                  explicit — jsx-a11y flags these as redundant since it only
+                  checks markup, not this CSS interaction. */}
+              {/* eslint-disable jsx-a11y/no-redundant-roles */}
               <ul
                 className={styles.pills}
+                role="list"
                 aria-label={`${group.label} skills`}
               >
                 {group.skills.map((skill) => (
                   <li
                     key={skill}
+                    role="listitem"
                     className={group.primary ? styles.pillPrimary : styles.pill}
                   >
                     {skill}
                   </li>
                 ))}
               </ul>
+              {/* eslint-enable jsx-a11y/no-redundant-roles */}
             </div>
           ))}
         </motion.div>
