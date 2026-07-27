@@ -54,8 +54,20 @@ before writing any code or making any decisions.
   `/2-to-prd` → `/3-to-issues` → `/4-tdd`. Every issue gets its own GitHub
   issue and its own branch (`<issue-number>-<slug>`) before any code is
   written — never implement directly on `main`. `/4-tdd` never commits or
-  opens the PR automatically; both stay explicit, developer-initiated steps
-  when building a feature this way, one issue at a time
+  opens the PR automatically on its own initiative; the developer triggers
+  both explicitly. Once triggered, committing (including multiple commits
+  to structure a solution into a logical sequence) and opening the PR do
+  not need per-step permission — the review gate is the PR itself, which
+  the developer reviews as a whole before merging, not each individual
+  commit inside it. Never merge without the developer's explicit go-ahead
+  after they've reviewed the PR
+- Multi-issue initiative with a temporary integration branch (e.g. a
+  full-site revamp spanning several issues, like `redesign/mockup-i1`):
+  every issue's branch forks off that integration branch and its PR
+  targets that branch, not `main`. `main` stays untouched — and its
+  deploy stays safe — until the whole initiative is reviewed together and
+  merged to `main` in one final PR. Check CLAUDE.md's "Current Priority"
+  for whether one is currently active before branching
 - Batch issue check-in (distinct from `/4-tdd` above): when checking in a
   set of already-decided changes as multiple issues at once (housekeeping,
   chores, tooling additions the developer has already scoped, not a
