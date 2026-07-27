@@ -53,8 +53,17 @@ before writing any code or making any decisions.
 - All AI-assisted feature work goes through the pipeline: `/1-grill-me` →
   `/2-to-prd` → `/3-to-issues` → `/4-tdd`. Every issue gets its own GitHub
   issue and its own branch (`<issue-number>-<slug>`) before any code is
-  written — never implement directly on `main`. The skill never commits or
+  written — never implement directly on `main`. `/4-tdd` never commits or
   opens the PR automatically; both stay explicit, developer-initiated steps
+  when building a feature this way, one issue at a time
+- Batch issue check-in (distinct from `/4-tdd` above): when checking in a
+  set of already-decided changes as multiple issues at once (housekeeping,
+  chores, tooling additions the developer has already scoped, not a
+  feature being built fresh), create every GitHub issue up front, then for
+  each one create its branch, commit, push, and open the PR without asking
+  permission per git step. Never merge without the developer's explicit
+  go-ahead after they've verified the branch/PR themselves — that
+  verification step is the gate, not each individual commit
 - No em dashes in copy, prose, or commit messages — use periods or commas
 
 ## Collaboration Style
@@ -74,6 +83,21 @@ as engineered, not templated — the site itself is evidence of how the
 developer builds things.
 
 ## Current Priority
+
+**Active initiative: full site revamp adopting mockup i1.** In progress on
+integration branch `redesign/mockup-i1` (branched off `main`), not `main`
+directly — this touches nearly every section and will land as 5 issues
+over about a week. Every issue branch for this initiative branches off
+`redesign/mockup-i1` and PRs into it, never into `main`. `main` stays
+untouched (and its Netlify auto-deploy stays safe for hotfixes) until the
+whole revamp is reviewed together and merged to `main` in one final PR.
+Source of truth: `/1-grill-me` interview is complete (see
+`docs/handoff/2026-07-27-mockup-i1-adoption-adjustments.md` for the
+original handoff plus the structural decisions resolved in that session —
+Experience section cut, Skills folded into About, full decor-system
+adoption, hero copy/scroll-cue, footer copy, resume link deferred as a
+follow-up). Remove this paragraph once `redesign/mockup-i1` merges to
+`main`.
 
 This session set up the Claude Code workflow (skills, accessibility
 tooling, contrast testing) ported from a more mature sibling project. What
@@ -100,12 +124,9 @@ that unlocked and what's still open:
   Accessibility section documents the testing practice instead, and the
   planned projects/case-study section is the next place to make that
   visible to visitors.
-- Not yet done, and the next real work: the hero/above-the-fold section
-  has not been rebuilt, and there is no projects/architecture showcase
-  section yet. Run `/1-grill-me` to work through both — above-the-fold
-  content should sell the developer immediately, not just introduce the
-  site, and a projects section with real case-study depth is the strongest
-  evidence against "this looks AI-generated."
+- The hero/above-the-fold rebuild and the projects/case-study showcase
+  section flagged here previously are now underway as part of the active
+  mockup-i1 initiative above, not still-open items.
 - Known follow-up, not yet filed as an issue: `ContactModal.tsx` calls
   `fetch` directly instead of going through `src/utils/`. Fine as-is since
   it's a single consumer (see `fe-standards.md`'s external-service rule),
@@ -121,3 +142,5 @@ that unlocked and what's still open:
 - Frontend conventions, SCSS architecture, folder structure →
   `.claude/skills/4-tdd/fe-standards.md`
 - Accessibility checklist → `.claude/skills/4-tdd/a11y-checklist.md`
+- Cross-project handoffs → `docs/handoff/` — check for pending handoff
+  docs from sibling projects (e.g. researchpulse) before starting new work
