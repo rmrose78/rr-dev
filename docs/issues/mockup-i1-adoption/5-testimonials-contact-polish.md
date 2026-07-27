@@ -25,11 +25,18 @@ trigger should open the modal directly. See
 - [ ] No scroll-anchor-to-contact behavior remains anywhere (hero, nav,
       contact section itself)
 - [ ] No scroll-down-to-contact indicator remains (removed if present)
-- [ ] Footer re-themed (colors/type) with existing icon-only GitHub/
-      LinkedIn links
+- [ ] Footer re-themed (colors/type); GitHub/LinkedIn link treatment
+      decided at build time — Nav currently uses icon+text, Hero (Issue
+      10) uses icon-only; pick one and make Footer consistent with it
+      rather than introducing a third variant
 - [ ] Footer tagline ("Software Developer · built with React + TypeScript")
-      and Interstellar quote ("We will find a way. We always have.") added
-      verbatim
+      added verbatim
+- [ ] Footer quote (decided 2026-07-27, replaces the originally-planned
+      Interstellar line): "I must not fear. Fear is the mind-killer. Fear
+      is the little-death that brings total obliteration. I will face my
+      fear..." — attributed "— Frank Herbert, Dune". This is intentionally
+      trimmed to end on the turn toward courage, not the darkest point —
+      don't truncate further
 
 ## Layers Touched
 - [ ] Components — `Testimonials.tsx`, `Contact.tsx`, `Footer.tsx` updated
