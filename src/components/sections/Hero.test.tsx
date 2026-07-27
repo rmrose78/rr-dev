@@ -1,36 +1,51 @@
-import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { axe } from 'jest-axe'
 import Hero from './Hero'
+import styles from './Hero.module.scss'
 
 describe('Hero', () => {
-  it('calls onContactClick when Get in Touch is clicked', async () => {
-    // Arrange
-    const user = userEvent.setup()
-    const onContactClick = jest.fn()
-    render(<Hero onContactClick={onContactClick} />)
-
-    // Act
-    await user.click(screen.getByRole('button', { name: /get in touch/i }))
-
-    // Assert
-    expect(onContactClick).toHaveBeenCalledTimes(1)
-  })
-
-  it('links out to GitHub', () => {
+  it('links out to GitHub and LinkedIn', () => {
     // Arrange & Act
-    render(<Hero onContactClick={jest.fn()} />)
+    render(<Hero />)
 
     // Assert
-    expect(screen.getByRole('link', { name: /view github/i })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /github/i })).toHaveAttribute(
       'href',
       'https://github.com/rmrose78'
     )
+    expect(screen.getByRole('link', { name: /linkedin/i })).toHaveAttribute(
+      'href',
+      'https://www.linkedin.com/in/ryan-rose-272626170/'
+    )
+  })
+
+  it('jumps to the projects section', () => {
+    // Arrange & Act
+    render(<Hero />)
+
+    // Assert
+    expect(
+      screen.getByRole('link', { name: /jump to projects/i })
+    ).toHaveAttribute('href', '#projects')
+  })
+
+  it('shows the scroll cue at the top of the page and hides it once scrolled', () => {
+    // Arrange
+    const { container } = render(<Hero />)
+    const scrollCue = container.querySelector(`.${styles.scrollCue}`)
+    expect(scrollCue).not.toHaveClass(styles.scrollCueHidden)
+
+    // Act
+    Object.defineProperty(window, 'scrollY', { value: 100, writable: true })
+    fireEvent.scroll(window)
+
+    // Assert
+    expect(scrollCue).toHaveClass(styles.scrollCueHidden)
   })
 
   it('has no accessibility violations', async () => {
     // Arrange
-    const { container } = render(<Hero onContactClick={jest.fn()} />)
+    const { container } = render(<Hero />)
 
     // Act
     const results = await axe(container)

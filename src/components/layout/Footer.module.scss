@@ -30,11 +30,10 @@
   gap: 1.5rem;
 
   a {
-    font-family: $font-mono;
-    font-size: 0.72rem;
-    color: $text-muted;
+    font-family: $font-body;
+    font-size: 0.85rem;
+    color: $text-secondary;
     text-decoration: none;
-    letter-spacing: 0.08em;
     transition: color $transition-base;
 
     &:hover {

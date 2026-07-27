@@ -5,9 +5,7 @@ import LinkedInIcon from '../ui/LinkedInIcon'
 
 const NAV_LINKS = [
   { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Recommendations', href: '#testimonials' },
+  { label: 'Projects', href: '#projects' },
 ]
 
 interface NavProps {
@@ -33,7 +31,7 @@ export default function Nav({ onContactClick }: NavProps) {
     <>
       <nav className={styles.nav} aria-label="Main navigation">
         <a href="#hero" className={styles.logo}>
-          rr<span>.dev</span>
+          Ryan Rose
         </a>
 
         <ul className={styles.navCenter}>
@@ -70,7 +68,7 @@ export default function Nav({ onContactClick }: NavProps) {
             }}
             aria-label="Open Contact Form"
           >
-            Get in touch
+            Get in Touch
           </button>
         </div>
 
@@ -101,12 +99,7 @@ export default function Nav({ onContactClick }: NavProps) {
           &times;
         </button>
         {NAV_LINKS.map((link) => (
-          <a
-            href={link.href}
-            key={link.href}
-            className="mobile-nav-link"
-            onClick={closeMenu}
-          >
+          <a href={link.href} key={link.href} onClick={closeMenu}>
             {link.label}
           </a>
         ))}
@@ -116,29 +109,30 @@ export default function Nav({ onContactClick }: NavProps) {
             href="https://github.com/rmrose78"
             target="_blank"
             rel="noreferrer"
-            aria-label="GitHub Profile"
+            aria-label="GitHub"
           >
-            GitHub
+            <GitHubIcon />
           </a>
           <a
             href="https://www.linkedin.com/in/ryan-rose-272626170/"
             target="_blank"
             rel="noreferrer"
-            aria-label="LinkedIn Profile"
+            aria-label="LinkedIn"
           >
-            LinkedIn
+            <LinkedInIcon />
           </a>
-          <button
-            className={styles.cta}
-            onClick={() => {
-              onContactClick()
-              closeMenu()
-            }}
-            aria-label="Open Contact Form"
-          >
-            Get in Touch
-          </button>
         </div>
+
+        <button
+          className={styles.cta}
+          onClick={() => {
+            onContactClick()
+            closeMenu()
+          }}
+          aria-label="Open Contact Form"
+        >
+          Get in Touch
+        </button>
       </nav>
     </>
   )

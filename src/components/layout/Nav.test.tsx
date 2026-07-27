@@ -1,9 +1,27 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 import Nav from './Nav'
 
 describe('Nav', () => {
+  it('has exactly About and Projects as nav links, nothing else', () => {
+    // Arrange & Act
+    render(<Nav onContactClick={jest.fn()} />)
+
+    // Assert
+    expect(screen.getByRole('link', { name: /^about$/i })).toHaveAttribute(
+      'href',
+      '#about'
+    )
+    expect(screen.getByRole('link', { name: /^projects$/i })).toHaveAttribute(
+      'href',
+      '#projects'
+    )
+    expect(
+      screen.queryByRole('link', { name: /recommendations/i })
+    ).not.toBeInTheDocument()
+  })
+
   it('calls onContactClick when the desktop CTA is clicked', async () => {
     // Arrange
     const user = userEvent.setup()
@@ -61,6 +79,35 @@ describe('Nav', () => {
 
     // Assert
     expect(results).toHaveNoViolations()
+  })
+
+  it('shows icon-only GitHub and LinkedIn links in the mobile menu, above the contact button', async () => {
+    // Arrange
+    const user = userEvent.setup()
+    render(<Nav onContactClick={jest.fn()} />)
+    await user.click(
+      screen.getByRole('button', { name: /toggle navigation menu/i })
+    )
+    const mobileNav = screen.getByRole('navigation', {
+      name: /mobile navigation/i,
+    })
+
+    // Act
+    const github = within(mobileNav).getByRole('link', { name: /^github$/i })
+    const linkedin = within(mobileNav).getByRole('link', {
+      name: /^linkedin$/i,
+    })
+    const contactButton = within(mobileNav).getByRole('button', {
+      name: /open contact form/i,
+    })
+
+    // Assert
+    expect(github).toHaveTextContent('')
+    expect(linkedin).toHaveTextContent('')
+    expect(
+      github.compareDocumentPosition(contactButton) &
+        Node.DOCUMENT_POSITION_FOLLOWING
+    ).toBeTruthy()
   })
 
   it('has no accessibility violations with the menu open', async () => {

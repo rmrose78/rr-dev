@@ -32,7 +32,7 @@ export default function App() {
 
       <main id="main-content" className={styles.main}>
         <PageBackground />
-        <Hero onContactClick={openContactModal} />
+        <Hero />
         <SectionDivider />
         <About />
         <SectionDivider />
