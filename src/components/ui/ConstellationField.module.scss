@@ -1,0 +1,560 @@
+@use '@/styles/_variables.scss' as *;
+@use '@/styles/_mixins.scss' as *;
+
+// Transcribed from docs/mockups/mockup-i1-project-blocks.html's
+// .constellation-field (6 clusters of node/line/field-star elements).
+// Per-cluster/per-element position data lives in generated classes
+// (cluster0..5, cluster{n}Node{n}, etc.) instead of inline styles, per
+// CLAUDE.md's SCSS-modules-only rule.
+
+.constellationField {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.cluster {
+  position: absolute;
+}
+
+// ─── SHARED NODE/LINE/FIELD-STAR BASE ────────────────────────────
+.node {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--const-color, #{$electric-blue});
+  opacity: 0.18;
+  animation: constellationPulseNode var(--const-dur, 23s) ease-in-out infinite;
+}
+
+.line {
+  position: absolute;
+  height: 1px;
+  transform-origin: left center;
+  background: var(--const-line, #{rgba($electric-blue, 0.18)});
+  opacity: 0.22;
+  animation: constellationPulseLine var(--const-dur, 23s) ease-in-out infinite;
+}
+
+.fieldStar {
+  position: absolute;
+  border-radius: 50%;
+}
+
+@keyframes constellationPulseNode {
+  0%, 90%, 100% { opacity: 0.18; box-shadow: none; }
+  3% { opacity: 0.5; box-shadow: 0 0 6px 1px var(--const-glow, #{rgba($electric-blue, 0.6)}); }
+}
+
+@keyframes constellationPulseLine {
+  0%, 90%, 100% { opacity: 0.22; box-shadow: none; }
+  3% { opacity: 0.45; box-shadow: 0 0 4px var(--const-glow, #{rgba($electric-blue, 0.6)}); }
+}
+
+// ─── CLUSTER 0 ───────────────────────────────────────────────
+.cluster0 {
+  top: 8%;
+  left: 9%;
+  width: 170px;
+  height: 110px;
+  --const-dur: 23s;
+  --const-color: #{$electric-blue};
+  --const-line: #{rgba($electric-blue, 0.18)};
+  --const-glow: #{rgba($electric-blue, 0.6)};
+}
+
+.cluster0Node0 {
+  top: 70px;
+  left: 10px;
+  animation-delay: 0s;
+}
+.cluster0Node1 {
+  top: 20px;
+  left: 70px;
+  animation-delay: 1.8s;
+}
+.cluster0Node2 {
+  top: 55px;
+  left: 140px;
+  background: $text-primary;
+  animation-delay: 3.6s;
+}
+.cluster0Node3 {
+  top: 95px;
+  left: 100px;
+  background: $blue-pale;
+  animation-delay: 5.4s;
+}
+
+.cluster0Line0 {
+  top: 70px;
+  left: 10px;
+  width: 78px;
+  transform: rotate(-39.8deg);
+  animation-delay: .9s;
+}
+.cluster0Line1 {
+  top: 20px;
+  left: 70px;
+  width: 78px;
+  transform: rotate(26.6deg);
+  animation-delay: 2.7s;
+}
+.cluster0Line2 {
+  top: 55px;
+  left: 140px;
+  width: 56.6px;
+  transform: rotate(135deg);
+  animation-delay: 4.5s;
+}
+
+.cluster0FieldStar0 {
+  top: -14px;
+  left: 40px;
+  width: 1px;
+  height: 1px;
+  background: $electric-blue;
+  opacity: .4;
+}
+.cluster0FieldStar1 {
+  top: 38px;
+  left: -18px;
+  width: 1px;
+  height: 1px;
+  background: $electric-blue;
+  opacity: .3;
+}
+.cluster0FieldStar2 {
+  top: 10px;
+  left: 112px;
+  width: 2px;
+  height: 2px;
+  background: $electric-blue;
+  opacity: .35;
+}
+.cluster0FieldStar3 {
+  top: 88px;
+  left: -10px;
+  width: 1px;
+  height: 1px;
+  background: $electric-blue;
+  opacity: .3;
+}
+.cluster0FieldStar4 {
+  top: 118px;
+  left: 150px;
+  width: 1px;
+  height: 1px;
+  background: $electric-blue;
+  opacity: .4;
+}
+
+// ─── CLUSTER 1 ───────────────────────────────────────────────
+.cluster1 {
+  top: 60%;
+  right: 8%;
+  width: 150px;
+  height: 130px;
+  --const-dur: 27s;
+  --const-color: #{$blue-pale};
+  --const-line: #{rgba($blue-pale, 0.18)};
+  --const-glow: #{rgba($blue-pale, 0.6)};
+}
+
+.cluster1Node0 {
+  top: 20px;
+  left: 15px;
+  animation-delay: 0s;
+}
+.cluster1Node1 {
+  top: 10px;
+  left: 90px;
+  background: $text-primary;
+  animation-delay: 1.8s;
+}
+.cluster1Node2 {
+  top: 70px;
+  left: 130px;
+  animation-delay: 3.6s;
+}
+.cluster1Node3 {
+  top: 110px;
+  left: 60px;
+  background: $electric-blue;
+  animation-delay: 5.4s;
+}
+
+.cluster1Line0 {
+  top: 20px;
+  left: 15px;
+  width: 75.7px;
+  transform: rotate(-7.6deg);
+  animation-delay: .9s;
+}
+.cluster1Line1 {
+  top: 10px;
+  left: 90px;
+  width: 72.1px;
+  transform: rotate(56.3deg);
+  animation-delay: 2.7s;
+}
+.cluster1Line2 {
+  top: 70px;
+  left: 130px;
+  width: 80.6px;
+  transform: rotate(150.3deg);
+  animation-delay: 4.5s;
+}
+
+.cluster1FieldStar0 {
+  top: -12px;
+  left: 60px;
+  width: 1px;
+  height: 1px;
+  background: $blue-pale;
+  opacity: .35;
+}
+.cluster1FieldStar1 {
+  top: 44px;
+  left: -16px;
+  width: 1px;
+  height: 1px;
+  background: $blue-pale;
+  opacity: .3;
+}
+.cluster1FieldStar2 {
+  top: 96px;
+  left: 114px;
+  width: 2px;
+  height: 2px;
+  background: $blue-pale;
+  opacity: .35;
+}
+.cluster1FieldStar3 {
+  top: 132px;
+  left: 20px;
+  width: 1px;
+  height: 1px;
+  background: $blue-pale;
+  opacity: .3;
+}
+
+// ─── CLUSTER 2 ───────────────────────────────────────────────
+.cluster2 {
+  top: 90%;
+  left: 16%;
+  width: 140px;
+  height: 100px;
+  --const-dur: 19s;
+  --const-color: #{$electric-blue};
+  --const-line: #{rgba($electric-blue, 0.18)};
+  --const-glow: #{rgba($electric-blue, 0.6)};
+}
+
+.cluster2Node0 {
+  top: 80px;
+  left: 10px;
+  animation-delay: 0s;
+}
+.cluster2Node1 {
+  top: 15px;
+  left: 65px;
+  background: $blue-pale;
+  animation-delay: 1.8s;
+}
+.cluster2Node2 {
+  top: 60px;
+  left: 125px;
+  animation-delay: 3.6s;
+}
+
+.cluster2Line0 {
+  top: 80px;
+  left: 10px;
+  width: 85.2px;
+  transform: rotate(-49.8deg);
+  animation-delay: .9s;
+}
+.cluster2Line1 {
+  top: 15px;
+  left: 65px;
+  width: 75px;
+  transform: rotate(36.9deg);
+  animation-delay: 2.7s;
+}
+
+.cluster2FieldStar0 {
+  top: -10px;
+  left: 30px;
+  width: 1px;
+  height: 1px;
+  background: $electric-blue;
+  opacity: .35;
+}
+.cluster2FieldStar1 {
+  top: 34px;
+  left: -14px;
+  width: 1px;
+  height: 1px;
+  background: $electric-blue;
+  opacity: .3;
+}
+.cluster2FieldStar2 {
+  top: 90px;
+  left: 100px;
+  width: 2px;
+  height: 2px;
+  background: $electric-blue;
+  opacity: .35;
+}
+
+// ─── CLUSTER 3 ───────────────────────────────────────────────
+.cluster3 {
+  top: 25%;
+  right: 12%;
+  width: 160px;
+  height: 120px;
+  --const-dur: 24s;
+  --const-color: #{$blue-pale};
+  --const-line: #{rgba($blue-pale, 0.18)};
+  --const-glow: #{rgba($blue-pale, 0.6)};
+}
+
+.cluster3Node0 {
+  top: 15px;
+  left: 20px;
+  animation-delay: 0s;
+}
+.cluster3Node1 {
+  top: 37px;
+  left: 87px;
+  background: $text-primary;
+  animation-delay: 1.8s;
+}
+.cluster3Node2 {
+  top: 94px;
+  left: 58px;
+  animation-delay: 3.6s;
+}
+.cluster3Node3 {
+  top: 100px;
+  left: 130px;
+  background: $electric-blue;
+  animation-delay: 5.4s;
+}
+
+.cluster3Line0 {
+  top: 15px;
+  left: 20px;
+  width: 68.5px;
+  transform: rotate(18.4deg);
+  animation-delay: .9s;
+}
+.cluster3Line1 {
+  top: 37px;
+  left: 87px;
+  width: 64.2px;
+  transform: rotate(-62.1deg);
+  animation-delay: 2.7s;
+}
+.cluster3Line2 {
+  top: 94px;
+  left: 58px;
+  width: 73px;
+  transform: rotate(159.3deg);
+  animation-delay: 4.5s;
+}
+
+.cluster3FieldStar0 {
+  top: -12px;
+  left: 70px;
+  width: 1px;
+  height: 1px;
+  background: $blue-pale;
+  opacity: .3;
+}
+.cluster3FieldStar1 {
+  top: 50px;
+  left: -16px;
+  width: 1px;
+  height: 1px;
+  background: $blue-pale;
+  opacity: .35;
+}
+.cluster3FieldStar2 {
+  top: 106px;
+  left: -8px;
+  width: 2px;
+  height: 2px;
+  background: $blue-pale;
+  opacity: .3;
+}
+.cluster3FieldStar3 {
+  top: 20px;
+  left: 145px;
+  width: 1px;
+  height: 1px;
+  background: $blue-pale;
+  opacity: .35;
+}
+
+// ─── CLUSTER 4 ───────────────────────────────────────────────
+.cluster4 {
+  top: 47%;
+  left: 20%;
+  width: 145px;
+  height: 115px;
+  --const-dur: 21s;
+  --const-color: #{$electric-blue};
+  --const-line: #{rgba($electric-blue, 0.18)};
+  --const-glow: #{rgba($electric-blue, 0.6)};
+}
+
+.cluster4Node0 {
+  top: 10px;
+  left: 12px;
+  animation-delay: 0s;
+}
+.cluster4Node1 {
+  top: 62px;
+  left: 65px;
+  background: $blue-pale;
+  animation-delay: 1.8s;
+}
+.cluster4Node2 {
+  top: 38px;
+  left: 128px;
+  animation-delay: 3.6s;
+}
+.cluster4Node3 {
+  top: 100px;
+  left: 20px;
+  background: $text-primary;
+  animation-delay: 5.4s;
+}
+
+.cluster4Line0 {
+  top: 10px;
+  left: 12px;
+  width: 70.3px;
+  transform: rotate(48.9deg);
+  animation-delay: .9s;
+}
+.cluster4Line1 {
+  top: 62px;
+  left: 65px;
+  width: 66.9px;
+  transform: rotate(-14.7deg);
+  animation-delay: 2.7s;
+}
+.cluster4Line2 {
+  top: 38px;
+  left: 128px;
+  width: 59.4px;
+  transform: rotate(112.6deg);
+  animation-delay: 4.5s;
+}
+
+.cluster4FieldStar0 {
+  top: -8px;
+  left: 55px;
+  width: 2px;
+  height: 2px;
+  background: $electric-blue;
+  opacity: .35;
+}
+.cluster4FieldStar1 {
+  top: 44px;
+  left: -14px;
+  width: 1px;
+  height: 1px;
+  background: $electric-blue;
+  opacity: .3;
+}
+.cluster4FieldStar2 {
+  top: 112px;
+  left: 100px;
+  width: 1px;
+  height: 1px;
+  background: $electric-blue;
+  opacity: .35;
+}
+
+// ─── CLUSTER 5 ───────────────────────────────────────────────
+.cluster5 {
+  top: 72%;
+  right: 14%;
+  width: 155px;
+  height: 105px;
+  --const-dur: 25s;
+  --const-color: #{$blue-pale};
+  --const-line: #{rgba($blue-pale, 0.18)};
+  --const-glow: #{rgba($blue-pale, 0.6)};
+}
+
+.cluster5Node0 {
+  top: 85px;
+  left: 15px;
+  animation-delay: 0s;
+}
+.cluster5Node1 {
+  top: 25px;
+  left: 60px;
+  background: $electric-blue;
+  animation-delay: 1.8s;
+}
+.cluster5Node2 {
+  top: 55px;
+  left: 128px;
+  animation-delay: 3.6s;
+}
+
+.cluster5Line0 {
+  top: 85px;
+  left: 15px;
+  width: 71.6px;
+  transform: rotate(-56.4deg);
+  animation-delay: .9s;
+}
+.cluster5Line1 {
+  top: 25px;
+  left: 60px;
+  width: 69.8px;
+  transform: rotate(21.3deg);
+  animation-delay: 2.7s;
+}
+
+.cluster5FieldStar0 {
+  top: -10px;
+  left: 40px;
+  width: 1px;
+  height: 1px;
+  background: $blue-pale;
+  opacity: .3;
+}
+.cluster5FieldStar1 {
+  top: 30px;
+  left: -12px;
+  width: 1px;
+  height: 1px;
+  background: $blue-pale;
+  opacity: .35;
+}
+.cluster5FieldStar2 {
+  top: 95px;
+  left: 145px;
+  width: 2px;
+  height: 2px;
+  background: $blue-pale;
+  opacity: .3;
+}
+
+// ─── REDUCED MOTION ─────────────────────────────────────────────
+.reducedMotion {
+  .node,
+  .line {
+    animation: none !important;
+  }
+}

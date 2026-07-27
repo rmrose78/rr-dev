@@ -1,0 +1,1294 @@
+@use '@/styles/_variables.scss' as *;
+@use '@/styles/_mixins.scss' as *;
+
+// Transcribed from docs/mockups/mockup-i1-project-blocks.html (starfield
+// + shooting-star layer). Each star/shooting-star gets its own generated
+// position/color/animation class (star0..starN) instead of inline styles,
+// per CLAUDE.md's SCSS-modules-only rule -- mirrors the existing
+// PageBackground cluster1..5 pattern, just scaled up to match the mockup's
+// star count exactly. The component only needs to know the total count,
+// not per-star position/color/twinkle data.
+
+.starfield {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+// ─── STARS ──────────────────────────────────────────────────────
+.star {
+  position: absolute;
+  border-radius: 50%;
+
+  // Scroll-trail streak, driven by useStarTrail.ts setting --trail-len/
+  // --trail-dir on the document root. Zero height at rest.
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    min-width: 1.5px;
+    height: var(--trail-len, 0px);
+    transform-origin: top;
+    transform: scaleY(var(--trail-dir, 1));
+    background: linear-gradient(to bottom, rgba(203, 232, 253, 0.85), rgba(203, 232, 253, 0));
+    border-radius: 2px;
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.12; }
+  50% { opacity: 0.7; }
+}
+
+.star0 {
+  top: 0.0%;
+  left: 68.6%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $text-primary;
+  opacity: 0.25;
+  animation: twinkle 7.5s ease-in-out infinite;
+  animation-delay: 1.4s;
+}
+.star1 {
+  top: 1.0%;
+  left: 32.7%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star2 {
+  top: 2.1%;
+  left: 90.8%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $electric-blue;
+  opacity: 0.4;
+}
+.star3 {
+  top: 2.4%;
+  left: 54.9%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star4 {
+  top: 3.5%;
+  left: 19.0%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $text-primary;
+  opacity: 0.5;
+  animation: twinkle 5s ease-in-out infinite;
+}
+.star5 {
+  top: 3.8%;
+  left: 77.1%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star6 {
+  top: 4.9%;
+  left: 41.2%;
+  width: 1.5px;
+  height: 1.5px;
+  background: $electric-blue;
+  opacity: 0.35;
+}
+.star7 {
+  top: 5.9%;
+  left: 5.3%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star8 {
+  top: 6.3%;
+  left: 63.4%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $text-primary;
+  opacity: 0.4;
+  animation: twinkle 7.5s ease-in-out infinite;
+  animation-delay: 1.4s;
+}
+.star9 {
+  top: 7.3%;
+  left: 27.5%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star10 {
+  top: 7.7%;
+  left: 85.6%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $electric-blue;
+  opacity: 0.3;
+}
+.star11 {
+  top: 8.7%;
+  left: 49.7%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star12 {
+  top: 9.7%;
+  left: 13.8%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $text-primary;
+  opacity: 0.25;
+  animation: twinkle 5s ease-in-out infinite;
+}
+.star13 {
+  top: 10.1%;
+  left: 71.9%;
+  width: 1.5px;
+  height: 1.5px;
+  background: $white;
+  opacity: 0.3;
+}
+.star14 {
+  top: 11.1%;
+  left: 35.9%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $electric-blue;
+  opacity: 0.5;
+}
+.star15 {
+  top: 11.5%;
+  left: 94.0%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star16 {
+  top: 12.5%;
+  left: 58.1%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $text-primary;
+  opacity: 0.5;
+  animation: twinkle 7.5s ease-in-out infinite;
+  animation-delay: 1.4s;
+}
+.star17 {
+  top: 12.9%;
+  left: 22.2%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star18 {
+  top: 13.9%;
+  left: 80.3%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $electric-blue;
+  opacity: 0.45;
+}
+.star19 {
+  top: 15.0%;
+  left: 44.4%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star20 {
+  top: 15.3%;
+  left: 8.5%;
+  width: 1.5px;
+  height: 1.5px;
+  background: $text-primary;
+  opacity: 0.4;
+  animation: twinkle 5s ease-in-out infinite;
+}
+.star21 {
+  top: 16.4%;
+  left: 66.6%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star22 {
+  top: 16.7%;
+  left: 30.7%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $electric-blue;
+  opacity: 0.4;
+}
+.star23 {
+  top: 17.8%;
+  left: 88.8%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star24 {
+  top: 18.8%;
+  left: 52.9%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $text-primary;
+  opacity: 0.25;
+  animation: twinkle 7.5s ease-in-out infinite;
+  animation-delay: 1.4s;
+}
+.star25 {
+  top: 19.2%;
+  left: 17.0%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star26 {
+  top: 20.2%;
+  left: 75.1%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $electric-blue;
+  opacity: 0.35;
+}
+.star27 {
+  top: 20.6%;
+  left: 39.2%;
+  width: 1.5px;
+  height: 1.5px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star28 {
+  top: 21.6%;
+  left: 3.3%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $text-primary;
+  opacity: 0.5;
+  animation: twinkle 5s ease-in-out infinite;
+}
+.star29 {
+  top: 22.0%;
+  left: 61.4%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star30 {
+  top: 23.0%;
+  left: 25.5%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $electric-blue;
+  opacity: 0.3;
+}
+.star31 {
+  top: 24.0%;
+  left: 83.6%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star32 {
+  top: 24.4%;
+  left: 47.7%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $text-primary;
+  opacity: 0.4;
+  animation: twinkle 7.5s ease-in-out infinite;
+  animation-delay: 1.4s;
+}
+.star33 {
+  top: 25.4%;
+  left: 11.8%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star34 {
+  top: 25.8%;
+  left: 69.9%;
+  width: 1.5px;
+  height: 1.5px;
+  background: $electric-blue;
+  opacity: 0.5;
+}
+.star35 {
+  top: 26.8%;
+  left: 33.9%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star36 {
+  top: 27.9%;
+  left: 92.0%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $text-primary;
+  opacity: 0.25;
+  animation: twinkle 5s ease-in-out infinite;
+}
+.star37 {
+  top: 28.2%;
+  left: 56.1%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star38 {
+  top: 29.3%;
+  left: 20.2%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $electric-blue;
+  opacity: 0.45;
+}
+.star39 {
+  top: 29.6%;
+  left: 78.3%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star40 {
+  top: 30.7%;
+  left: 42.4%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $text-primary;
+  opacity: 0.5;
+  animation: twinkle 7.5s ease-in-out infinite;
+  animation-delay: 1.4s;
+}
+.star41 {
+  top: 31.7%;
+  left: 6.5%;
+  width: 1.5px;
+  height: 1.5px;
+  background: $white;
+  opacity: 0.3;
+}
+.star42 {
+  top: 32.1%;
+  left: 64.6%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $electric-blue;
+  opacity: 0.4;
+}
+.star43 {
+  top: 33.1%;
+  left: 28.7%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star44 {
+  top: 33.5%;
+  left: 86.8%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $text-primary;
+  opacity: 0.4;
+  animation: twinkle 5s ease-in-out infinite;
+}
+.star45 {
+  top: 34.5%;
+  left: 50.9%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star46 {
+  top: 34.9%;
+  left: 15.0%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $electric-blue;
+  opacity: 0.35;
+}
+.star47 {
+  top: 35.9%;
+  left: 73.1%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star48 {
+  top: 37.0%;
+  left: 37.2%;
+  width: 1.5px;
+  height: 1.5px;
+  background: $text-primary;
+  opacity: 0.25;
+  animation: twinkle 7.5s ease-in-out infinite;
+  animation-delay: 1.4s;
+}
+.star49 {
+  top: 37.3%;
+  left: 95.3%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star50 {
+  top: 38.3%;
+  left: 59.4%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $electric-blue;
+  opacity: 0.3;
+}
+.star51 {
+  top: 38.7%;
+  left: 23.5%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star52 {
+  top: 39.7%;
+  left: 81.6%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $text-primary;
+  opacity: 0.5;
+  animation: twinkle 5s ease-in-out infinite;
+}
+.star53 {
+  top: 40.8%;
+  left: 45.7%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star54 {
+  top: 41.1%;
+  left: 9.8%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $electric-blue;
+  opacity: 0.5;
+}
+.star55 {
+  top: 42.2%;
+  left: 67.9%;
+  width: 1.5px;
+  height: 1.5px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star56 {
+  top: 42.5%;
+  left: 31.9%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $text-primary;
+  opacity: 0.4;
+  animation: twinkle 7.5s ease-in-out infinite;
+  animation-delay: 1.4s;
+}
+.star57 {
+  top: 43.6%;
+  left: 90.0%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star58 {
+  top: 43.9%;
+  left: 54.1%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $electric-blue;
+  opacity: 0.45;
+}
+.star59 {
+  top: 45.0%;
+  left: 18.2%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star60 {
+  top: 46.0%;
+  left: 76.3%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $text-primary;
+  opacity: 0.25;
+  animation: twinkle 5s ease-in-out infinite;
+}
+.star61 {
+  top: 46.4%;
+  left: 40.4%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star62 {
+  top: 47.4%;
+  left: 4.5%;
+  width: 1.5px;
+  height: 1.5px;
+  background: $electric-blue;
+  opacity: 0.4;
+}
+.star63 {
+  top: 47.8%;
+  left: 62.6%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star64 {
+  top: 48.8%;
+  left: 26.7%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $text-primary;
+  opacity: 0.5;
+  animation: twinkle 7.5s ease-in-out infinite;
+  animation-delay: 1.4s;
+}
+.star65 {
+  top: 49.9%;
+  left: 84.8%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star66 {
+  top: 50.2%;
+  left: 48.9%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $electric-blue;
+  opacity: 0.35;
+}
+.star67 {
+  top: 51.3%;
+  left: 13.0%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star68 {
+  top: 51.6%;
+  left: 71.1%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $text-primary;
+  opacity: 0.4;
+  animation: twinkle 5s ease-in-out infinite;
+}
+.star69 {
+  top: 52.6%;
+  left: 35.2%;
+  width: 1.5px;
+  height: 1.5px;
+  background: $white;
+  opacity: 0.3;
+}
+.star70 {
+  top: 53.7%;
+  left: 93.3%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $electric-blue;
+  opacity: 0.3;
+}
+.star71 {
+  top: 54.0%;
+  left: 57.4%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star72 {
+  top: 55.1%;
+  left: 21.5%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $text-primary;
+  opacity: 0.25;
+  animation: twinkle 7.5s ease-in-out infinite;
+  animation-delay: 1.4s;
+}
+.star73 {
+  top: 55.4%;
+  left: 79.6%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star74 {
+  top: 56.5%;
+  left: 43.7%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $electric-blue;
+  opacity: 0.5;
+}
+.star75 {
+  top: 56.8%;
+  left: 7.8%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star76 {
+  top: 57.9%;
+  left: 65.9%;
+  width: 1.5px;
+  height: 1.5px;
+  background: $text-primary;
+  opacity: 0.5;
+  animation: twinkle 5s ease-in-out infinite;
+}
+.star77 {
+  top: 58.9%;
+  left: 29.9%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star78 {
+  top: 59.3%;
+  left: 88.0%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $electric-blue;
+  opacity: 0.45;
+}
+.star79 {
+  top: 60.3%;
+  left: 52.1%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star80 {
+  top: 60.7%;
+  left: 16.2%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $text-primary;
+  opacity: 0.4;
+  animation: twinkle 7.5s ease-in-out infinite;
+  animation-delay: 1.4s;
+}
+.star81 {
+  top: 61.7%;
+  left: 74.3%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star82 {
+  top: 62.8%;
+  left: 38.4%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $electric-blue;
+  opacity: 0.4;
+}
+.star83 {
+  top: 63.1%;
+  left: 96.5%;
+  width: 1.5px;
+  height: 1.5px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star84 {
+  top: 64.2%;
+  left: 60.6%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $text-primary;
+  opacity: 0.25;
+  animation: twinkle 5s ease-in-out infinite;
+}
+.star85 {
+  top: 64.5%;
+  left: 24.7%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star86 {
+  top: 65.6%;
+  left: 82.8%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $electric-blue;
+  opacity: 0.35;
+}
+.star87 {
+  top: 65.9%;
+  left: 46.9%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star88 {
+  top: 66.9%;
+  left: 11.0%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $text-primary;
+  opacity: 0.5;
+  animation: twinkle 7.5s ease-in-out infinite;
+  animation-delay: 1.4s;
+}
+.star89 {
+  top: 68.0%;
+  left: 69.1%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star90 {
+  top: 68.3%;
+  left: 33.2%;
+  width: 1.5px;
+  height: 1.5px;
+  background: $electric-blue;
+  opacity: 0.3;
+}
+.star91 {
+  top: 69.4%;
+  left: 91.3%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star92 {
+  top: 69.7%;
+  left: 55.4%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $text-primary;
+  opacity: 0.4;
+  animation: twinkle 5s ease-in-out infinite;
+}
+.star93 {
+  top: 70.8%;
+  left: 19.5%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star94 {
+  top: 71.8%;
+  left: 77.6%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $electric-blue;
+  opacity: 0.5;
+}
+.star95 {
+  top: 72.2%;
+  left: 41.7%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star96 {
+  top: 73.2%;
+  left: 5.8%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $text-primary;
+  opacity: 0.25;
+  animation: twinkle 7.5s ease-in-out infinite;
+  animation-delay: 1.4s;
+}
+.star97 {
+  top: 73.6%;
+  left: 63.8%;
+  width: 1.5px;
+  height: 1.5px;
+  background: $white;
+  opacity: 0.3;
+}
+.star98 {
+  top: 74.6%;
+  left: 27.9%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $electric-blue;
+  opacity: 0.45;
+}
+.star99 {
+  top: 75.7%;
+  left: 86.0%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star100 {
+  top: 76.0%;
+  left: 50.1%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $text-primary;
+  opacity: 0.5;
+  animation: twinkle 5s ease-in-out infinite;
+}
+.star101 {
+  top: 77.1%;
+  left: 14.2%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star102 {
+  top: 77.4%;
+  left: 72.3%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $electric-blue;
+  opacity: 0.4;
+}
+.star103 {
+  top: 78.5%;
+  left: 36.4%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star104 {
+  top: 78.8%;
+  left: 94.5%;
+  width: 1.5px;
+  height: 1.5px;
+  background: $text-primary;
+  opacity: 0.4;
+  animation: twinkle 7.5s ease-in-out infinite;
+  animation-delay: 1.4s;
+}
+.star105 {
+  top: 79.9%;
+  left: 58.6%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star106 {
+  top: 80.9%;
+  left: 22.7%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $electric-blue;
+  opacity: 0.35;
+}
+.star107 {
+  top: 81.2%;
+  left: 80.8%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star108 {
+  top: 82.3%;
+  left: 44.9%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $text-primary;
+  opacity: 0.25;
+  animation: twinkle 5s ease-in-out infinite;
+}
+.star109 {
+  top: 82.6%;
+  left: 9.0%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star110 {
+  top: 83.7%;
+  left: 67.1%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $electric-blue;
+  opacity: 0.3;
+}
+.star111 {
+  top: 84.7%;
+  left: 31.2%;
+  width: 1.5px;
+  height: 1.5px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star112 {
+  top: 85.1%;
+  left: 89.3%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $text-primary;
+  opacity: 0.5;
+  animation: twinkle 7.5s ease-in-out infinite;
+  animation-delay: 1.4s;
+}
+.star113 {
+  top: 86.1%;
+  left: 53.4%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star114 {
+  top: 86.5%;
+  left: 17.5%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $electric-blue;
+  opacity: 0.5;
+}
+.star115 {
+  top: 87.5%;
+  left: 75.6%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star116 {
+  top: 87.9%;
+  left: 39.7%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $text-primary;
+  opacity: 0.4;
+  animation: twinkle 5s ease-in-out infinite;
+}
+.star117 {
+  top: 88.9%;
+  left: 3.8%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star118 {
+  top: 90.0%;
+  left: 61.8%;
+  width: 1.5px;
+  height: 1.5px;
+  background: $electric-blue;
+  opacity: 0.45;
+}
+.star119 {
+  top: 90.3%;
+  left: 25.9%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star120 {
+  top: 91.4%;
+  left: 84.0%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $text-primary;
+  opacity: 0.25;
+  animation: twinkle 7.5s ease-in-out infinite;
+  animation-delay: 1.4s;
+}
+.star121 {
+  top: 91.7%;
+  left: 48.1%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star122 {
+  top: 92.8%;
+  left: 12.2%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $electric-blue;
+  opacity: 0.4;
+}
+.star123 {
+  top: 93.8%;
+  left: 70.3%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star124 {
+  top: 94.2%;
+  left: 34.4%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $text-primary;
+  opacity: 0.5;
+  animation: twinkle 5s ease-in-out infinite;
+}
+.star125 {
+  top: 95.2%;
+  left: 92.5%;
+  width: 1.5px;
+  height: 1.5px;
+  background: $white;
+  opacity: 0.3;
+}
+.star126 {
+  top: 95.5%;
+  left: 56.6%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $electric-blue;
+  opacity: 0.35;
+}
+.star127 {
+  top: 96.6%;
+  left: 20.7%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+.star128 {
+  top: 97.6%;
+  left: 78.8%;
+  width: 2.0px;
+  height: 2.0px;
+  background: $text-primary;
+  opacity: 0.4;
+  animation: twinkle 7.5s ease-in-out infinite;
+  animation-delay: 1.4s;
+}
+.star129 {
+  top: 98.0%;
+  left: 42.9%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $white;
+  opacity: 0.3;
+}
+.star130 {
+  top: 99.0%;
+  left: 7.0%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $electric-blue;
+  opacity: 0.3;
+}
+.star131 {
+  top: 99.4%;
+  left: 65.1%;
+  width: 3.0px;
+  height: 3.0px;
+  background: $blue-pale;
+  opacity: 0.35;
+}
+
+// ─── SHOOTING STARS ─────────────────────────────────────────────
+.shootingStar {
+  position: absolute;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(125, 211, 252, 0.55) 65%,
+    rgba(186, 224, 255, 0.75) 100%
+  );
+  filter: drop-shadow(0 0 2.5px rgba(125, 211, 252, 0.4));
+  opacity: 0;
+  animation-name: shootingStarStreak;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes shootingStarStreak {
+  0% { opacity: 0; transform: translate(0, 0) rotate(var(--star-angle)) scaleX(0.6); }
+  1% { opacity: 0.75; }
+  9% {
+    opacity: 0.75;
+    transform: translate(var(--star-dx), var(--star-dy)) rotate(var(--star-angle)) scaleX(1);
+  }
+  17%, 100% {
+    opacity: 0;
+    transform: translate(var(--star-dx), var(--star-dy)) rotate(var(--star-angle)) scaleX(1);
+  }
+}
+
+.shootingStar0 {
+  top: 3.0%;
+  left: 10.0%;
+  width: 130.0px;
+  --star-angle: 24.0deg;
+  --star-dx: 300.0px;
+  --star-dy: 135.0px;
+  animation-duration: 8.4s;
+  animation-delay: 0.6s;
+}
+.shootingStar1 {
+  top: 14.0%;
+  left: 55.0%;
+  width: 110.0px;
+  --star-angle: 30.0deg;
+  --star-dx: 250.0px;
+  --star-dy: 145.0px;
+  animation-duration: 10.2s;
+  animation-delay: 3.4s;
+}
+.shootingStar2 {
+  top: 24.0%;
+  left: 22.0%;
+  width: 140.0px;
+  --star-angle: 28.0deg;
+  --star-dx: 260.0px;
+  --star-dy: 150.0px;
+  animation-duration: 7.6s;
+  animation-delay: 5.9s;
+}
+.shootingStar3 {
+  top: 36.0%;
+  left: 6.0%;
+  width: 120.0px;
+  --star-angle: 20.0deg;
+  --star-dx: 340.0px;
+  --star-dy: 120.0px;
+  animation-duration: 11.4s;
+  animation-delay: 1.9s;
+}
+.shootingStar4 {
+  top: 47.0%;
+  left: 38.0%;
+  width: 100.0px;
+  --star-angle: 26.0deg;
+  --star-dx: 270.0px;
+  --star-dy: 130.0px;
+  animation-duration: 9.3s;
+  animation-delay: 7.8s;
+}
+.shootingStar5 {
+  top: 58.0%;
+  left: 62.0%;
+  width: 125.0px;
+  --star-angle: 22.0deg;
+  --star-dx: 310.0px;
+  --star-dy: 140.0px;
+  animation-duration: 8.9s;
+  animation-delay: 2.7s;
+}
+.shootingStar6 {
+  top: 69.0%;
+  left: 15.0%;
+  width: 115.0px;
+  --star-angle: 27.0deg;
+  --star-dx: 245.0px;
+  --star-dy: 148.0px;
+  animation-duration: 10.8s;
+  animation-delay: 6.4s;
+}
+.shootingStar7 {
+  top: 80.0%;
+  left: 45.0%;
+  width: 135.0px;
+  --star-angle: 25.0deg;
+  --star-dx: 295.0px;
+  --star-dy: 128.0px;
+  animation-duration: 7.9s;
+  animation-delay: 4.5s;
+}
+.shootingStar8 {
+  top: 91.0%;
+  left: 28.0%;
+  width: 105.0px;
+  --star-angle: 23.0deg;
+  --star-dx: 265.0px;
+  --star-dy: 138.0px;
+  animation-duration: 9.7s;
+  animation-delay: 8.9s;
+}
+
+// ─── REDUCED MOTION ─────────────────────────────────────────────
+// Single override point instead of a media query duplicated across ~140
+// generated classes -- toggled by the .reducedMotion class the component
+// applies based on useReducedMotion(), matching the rest of the site's
+// JS-driven reduced-motion convention.
+.reducedMotion {
+  .star,
+  .shootingStar {
+    animation: none !important;
+  }
+
+  .star::after {
+    content: none !important;
+  }
+
+  .shootingStar {
+    opacity: 0 !important;
+  }
+}

@@ -1,15 +1,16 @@
 import { render } from '@testing-library/react'
 import { axe } from 'jest-axe'
-import PageBackground from './PageBackground'
+import SectionDivider from './SectionDivider'
+import styles from './SectionDivider.module.scss'
 
-describe('PageBackground', () => {
+describe('SectionDivider', () => {
   afterEach(() => {
     jest.restoreAllMocks()
   })
 
   it('is hidden from assistive technology as a decorative element', () => {
     // Arrange
-    const { container } = render(<PageBackground />)
+    const { container } = render(<SectionDivider />)
 
     // Assert
     expect(container.firstChild).toHaveAttribute('aria-hidden', 'true')
@@ -17,7 +18,7 @@ describe('PageBackground', () => {
 
   it('has no accessibility violations', async () => {
     // Arrange
-    const { container } = render(<PageBackground />)
+    const { container } = render(<SectionDivider />)
 
     // Act
     const results = await axe(container)
@@ -26,22 +27,15 @@ describe('PageBackground', () => {
     expect(results).toHaveNoViolations()
   })
 
-  it('does not attach a scroll listener under prefers-reduced-motion (the test default)', () => {
-    // Arrange
-    const addEventListenerSpy = jest.spyOn(window, 'addEventListener')
-
-    // Act
-    render(<PageBackground />)
+  it('disables the orbit animation under prefers-reduced-motion (the test default)', () => {
+    // Arrange & Act
+    const { container } = render(<SectionDivider />)
 
     // Assert
-    expect(addEventListenerSpy).not.toHaveBeenCalledWith(
-      'scroll',
-      expect.any(Function),
-      expect.anything()
-    )
+    expect(container.querySelector('svg')).toHaveClass(styles.reducedMotion)
   })
 
-  it('attaches a scroll listener for the star trail when motion is not reduced', () => {
+  it('enables the orbit animation when motion is not reduced', () => {
     // Arrange
     jest.spyOn(window, 'matchMedia').mockImplementation((query: string) => ({
       matches: false,
@@ -53,16 +47,11 @@ describe('PageBackground', () => {
       removeListener: jest.fn(),
       dispatchEvent: jest.fn(),
     }))
-    const addEventListenerSpy = jest.spyOn(window, 'addEventListener')
 
     // Act
-    render(<PageBackground />)
+    const { container } = render(<SectionDivider />)
 
     // Assert
-    expect(addEventListenerSpy).toHaveBeenCalledWith(
-      'scroll',
-      expect.any(Function),
-      expect.objectContaining({ passive: true })
-    )
+    expect(container.querySelector('svg')).not.toHaveClass(styles.reducedMotion)
   })
 })
