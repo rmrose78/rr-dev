@@ -1,0 +1,74 @@
+@use '@/styles/_variables.scss' as *;
+@use '@/styles/_mixins.scss' as *;
+
+// Transcribed from docs/mockups/mockup-i1-project-blocks.html's
+// .section-divider -- a small orbit-ring glyph (a "moon" orbiting a
+// central body) flanked by fade lines, marking a seam between sections.
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.line {
+  flex: 1 1 auto;
+  max-width: 280px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba($electric-blue, 0.24),
+    transparent
+  );
+}
+
+.orbit {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.orbitRing {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+  stroke: $electric-blue;
+  stroke-width: 1;
+  opacity: 0.5;
+}
+
+.orbitBody {
+  fill: $electric-blue;
+  opacity: 0.85;
+}
+
+.orbitMoonGroup {
+  transform-origin: 26px 26px;
+  animation: orbitSpin 8s linear infinite;
+}
+
+.orbitMoon {
+  fill: $blue-pale;
+}
+
+.backgroundStar {
+  fill: $text-primary;
+  opacity: 0.5;
+}
+
+@keyframes orbitSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.reducedMotion {
+  .orbitMoonGroup {
+    animation: none;
+  }
+}

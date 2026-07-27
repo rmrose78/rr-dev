@@ -9,6 +9,7 @@ import Testimonials from '@/components/sections/Testimonials'
 import Contact from '@/components/sections/Contact'
 import Footer from '@/components/layout/Footer'
 import PageBackground from '@/components/ui/PageBackground'
+import SectionDivider from '@/components/ui/SectionDivider'
 import styles from './App.module.scss'
 
 export default function App() {
@@ -32,7 +33,9 @@ export default function App() {
       <main id="main-content" className={styles.main}>
         <PageBackground />
         <Hero onContactClick={openContactModal} />
+        <SectionDivider />
         <About />
+        <SectionDivider />
         <Skills />
         <Experience />
         <Testimonials />
