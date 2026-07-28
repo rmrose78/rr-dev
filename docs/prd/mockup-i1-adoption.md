@@ -1,6 +1,7 @@
 # PRD: Mockup i1 Adoption (Full Site Revamp)
 
 ## Problem
+
 The current site reads as resume-style and templated; it needs to read as
 a project portfolio built by an engineer, for hiring managers, recruiters,
 and peer developers deciding whether Ryan is worth a closer look.
@@ -10,6 +11,7 @@ but was built in isolation from the live components and needs to be
 adapted, not swapped in wholesale.
 
 ## Success Criteria
+
 - [ ] Positioning shifts from "Frontend Developer" to "Software Developer"
       across nav, hero, and footer
 - [ ] Site reads as project-portfolio-first: a new Projects/case-study
@@ -18,8 +20,7 @@ adapted, not swapped in wholesale.
       from the site, not just de-emphasized
 - [ ] Every contact entry point (hero, nav, bottom section) opens
       `ContactModal` directly — no scroll-anchor contact behavior remains
-- [ ] Existing scroll-reveal-on-view behavior (Framer Motion `whileInView`
-      + `useReducedMotion`) is preserved on every rebuilt section
+- [ ] Existing scroll-reveal-on-view behavior (Framer Motion `whileInView` + `useReducedMotion`) is preserved on every rebuilt section
 - [ ] New decor system (starfield, shooting stars, constellation field,
       section-dividers, scroll-velocity star trail) fully respects
       `prefers-reduced-motion`
@@ -30,6 +31,7 @@ adapted, not swapped in wholesale.
       render state
 
 ## User Stories
+
 - As a hiring manager skimming the site in the first few seconds, I want
   the hero to immediately signal "Software Developer" and let me jump to
   real project evidence, not a resume-style bio.
@@ -44,6 +46,7 @@ adapted, not swapped in wholesale.
   animated.
 
 ## Design Direction
+
 Color palette: existing `_variables.scss` tokens ($navy, $navy-900/800/700,
 $electric-blue, $teal, $text-primary/secondary/muted) plus one new token to
 add: `$blue-pale: #7dd3fc` (used in the mockup's constellation/starfield
@@ -57,6 +60,7 @@ now extended site-wide via the decor system (previously isolated to
 Hero's molecular canvas, which is being removed).
 
 Key interactions:
+
 - Fixed-position starfield (~130 stars, twinkle variants) + shooting-star
   streaks, replacing `PageBackground.tsx`'s dot-grid/cluster system
   entirely
@@ -84,19 +88,21 @@ stacked columns, existing breakpoints in `_variables.scss`). No new mobile-
 specific behavior beyond what's already in place for nav/columns.
 
 ## UI States
-| State | What the user sees |
-|-------|--------------------|
-| Reduced motion | Starfield/constellation/orbit-divider/scroll-trail are static; existing scroll-reveal sections render pre-revealed (matches current `useReducedMotion` pattern) |
-| Scroll-in-view (default motion) | Sections fade/slide in via existing `whileInView` Framer Motion pattern, unchanged from current behavior |
-| Project card, media ready | ResearchPulse card shows `researchpulse/docs/media/demo.gif` |
-| Project card, media not ready | rr-dev and elpa-website cards show a placeholder treatment (bordered/labeled box, no image) until real screenshots/GIFs exist |
-| Contact modal | Unchanged — existing `ContactModal.tsx` (Radix Dialog) opens from any contact trigger |
+
+| State                           | What the user sees                                                                                                                                              |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Reduced motion                  | Starfield/constellation/orbit-divider/scroll-trail are static; existing scroll-reveal sections render pre-revealed (matches current `useReducedMotion` pattern) |
+| Scroll-in-view (default motion) | Sections fade/slide in via existing `whileInView` Framer Motion pattern, unchanged from current behavior                                                        |
+| Project card, media ready       | ResearchPulse card shows `researchpulse/docs/media/demo.gif`                                                                                                    |
+| Project card, media not ready   | rr-dev and elpa-website cards show a placeholder treatment (bordered/labeled box, no image) until real screenshots/GIFs exist                                   |
+| Contact modal                   | Unchanged — existing `ContactModal.tsx` (Radix Dialog) opens from any contact trigger                                                                           |
 
 ## Scope
 
 Grouped into 5 vertical-slice issues (confirmed grouping, feeds `/3-to-issues`):
 
 ### 1. Decor system
+
 - Replace `PageBackground.tsx` with starfield + shooting-stars +
   constellation-field
 - Add orbit-SVG section-dividers between sections
@@ -105,21 +111,35 @@ Grouped into 5 vertical-slice issues (confirmed grouping, feeds `/3-to-issues`):
 - Add `$blue-pale` token to `_variables.scss`
 
 ### 2. Nav + Hero
+
 - Nav: wordmark changes from "rr<span>.dev</span>" to plain-text
-  left-aligned "Ryan Rose"; reuse existing icon-link (`GitHubIcon`/
-  `LinkedInIcon`) and CTA button components as-is, re-themed only
+  left-aligned "Ryan Rose" (heading font, bold); icon-link (`GitHubIcon`/
+  `LinkedInIcon`) pattern kept icon+text as-is; CTA button (`.cta`)
+  restyled to the same filled electric-blue pill treatment as Hero's
+  primary button (was outlined/square-cornered), so the "get in touch"
+  action reads as one consistent button design everywhere it appears
 - Nav links: drop Skills and Experience entries (sections are being
   removed/folded), add Projects, keep About and Recommendations
 - Hero: adopt mockup copy verbatim — eyebrow "Software Developer",
-  headline "Make things that matter.", rewritten bio (Army veteran, BME
-  grad, "a thing for space" line)
-- Hero CTAs: "Get in Touch" (unchanged, opens modal), icon-only GitHub +
-  LinkedIn (replacing the "View GitHub" text link) matching nav/footer
-  treatment, "Jump to Projects" (anchor to new Projects section)
-- New bespoke scroll-cue motif (real design effort, not a palette-only
-  reskin of the current cue)
+  headline "Builds things that matter.", rewritten bio (Army veteran, BME
+  grad, "a thing for space" line); layout adopts the mockup's actual
+  centered/compact scale (not the old left-aligned giant-heading layout)
+- Hero CTAs, two-tier layout: primary row has "Get in Touch" and "Jump to
+  Projects" as matching pill buttons, directly adjacent; a second, quieter
+  row beneath has icon-only GitHub + LinkedIn links (no visible text,
+  `aria-label` for the accessible name) — revised from an earlier
+  icon+text draft after developer review found it looked wedged between
+  the two buttons
+- Pill buttons (Hero primary/ghost, Nav CTA) share a hover flourish: soft
+  glow bloom + lift, plus a diagonal light-sweep streak echoing the
+  shooting-star motif in the decor system (shared `btn-sweep` mixin in
+  `_mixins.scss`); sweep disabled under `prefers-reduced-motion`
+- Bespoke scroll-cue motif: a falling star trail (thin vertical line, a
+  small glowing dot travels down it on a loop and fades), not a
+  palette-only reskin of the old cue
 
 ### 3. About consolidation
+
 - Fold `Skills.tsx`'s tag content into About's right column as a "Stack"
   panel; remove Skills as a standalone section
 - Cut `Experience.tsx` entirely; remove from `App.tsx`
@@ -133,6 +153,7 @@ Grouped into 5 vertical-slice issues (confirmed grouping, feeds `/3-to-issues`):
 - Preserve existing scroll-reveal-on-view behavior
 
 ### 4. Projects section (new)
+
 - New section between About and Testimonials, 3 project cards:
   researchpulse, rr-dev (reversed media/text layout per mockup), elpa-website
 - ResearchPulse card uses `researchpulse/docs/media/demo.gif`; rr-dev and
@@ -143,6 +164,7 @@ Grouped into 5 vertical-slice issues (confirmed grouping, feeds `/3-to-issues`):
 - Each card links out to its GitHub repo
 
 ### 5. Testimonials + Contact polish
+
 - Normalize testimonials carousel width to match the rest of the page's
   content column (currently bleeds wider)
 - Add an edge-fade (mask-image gradient) tapering to that content width,
@@ -152,12 +174,17 @@ Grouped into 5 vertical-slice issues (confirmed grouping, feeds `/3-to-issues`):
 - Every contact trigger (hero, nav, bottom section's own button) opens
   `ContactModal` directly; remove any scroll-anchor-to-contact behavior
   and the now-unnecessary scroll-down-to-contact indicator
-- Footer: re-theme existing icon-only GitHub/LinkedIn links; add tagline
-  ("Software Developer · built with React + TypeScript") and the
-  Interstellar quote ("We will find a way. We always have.") verbatim,
-  per the mockup
+- Footer: re-theme; GitHub/LinkedIn link treatment decided at build time
+  to match whichever of Nav (icon+text) or Hero (icon-only) it should be
+  consistent with; add tagline ("Software Developer · built with React +
+  TypeScript"). Quote changed 2026-07-27 from the originally-planned
+  Interstellar line to: "I must not fear. Fear is the mind-killer. Fear
+  is the little-death that brings total obliteration. I will face my
+  fear..." — attributed "— Frank Herbert, Dune", deliberately trimmed to
+  end on the turn toward courage rather than the darkest point
 
 ### Out of Scope
+
 - `mockup-h4-blue-shootingstars-constellation.html` (superseded, not
   pursued)
 - A resume PDF link anywhere on the site — filed as a known follow-up
@@ -168,19 +195,24 @@ Grouped into 5 vertical-slice issues (confirmed grouping, feeds `/3-to-issues`):
   Open Questions)
 
 ## Data
+
 ### Inputs
+
 None — this is presentational content only, no new form fields or user
 input beyond the existing `ContactModal`.
 
 ### Outputs
+
 Rendered static content: project case-study copy, testimonial quotes,
 updated hero/footer/about copy.
 
 ### Stored / sent to third parties
+
 No change — `ContactModal.tsx`'s existing `fetch` to web3forms is the only
 external call, untouched by this revamp.
 
 ## Edge Cases
+
 - Reduced-motion users → starfield/constellation/orbit-divider/scroll-trail
   render static; no scroll-linked JS behavior runs at all (early return,
   matching the mockup's own `matchMedia` guard)
@@ -193,6 +225,7 @@ external call, untouched by this revamp.
   About columns, stacked project cards) carry forward unchanged
 
 ## Open Questions
+
 - Footer "Contact" text link: the mockup includes one alongside GitHub/
   LinkedIn, but this was never explicitly confirmed. ASSUMED: skip it,
   since the original handoff only specified re-theming the existing

@@ -10,13 +10,23 @@ issue until the current one has passing tests and, if visual verification
 was run, developer sign-off.
 
 ## Before Starting
-1. Read the issue file from `docs/issues/<feature-name>/`
-2. Confirm the current branch is specific to this issue (e.g.
+0. Enter plan mode before writing any code. Read the issue file from
+   `docs/issues/<feature-name>/` and cross-reference it against the
+   *actual current code* it touches — not just the issue's prose — and
+   against the mockup/design reference if the issue points to one. Run
+   `shared/confidence-gate.md`: ask questions until 95% confident on what
+   "done" looks like for this specific issue. Only exit plan mode once
+   aligned with the developer. This exists because skipping it once
+   (Issue 10) meant several real problems — a layout bug, a wrong button
+   treatment, an inconsistent CTA style — only surfaced after the build,
+   in the developer's own review, instead of before a line of code was
+   written
+1. Confirm the current branch is specific to this issue (e.g.
    `<issue-number>-<slug>`) — if on `main`, or on a branch for a
    different issue, create/switch to the correct branch before writing
    any code. Never implement an issue directly on `main`
-3. Read `fe-standards.md` in this directory before writing any component
-4. If committing — run through `pre-commit.md` in this directory
+2. Read `fe-standards.md` in this directory before writing any component
+3. If committing — run through `pre-commit.md` in this directory
 
 ## Rules
 - ONE issue per session

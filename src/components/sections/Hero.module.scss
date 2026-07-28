@@ -6,208 +6,319 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   padding: 6rem $section-px-mobile 3rem;
   overflow: hidden;
 
   @include desktop {
-    padding: 0 $section-px-desktop;
-  }
-}
-
-.canvas {
-  position: absolute;
-  inset: 0;
-  opacity: 0.35;
-
-  @include desktop {
-    opacity: 0.45;
+    padding: 3.25rem $section-px-desktop 2.5rem;
   }
 }
 
 .content {
   position: relative;
   z-index: 2;
-  max-width: 780px;
+  max-width: 640px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
 }
 
-.label {
+.eyebrow {
   font-family: $font-mono;
   font-size: 0.72rem;
   color: $electric-blue;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  margin-bottom: 1rem;
 
   @include desktop {
     font-size: 0.78rem;
-    margin-bottom: 1.5rem;
   }
 }
 
 .heading {
   font-family: $font-heading;
-  font-size: clamp(2.8rem, 10vw, 6.5rem);
+  font-size: clamp(1.9rem, 4vw, 2.7rem);
   font-weight: 800;
-  line-height: 0.95;
-  letter-spacing: -0.02em;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
   color: $text-primary;
-
-  // "Rose" gets electric blue treatment
-  .last {
-    color: $electric-blue;
-  }
 }
 
-.typewriterRow {
-  display: flex;
-  align-items: center;
-  margin-top: 0.85rem;
-  min-height: 2rem;
-}
-
-.typewriter {
-  font-family: $font-heading;
-  font-size: clamp(1rem, 4vw, 1.6rem);
-  font-weight: 400;
-  color: $text-secondary;
-}
-
-.cursor {
-  display: inline-block;
-  width: 2px;
-  height: 1.2em;
-  background: $electric-blue;
-  margin-left: 3px;
-  vertical-align: text-middle;
-  animation: blink 1s step-end infinite;
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-    opacity: 1;
-  }
-}
-
-@keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
+.accent {
+  color: $electric-blue;
 }
 
 .bio {
   font-size: 0.95rem;
   color: $text-secondary;
   line-height: 1.8;
-  max-width: 540px;
-  margin-top: 1.25rem;
+  max-width: 54ch;
 
   @include desktop {
     font-size: 1rem;
-    margin-top: 1.75rem;
   }
 }
 
 .actions {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  margin-top: 2rem;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
 
-  @include small {
-    flex-direction: row;
-    gap: 1rem;
-  }
+// Hero's own GitHub/LinkedIn is redundant with Nav's icon row on desktop
+// (Nav's is visible there), but Nav's icon row is desktop-only -- on
+// mobile the Nav version only surfaces inside the hamburger menu, so
+// Hero's row is the one quick-access point. Show on mobile, hide on
+// desktop.
+.iconRow {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
 
   @include desktop {
-    margin-top: 2.5rem;
+    display: none;
   }
 }
 
-.btnPrimary {
+// EXPERIMENT: swapping the shared bordered-pill/ignite-fill treatment for
+// a plain-text double-underline hover, just to compare. Nav's .cta keeps
+// the original @include btn-outline-fill treatment untouched. Uninstall
+// by reverting this file if it doesn't stick.
+.btnOutline {
+  position: relative;
+  display: inline-block;
+  background: transparent;
+  border: none;
+  color: $electric-blue;
   font-family: $font-mono;
-  font-size: 0.82rem;
+  font-size: 0.92rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: $navy;
-  background: $electric-blue;
-  padding: 0.85rem 1.8rem;
-  border-radius: 2px;
+  // Real padding (not just a visual offset) so the two lines below sit
+  // fully inside the anchor's actual hoverable box -- same latent bug as
+  // Nav.module.scss's box-fill hover: a line drawn outside the real box
+  // drops :hover the instant the cursor enters it, which un-draws the
+  // line, which pulls the cursor back over the box -- a flicker loop.
+  // Cancelling negative margin keeps this button's footprint in .actions
+  // unchanged.
+  padding: 0.7rem 0.1rem;
+  margin: -0.3rem 0;
   text-align: center;
+
+  // The line's growth *is* the star's motion now -- one "width" transition
+  // drives both the thin tail (behind) and the thick round head (at the
+  // current leading edge), instead of a separate transform-scale reveal
+  // racing a separately-timed traveling glint. Since the head's
+  // background-position is anchored to "the edge of the box" and the box
+  // itself is what's animating width, the head rides along for free and
+  // can never drift out of sync with the tail again.
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-color: rgba($electric-blue, 0);
+    background-size:
+      100% 100%,
+      14px 10px;
+    transition:
+      width 0.4s ease-out,
+      background-color 0.15s ease-out;
+  }
+
+  &::before {
+    top: -0.5px;
+    left: 0;
+    background-image:
+      linear-gradient(to right, transparent, rgba($blue-pale, 0.55)),
+      radial-gradient(
+        circle,
+        #fff 0%,
+        rgba($electric-blue, 1) 45%,
+        transparent 75%
+      );
+    background-position:
+      left center,
+      right center;
+  }
+
+  &::after {
+    bottom: -0.5px;
+    right: 0;
+    background-image:
+      linear-gradient(to left, transparent, rgba($blue-pale, 0.55)),
+      radial-gradient(
+        circle,
+        #fff 0%,
+        rgba($electric-blue, 1) 45%,
+        transparent 75%
+      );
+    background-position:
+      right center,
+      left center;
+  }
+
+  // Text color stays $electric-blue at rest and on hover (an already
+  // WCAG-checked pairing against $navy) -- the double-underline is the
+  // whole hover cue here, no text-color swap needed.
+  &:hover {
+    &::before,
+    &::after {
+      width: 100%;
+      background-color: rgba($electric-blue, 1);
+      transition:
+        width 0.4s ease-out,
+        background-color 0.15s ease-out 0.4s;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::before,
+    &::after,
+    &:hover::before,
+    &:hover::after {
+      transition: none;
+    }
+  }
+}
+
+.iconLink {
+  display: inline-flex;
+  align-items: center;
+  color: $text-muted;
   transition:
-    opacity $transition-base,
+    color $transition-base,
     transform $transition-base;
 
   &:hover {
-    opacity: 0.85;
+    color: $electric-blue;
     transform: translateY(-1px);
   }
-}
 
-.btnGhost {
-  font-family: $font-mono;
-  font-size: 0.82rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: $text-secondary;
-  background: transparent;
-  border: 1px solid $border-subtle;
-  padding: 0.85rem 1.8rem;
-  border-radius: 2px;
-  text-align: center;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition:
-    border-color $transition-base,
-    color $transition-base;
-
-  &:hover {
-    border-color: $electric-blue;
-    color: $electric-blue;
+  svg {
+    width: 32px;
+    height: 32px;
+    fill: currentColor;
   }
 }
 
+// ─── SCROLL CUE — falling star trail ───────────────────────────────
+// A short vertical track with a small glowing dot travelling down it on
+// a loop, then fading before it resets. Echoes the shooting-star motif
+// already used in the site-wide decor system (Starfield.tsx). Pinned near
+// the bottom of the viewport (not in-flow after the content) so it reads
+// as a scroll indicator regardless of how tall the content block is.
 .scrollCue {
   position: absolute;
-  bottom: 2rem;
+  bottom: 2.5rem;
   left: 50%;
   transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.4rem;
+  width: 2px;
+  height: 32px;
+  opacity: 1;
+  // `backwards` (not `forwards`) is deliberate: once the entrance
+  // animation finishes, its effect is released and the element falls
+  // back to the normal cascade (this rule, or .scrollCueHidden below).
+  // A `forwards`-filled animation keeps overriding opacity forever,
+  // even outranking higher-specificity rules like .scrollCueHidden --
+  // that's why scrolling never used to hide the cue.
+  animation: heroScrollCueIn 0.8s ease-out 1.2s backwards;
+  transition: opacity 0.4s ease;
+
+  @include desktop {
+    bottom: 3rem;
+  }
 }
 
-.scrollLine {
-  display: block;
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(to bottom, $electric-blue, transparent);
-  animation: pulse 2s ease-in-out infinite;
+// Compound selector so this reliably wins over .reducedMotion's opacity
+// override regardless of source order -- scrolling past the top should
+// hide the cue even when reduced motion is on.
+.scrollCue.scrollCueHidden {
+  opacity: 0;
+}
 
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
+@keyframes heroScrollCueIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
 .scrollText {
+  position: absolute;
+  top: -1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: $font-mono;
   font-size: 0.65rem;
   color: $text-muted;
   letter-spacing: 0.15em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 0.4;
+.scrollLine {
+  position: absolute;
+  inset: 0;
+  width: 1px;
+  margin-inline: auto;
+  background: linear-gradient(
+    to bottom,
+    rgba($electric-blue, 0.5),
+    transparent
+  );
+}
+
+.scrollDot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  border-radius: 50%;
+  background: $electric-blue;
+  box-shadow: 0 0 6px rgba($electric-blue, 0.7);
+  animation: fallingTrail 2.5s ease-in-out infinite;
+}
+
+@keyframes fallingTrail {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
   }
-  50% {
+  15% {
     opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(28px);
+    opacity: 0;
+  }
+}
+
+.reducedMotion {
+  animation: none;
+  opacity: 1;
+
+  .scrollDot {
+    animation: none;
+    top: auto;
+    bottom: 0;
+    opacity: 0.75;
   }
 }
