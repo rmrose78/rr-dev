@@ -87,18 +87,109 @@
   }
 }
 
+// EXPERIMENT: swapping the shared bordered-pill/ignite-fill treatment for
+// a plain-text double-underline hover, just to compare. Nav's .cta keeps
+// the original @include btn-outline-fill treatment untouched. Uninstall
+// by reverting this file if it doesn't stick.
 .btnOutline {
-  @include btn-outline-fill;
+  position: relative;
+  display: inline-block;
+  background: transparent;
+  border: none;
+  color: $electric-blue;
   font-family: $font-mono;
-  font-size: 0.82rem;
+  font-size: 0.92rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 0.85rem 1.6rem;
-  border-radius: 999px;
+  // Real padding (not just a visual offset) so the two lines below sit
+  // fully inside the anchor's actual hoverable box -- same latent bug as
+  // Nav.module.scss's box-fill hover: a line drawn outside the real box
+  // drops :hover the instant the cursor enters it, which un-draws the
+  // line, which pulls the cursor back over the box -- a flicker loop.
+  // Cancelling negative margin keeps this button's footprint in .actions
+  // unchanged.
+  padding: 0.7rem 0.1rem;
+  margin: -0.3rem 0;
   text-align: center;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+
+  // The line's growth *is* the star's motion now -- one "width" transition
+  // drives both the thin tail (behind) and the thick round head (at the
+  // current leading edge), instead of a separate transform-scale reveal
+  // racing a separately-timed traveling glint. Since the head's
+  // background-position is anchored to "the edge of the box" and the box
+  // itself is what's animating width, the head rides along for free and
+  // can never drift out of sync with the tail again.
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-color: rgba($electric-blue, 0);
+    background-size:
+      100% 100%,
+      14px 10px;
+    transition:
+      width 0.4s ease-out,
+      background-color 0.15s ease-out;
+  }
+
+  &::before {
+    top: -0.5px;
+    left: 0;
+    background-image:
+      linear-gradient(to right, transparent, rgba($blue-pale, 0.55)),
+      radial-gradient(
+        circle,
+        #fff 0%,
+        rgba($electric-blue, 1) 45%,
+        transparent 75%
+      );
+    background-position:
+      left center,
+      right center;
+  }
+
+  &::after {
+    bottom: -0.5px;
+    right: 0;
+    background-image:
+      linear-gradient(to left, transparent, rgba($blue-pale, 0.55)),
+      radial-gradient(
+        circle,
+        #fff 0%,
+        rgba($electric-blue, 1) 45%,
+        transparent 75%
+      );
+    background-position:
+      right center,
+      left center;
+  }
+
+  // Text color stays $electric-blue at rest and on hover (an already
+  // WCAG-checked pairing against $navy) -- the double-underline is the
+  // whole hover cue here, no text-color swap needed.
+  &:hover {
+    &::before,
+    &::after {
+      width: 100%;
+      background-color: rgba($electric-blue, 1);
+      transition:
+        width 0.4s ease-out,
+        background-color 0.15s ease-out 0.4s;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::before,
+    &::after,
+    &:hover::before,
+    &:hover::after {
+      transition: none;
+    }
+  }
 }
 
 .iconLink {

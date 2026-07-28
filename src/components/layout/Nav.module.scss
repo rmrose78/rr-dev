@@ -48,25 +48,69 @@
     font-size: 0.9rem;
     color: $text-secondary;
     text-decoration: none;
-    transition: color $transition-base;
     position: relative;
+    z-index: 1;
+    // Real padding, not just a visual halo -- the pseudo-elements below
+    // are sized to *this* padded box (inset: 0), so the hoverable area
+    // and the drawn box are the same box. Previously the halo was drawn
+    // via negative insets that overflowed the anchor's own (padding-less)
+    // box; the browser's actual :hover state only covers the real box,
+    // so moving into the visually-highlighted-looking overflow area (the
+    // "above and below" the developer found) dropped :hover, which
+    // shrank the halo, which pulled the cursor back over the box,
+    // re-triggering hover -- a flicker loop right at that boundary.
+    padding: 0.4rem 0.5rem;
+    margin: -0.4rem -0.5rem;
+    transition: color 0.3s ease;
+
+    // EXPERIMENT: box-outline + fill hover, adapted from a reference the
+    // developer found. Replaces the old underline-grow-from-left effect.
+    // Uninstall by reverting this file if it doesn't stick.
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-top: 2px solid $electric-blue;
+      border-bottom: 2px solid $electric-blue;
+      transform: scaleY(2);
+      opacity: 0;
+      transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+    }
 
     &::after {
       content: '';
       position: absolute;
-      bottom: -3px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: $electric-blue;
-      transition: width 0.25s;
+      inset: 0;
+      pointer-events: none;
+      background-color: $electric-blue;
+      transform: scaleY(0);
+      opacity: 0;
+      transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+      z-index: -1;
     }
 
     &:hover {
-      color: $electric-blue;
+      color: $navy;
 
+      &::before,
       &::after {
-        width: 100%;
+        transform: scaleY(1);
+        opacity: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+
+      &::before,
+      &::after {
+        transition: none;
+        transform: none;
       }
     }
   }
@@ -92,10 +136,63 @@
   font-size: 0.9rem;
   color: $text-secondary;
   text-decoration: none;
-  transition: color $transition-base;
+  position: relative;
+  z-index: 1;
+  // See .navCenter a above for why this is real padding + a cancelling
+  // negative margin, not just an oversized halo drawn outside the box.
+  padding: 0.4rem 0.5rem;
+  margin: -0.4rem -0.5rem;
+  transition: color 0.3s ease;
+
+  // EXPERIMENT: same box-outline + fill hover as .navCenter a above, sized
+  // to wrap the icon+text pair (not just the text node). Uninstall by
+  // reverting this file if it doesn't stick.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-top: 2px solid $electric-blue;
+    border-bottom: 2px solid $electric-blue;
+    transform: scaleY(2);
+    opacity: 0;
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-color: $electric-blue;
+    transform: scaleY(0);
+    opacity: 0;
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
+    z-index: -1;
+  }
 
   &:hover {
-    color: $electric-blue;
+    color: $navy;
+
+    &::before,
+    &::after {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &::before,
+    &::after {
+      transition: none;
+      transform: none;
+    }
   }
 
   svg {
