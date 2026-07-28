@@ -7,11 +7,13 @@
   margin: 0 auto;
 
   @include desktop {
-    // Smaller top padding than $section-py-desktop -- Hero/About are the
-    // only two revamped sections so far; the bottom padding (the
-    // About->Testimonials gap) is left at the shared value until
-    // Testimonials/Contact get their own pass.
-    padding: 3.5rem $section-px-desktop $section-py-desktop;
+    // Smaller top AND bottom padding than $section-py-desktop -- matches
+    // the tightened Hero->About rhythm on both sides of this section.
+    // The About->Projects gap was measured at ~340px (nearly double
+    // Hero->About's ~188px) before this fix; see Projects.module.scss and
+    // the compact SectionDivider instances in App.tsx for the other half
+    // of that fix.
+    padding: 3.5rem $section-px-desktop 3.5rem;
   }
 }
 

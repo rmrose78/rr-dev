@@ -3,6 +3,7 @@ import Nav from '@/components/layout/Nav'
 import Hero from '@/components/sections/Hero'
 import ContactModal from '@/components/ui/ContactModal'
 import About from '@/components/sections/About'
+import Projects from '@/components/sections/Projects'
 import Testimonials from '@/components/sections/Testimonials'
 import Contact from '@/components/sections/Contact'
 import Footer from '@/components/layout/Footer'
@@ -33,7 +34,9 @@ export default function App() {
         <Hero />
         <SectionDivider compact />
         <About />
-        <SectionDivider />
+        <SectionDivider compact />
+        <Projects />
+        <SectionDivider compact />
         <Testimonials />
         <Contact onContactClick={openContactModal} />
       </main>

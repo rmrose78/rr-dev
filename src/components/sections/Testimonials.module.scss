@@ -5,7 +5,12 @@
   padding: $section-py-mobile 0;
 
   @include desktop {
-    padding: $section-py-desktop 0;
+    // Reduced top padding (matches Projects's reduced bottom padding) to
+    // fix the Projects->Testimonials gap, which measured ~340px before
+    // this change -- nearly double the ~188px Hero->About rhythm. Bottom
+    // padding is left at the shared value until Testimonials/Contact get
+    // their own pass.
+    padding: 3.5rem 0 $section-py-desktop;
   }
 }
 

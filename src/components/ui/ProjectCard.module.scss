@@ -1,0 +1,241 @@
+@use '@/styles/_variables.scss' as *;
+@use '@/styles/_mixins.scss' as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $border-med;
+  border-radius: 18px;
+  background: $navy-900;
+  overflow: hidden;
+}
+
+// Full-width status strip, matching the LogPanel "mission log" bar
+// treatment used elsewhere on the site (dot + mono-uppercase label).
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid $border-subtle;
+
+  @include desktop {
+    padding: 0.75rem 1.65rem;
+  }
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: $electric-blue;
+  box-shadow: 0 0 6px $blue-glow;
+  flex-shrink: 0;
+}
+
+.eyebrow {
+  font-family: $font-mono;
+  font-size: 0.72rem;
+  color: $electric-blue;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr;
+
+  @include desktop {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+// Desktop-only: mobile always stacks media first regardless of this
+// modifier, matching the mockup's max-width override.
+.reverse {
+  @include desktop {
+    .media {
+      order: 2;
+    }
+  }
+}
+
+// A flex column, not a fixed-height box: the image keeps its own 16:9
+// aspect ratio (flex-shrink: 0) and the caption strip below it absorbs
+// whatever vertical space is left over. At desktop this column stretches
+// to match .body's natural height (default grid align-self), so the
+// caption grows to fill it instead of leaving dead space under a
+// short image. At mobile there's no sibling row to match, so the column
+// is just as tall as the image + caption's own content.
+.media {
+  display: flex;
+  flex-direction: column;
+}
+
+// The whole media panel (image + caption) is a real link now -- style it
+// so that's obvious: pointer cursor, a hover/focus state on the caption,
+// and a visible focus ring for keyboard users, same treatment as .link.
+.mediaLink {
+  display: flex;
+  flex-direction: column;
+  // flex: 1 (not height: 100%) so it shares .media's vertical space with
+  // .sourceLink below when that's rendered, instead of claiming the full
+  // column height and pushing the source link outside the card.
+  flex: 1;
+  min-height: 0;
+  color: inherit;
+
+  &:focus-visible {
+    outline: 2px solid $electric-blue;
+    outline-offset: -2px;
+  }
+
+  &:hover .mediaCaption {
+    color: $text-primary;
+    background: $navy-700;
+  }
+}
+
+.mediaImage {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center;
+  flex-shrink: 0;
+  display: block;
+}
+
+// Per-image focal point override for media whose native ratio isn't
+// 16:9 (see media.focalPoint on ProjectCard) so cover-cropping is a
+// deliberate choice, not an accident of object-position defaulting to
+// center on an image where the interesting content sits higher in frame.
+.focalTop {
+  object-position: center top;
+}
+
+.mediaCaption {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.25rem;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  font-family: $font-mono;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: $text-muted;
+  background: $navy-800;
+  border-top: 1px solid $border-subtle;
+  transition: color $transition-base, background $transition-base;
+}
+
+.placeholder {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px dashed $border-med;
+  background: $navy-800;
+  color: $text-muted;
+  font-family: $font-mono;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+// Compact secondary link, only rendered when the media panel's primary link
+// above already points at the live site -- reads as a second, smaller line
+// in the same footer strip rather than a competing call to action. Sits
+// outside .mediaLink as a sibling (not nested) since it's a distinct link.
+.sourceLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+  padding: 0.4rem 1rem;
+  font-family: $font-mono;
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $text-muted;
+  background: $navy-800;
+  border-top: 1px solid $border-subtle;
+  transition: color $transition-base, background $transition-base;
+
+  &:hover {
+    color: $text-primary;
+    background: $navy-700;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $electric-blue;
+    outline-offset: -2px;
+  }
+}
+
+.body {
+  padding: 1.35rem 1.5rem;
+
+  @include desktop {
+    padding: 1.4rem 1.65rem;
+  }
+}
+
+.title {
+  font-family: $font-heading;
+  font-size: 1.2rem;
+  line-height: 1.35;
+  color: $text-primary;
+  margin-bottom: 0.55rem;
+}
+
+.label {
+  font-family: $font-mono;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $text-muted;
+  margin-top: 0.55rem;
+  margin-bottom: 0.2rem;
+}
+
+.text {
+  color: $text-secondary;
+  font-size: 0.93rem;
+  line-height: 1.45;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.55rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag {
+  font-family: $font-mono;
+  font-size: 0.72rem;
+  color: $text-secondary;
+  background: rgba(12, 32, 64, 0.7);
+  border: 1px solid $border-subtle;
+  padding: 0.32rem 0.7rem;
+  border-radius: 100px;
+  letter-spacing: 0.04em;
+}
+
+// No margin-bottom: this is .body's last child now that the bottom
+// "View on GitHub" link is gone, so .body's own padding provides the
+// bottom spacing instead of a redundant margin stacking on top of it.
+.outcome {
+  color: $text-secondary;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
