@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useAnimationControls } from 'framer-motion'
 
 const RESET_WAIT_MS = 2000
-const SCROLL_DURATION = 20
+const SCROLL_DURATION = 80
 const RETURN_DURATION = 1.5
 
 export function useMarquee() {
