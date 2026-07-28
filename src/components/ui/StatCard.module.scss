@@ -2,9 +2,9 @@
 @use '@/styles/_mixins.scss' as *;
 
 .card {
-  background: rgba(12, 32, 64, 0.6);
+  background: $navy-900;
   border: 1px solid $border-subtle;
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 1.1rem;
   position: relative;
   overflow: hidden;
@@ -50,4 +50,32 @@
   color: $text-muted;
   margin-top: 0.2rem;
   line-height: 1.4;
+}
+
+// Smaller variant for pairing two cards side by side (About's Education/Service)
+.compact {
+  padding: 0.4rem 0.6rem 0.4rem 0.8rem;
+
+  @include desktop {
+    padding: 0.4rem 0.6rem 0.4rem 0.8rem;
+  }
+
+  .label {
+    font-size: 0.6rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .value {
+    font-size: 1.05rem;
+    margin: 0.15rem 0;
+
+    @include desktop {
+      font-size: 1.05rem;
+    }
+  }
+
+  .sub {
+    font-size: 0.76rem;
+    line-height: 1.3;
+  }
 }

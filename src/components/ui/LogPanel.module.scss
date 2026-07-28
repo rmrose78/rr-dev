@@ -1,0 +1,53 @@
+@use '@/styles/_variables.scss' as *;
+@use '@/styles/_mixins.scss' as *;
+
+.panel {
+  border: 1px solid $border-med;
+  border-radius: 8px;
+  background: $navy-900;
+  overflow: hidden;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.1rem;
+  border-bottom: 1px solid $border-subtle;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: $electric-blue;
+  box-shadow: 0 0 8px $blue-glow;
+  flex-shrink: 0;
+}
+
+.label {
+  font-family: $font-mono;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $text-muted;
+}
+
+.body {
+  padding: 1.2rem 1.4rem 0.9rem;
+  color: $text-secondary;
+  font-size: 0.95rem;
+  line-height: 1.6;
+
+  @include desktop {
+    font-size: 1rem;
+  }
+}
+
+.foot {
+  padding: 0.4rem 1.4rem 0.55rem;
+  font-family: $font-mono;
+  font-size: 0.7rem;
+  color: $text-muted;
+  letter-spacing: 0.04em;
+}

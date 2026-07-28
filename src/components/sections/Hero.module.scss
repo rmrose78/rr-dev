@@ -12,6 +12,7 @@
   overflow: hidden;
 
   @include desktop {
+    min-height: 85vh;
     padding: 3.25rem $section-px-desktop 2.5rem;
   }
 }

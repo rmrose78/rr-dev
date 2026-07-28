@@ -1,28 +1,49 @@
 import { motion } from 'framer-motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import StatCard from '@/components/ui/StatCard'
+import LogPanel from '@/components/ui/LogPanel'
 import styles from './About.module.scss'
 
-const STAT_CARDS = [
-  {
-    label: 'Production Experience',
-    value: '4 Years',
-    sub: 'React + TypeScript at TaxSlayer',
-  },
+const SPEC_CARDS = [
   {
     label: 'Education',
-    value: 'B.S. Biomedical Engineering',
-    sub: 'Honors, UTSA 2020',
+    value: 'B.S. BME',
+    sub: 'Biomedical Engineering, UTSA',
   },
   {
-    label: 'Veteran',
+    label: 'Service',
     value: 'U.S. Army',
-    sub: 'Human Intelligence (35M), Afghanistan 2012',
+    sub: 'Veteran, Military Intelligence',
+  },
+]
+
+const SKILL_GROUPS = [
+  {
+    label: 'Core Frontend',
+    primary: true,
+    skills: ['TypeScript', 'React', 'JavaScript', 'WCAG / Accessibility'],
   },
   {
-    label: 'Prior Clearance',
-    value: 'TS/SCI',
-    sub: 'Active 2010–2015 (lapsed)',
+    label: 'Testing',
+    primary: false,
+    skills: ['Jest', 'React Testing Library', 'Playwright'],
+  },
+  {
+    label: 'Tools & Workflow',
+    primary: false,
+    skills: [
+      'Git',
+      'Figma',
+      'CI/CD',
+      'Azure DevOps',
+      'A/B Testing',
+      'AI-Assisted Development',
+    ],
+  },
+  {
+    label: 'Backend Exposure',
+    primary: false,
+    skills: ['C# / .NET', 'REST APIs', 'SQL', 'Python'],
   },
 ]
 
@@ -41,73 +62,102 @@ export default function About() {
   return (
     <section id="about" aria-labelledby="about-heading">
       <div className={styles.about}>
-        <motion.div
-          className={styles.left}
-          variants={revealVariants}
-          initial={reducedMotion ? 'visible' : 'hidden'}
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          <p className={styles.sectionLabel}>// 01 About</p>
-          <div className={styles.divider} />
+        <div className={styles.sectionHead}>
+          <p className={styles.eyebrow}>Background</p>
           <h2 className={styles.title} id="about-heading">
-            Building things
-            <br />
-            that matter.
+            The signal so far.
           </h2>
+        </div>
 
-          <p className={styles.text}>
-            I'm a Frontend Developer with nearly four years of production
-            experience in React and TypeScript. My path here went through{' '}
-            <strong>Biomedical Engineering</strong> at UTSA, service as a{' '}
-            <strong>U.S.&nbsp;Army Veteran</strong>, and frontend training
-            through <strong>#VetsWhoCode</strong>.
-          </p>
+        <div className={styles.grid}>
+          <motion.div
+            className={styles.col}
+            variants={revealVariants}
+            initial={reducedMotion ? 'visible' : 'hidden'}
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <LogPanel label="Dispatch" footer="STATUS: TRANSMITTING">
+              <p>
+                U.S. Army veteran first, then a Biomedical Engineering degree
+                at UTSA, where I got into programming. Developer training
+                through{' '}
+                <a
+                  href="https://vetswhocode.io/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className={styles.bioLink}
+                >
+                  #VetsWhoCode
+                </a>{' '}
+                followed, and I've spent my career since building production
+                React and TypeScript applications. More recently, I've been
+                branching out into full-stack projects, always picking up
+                new technologies to become a better developer.
+              </p>
+            </LogPanel>
 
-          <p className={styles.text}>
-            I care about clean, maintainable code and building interfaces that
-            actually serve the people using them. That includes accessibility. I
-            build with Section 508 and WCAG compliance as a standard practice,
-            not an afterthought. I'm drawn to work where the domain matters,
-            whether that's healthcare, research, or public service.
-          </p>
+            <div className={styles.focusNote}>
+              <p className={styles.focusNoteLabel}>Currently scanning</p>
+              <p className={styles.focusNoteText}>
+                Based in Pasadena, Maryland.
+              </p>
+            </div>
 
-          <p className={styles.text}>
-            Based in Pasadena, MD. Open to remote, hybrid, or onsite
-            opportunities in the Maryland/DC corridor.
-          </p>
+            <div className={styles.specs}>
+              {SPEC_CARDS.map((card) => (
+                <StatCard
+                  key={card.label}
+                  label={card.label}
+                  value={card.value}
+                  sub={card.sub}
+                  compact
+                />
+              ))}
+            </div>
+          </motion.div>
 
-          <div className={styles.tags}>
-            {[
-              'React / TypeScript',
-              'C# MVC',
-              'Prior TS/SCI',
-              'Section 508 / WCAG',
-              'Pasadena, MD',
-            ].map((tag) => (
-              <span key={tag} className={styles.tag}>
-                {tag}
-              </span>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          className={styles.right}
-          variants={revealVariants}
-          initial={reducedMotion ? 'visible' : 'hidden'}
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          {STAT_CARDS.map((card) => (
-            <StatCard
-              key={card.label}
-              label={card.label}
-              value={card.value}
-              sub={card.sub}
-            />
-          ))}
-        </motion.div>
+          <motion.div
+            className={styles.col}
+            variants={revealVariants}
+            initial={reducedMotion ? 'visible' : 'hidden'}
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <LogPanel label="Stack" className={styles.stackPanel}>
+              <div className={styles.skillsChart}>
+                {SKILL_GROUPS.map((group) => (
+                  <div key={group.label} className={styles.skillsRow}>
+                    <p className={styles.skillsCat}>{group.label}</p>
+                    {/* list-style: none strips list semantics from the a11y tree
+                        in Safari/VoiceOver unless role="list"/"listitem" are
+                        explicit — jsx-a11y flags these as redundant since it only
+                        checks markup, not this CSS interaction. */}
+                    {/* eslint-disable jsx-a11y/no-redundant-roles */}
+                    <ul
+                      className={styles.tags}
+                      role="list"
+                      aria-label={`${group.label} skills`}
+                    >
+                      {group.skills.map((skill) => (
+                        <li
+                          key={skill}
+                          role="listitem"
+                          className={
+                            group.primary ? styles.tagPrimary : styles.tag
+                          }
+                        >
+                          {skill}
+                        </li>
+                      ))}
+                    </ul>
+                    {/* eslint-enable jsx-a11y/no-redundant-roles */}
+                  </div>
+                ))}
+              </div>
+            </LogPanel>
+          </motion.div>
+        </div>
       </div>
     </section>
   )
