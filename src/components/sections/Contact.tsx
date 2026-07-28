@@ -28,15 +28,16 @@ export default function Contact({ onContactClick }: ContactProps) {
         viewport={{ once: true, amount: 0.2 }}
       >
         <div className={styles.inner}>
-          {/* TODO: Update when recommendations added */}
-          <p className={styles.sectionLabel}>// 04 Contact</p>
-          <h2 className={styles.title} id="contact-heading">
-            Let's work together
-          </h2>
-          <p className={styles.sub}>
-            Based in Pasadena, MD. Open to remote, hybrid, or onsite
-            opportunities in the Maryland/DC corridor.
-          </p>
+          <div className={styles.copy}>
+            <p className={styles.eyebrow}>Open a channel</p>
+            <h2 className={styles.title} id="contact-heading">
+              Have a project in mind?
+            </h2>
+            <div className={styles.status}>
+              <span className={styles.dot} aria-hidden="true" />
+              Based in Pasadena, Maryland.
+            </div>
+          </div>
           <button className={styles.btn} onClick={onContactClick}>
             Send a Message
           </button>

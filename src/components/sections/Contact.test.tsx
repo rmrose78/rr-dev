@@ -17,6 +17,20 @@ describe('Contact', () => {
     expect(onContactClick).toHaveBeenCalledTimes(1)
   })
 
+  it('renders the heading and location status line', () => {
+    // Arrange & Act
+    render(<Contact onContactClick={jest.fn()} />)
+
+    // Assert
+    expect(
+      screen.getByRole('heading', {
+        name: /have a project in mind\?/i,
+        level: 2,
+      })
+    ).toBeInTheDocument()
+    expect(screen.getByText(/based in pasadena, maryland/i)).toBeInTheDocument()
+  })
+
   it('has no accessibility violations', async () => {
     // Arrange
     const { container } = render(<Contact onContactClick={jest.fn()} />)
