@@ -210,7 +210,9 @@
   text-transform: uppercase;
   padding: 0.55rem 1.25rem;
   cursor: pointer;
-  border-radius: 999px;
+  // Rectangular, not pill -- matches Contact's "Send a Message" button,
+  // which does the exact same thing (opens the same ContactModal).
+  border-radius: 4px;
 }
 
 .hamburger {

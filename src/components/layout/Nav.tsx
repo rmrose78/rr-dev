@@ -68,7 +68,7 @@ export default function Nav({ onContactClick }: NavProps) {
             }}
             aria-label="Open Contact Form"
           >
-            Get in Touch
+            Send a Message
           </button>
         </div>
 
@@ -131,7 +131,7 @@ export default function Nav({ onContactClick }: NavProps) {
           }}
           aria-label="Open Contact Form"
         >
-          Get in Touch
+          Send a Message
         </button>
       </nav>
     </>
