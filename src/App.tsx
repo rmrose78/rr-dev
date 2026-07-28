@@ -38,6 +38,7 @@ export default function App() {
         <Projects />
         <SectionDivider compact />
         <Testimonials />
+        <SectionDivider compact />
         <Contact onContactClick={openContactModal} />
       </main>
 

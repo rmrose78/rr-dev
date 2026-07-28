@@ -11,6 +11,7 @@ import {
 const tokens = {
   navy: '#040d1a',
   navy800: '#0c2040',
+  navy900: '#071428',
   white: '#ffffff',
   textSecondary: '#8ab4cc',
   textMuted: '#6690b5',
@@ -62,4 +63,20 @@ describe('design token contrast ratios', () => {
     // Assert
     expect(ratio).toBeGreaterThanOrEqual(WCAG_AA_LARGE_TEXT)
   })
+
+  // navy-900 is the flat card background shared by ProjectCard, LogPanel,
+  // and the Testimonials carousel card.
+  it.each([
+    ['text-secondary', tokens.textSecondary, tokens.navy900],
+    ['text-muted', tokens.textMuted, tokens.navy900],
+  ])(
+    '%s on navy-900 (shared card background) meets WCAG AA normal text (4.5:1)',
+    (_label, fg, bg) => {
+      // Act
+      const ratio = contrastRatio(fg, bg)
+
+      // Assert
+      expect(ratio).toBeGreaterThanOrEqual(WCAG_AA_NORMAL_TEXT)
+    }
+  )
 })
