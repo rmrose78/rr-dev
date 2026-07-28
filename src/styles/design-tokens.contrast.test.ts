@@ -10,6 +10,7 @@ import {
 // update it here too.
 const tokens = {
   navy: '#040d1a',
+  navy800: '#0c2040',
   white: '#ffffff',
   textSecondary: '#8ab4cc',
   textMuted: '#6690b5',
@@ -32,6 +33,31 @@ describe('design token contrast ratios', () => {
   it('electric-blue accent/focus-ring on navy meets WCAG AA UI contrast (3:1)', () => {
     // Act
     const ratio = contrastRatio(tokens.electricBlue, tokens.navy)
+
+    // Assert
+    expect(ratio).toBeGreaterThanOrEqual(WCAG_AA_LARGE_TEXT)
+  })
+
+  // navy-800 is the lighter end of LogPanel's gradient background
+  // (linear-gradient(navy-900, navy-800)) — the worst case for contrast
+  // since it's the palest of the two stops.
+  it.each([
+    ['text-secondary', tokens.textSecondary, tokens.navy800],
+    ['text-muted', tokens.textMuted, tokens.navy800],
+  ])(
+    '%s on navy-800 (LogPanel background) meets WCAG AA normal text (4.5:1)',
+    (_label, fg, bg) => {
+      // Act
+      const ratio = contrastRatio(fg, bg)
+
+      // Assert
+      expect(ratio).toBeGreaterThanOrEqual(WCAG_AA_NORMAL_TEXT)
+    }
+  )
+
+  it('electric-blue status dot on navy-800 meets WCAG AA UI contrast (3:1)', () => {
+    // Act
+    const ratio = contrastRatio(tokens.electricBlue, tokens.navy800)
 
     // Assert
     expect(ratio).toBeGreaterThanOrEqual(WCAG_AA_LARGE_TEXT)

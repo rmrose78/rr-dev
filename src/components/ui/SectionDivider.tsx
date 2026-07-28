@@ -1,11 +1,18 @@
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import styles from './SectionDivider.module.scss'
 
-export default function SectionDivider() {
+interface SectionDividerProps {
+  compact?: boolean
+}
+
+export default function SectionDivider({ compact }: SectionDividerProps) {
   const reducedMotion = useReducedMotion()
 
   return (
-    <div className={styles.divider} aria-hidden="true">
+    <div
+      className={`${styles.divider} ${compact ? styles.compact : ''}`}
+      aria-hidden="true"
+    >
       <span className={styles.line} />
       <svg
         className={`${styles.orbit} ${reducedMotion ? styles.reducedMotion : ''}`}

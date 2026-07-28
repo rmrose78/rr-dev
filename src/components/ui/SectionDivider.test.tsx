@@ -27,6 +27,14 @@ describe('SectionDivider', () => {
     expect(results).toHaveNoViolations()
   })
 
+  it('applies the compact modifier class when requested', () => {
+    // Arrange & Act
+    const { container } = render(<SectionDivider compact />)
+
+    // Assert
+    expect(container.firstChild).toHaveClass(styles.compact)
+  })
+
   it('disables the orbit animation under prefers-reduced-motion (the test default)', () => {
     // Arrange & Act
     const { container } = render(<SectionDivider />)

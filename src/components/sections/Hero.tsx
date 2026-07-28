@@ -65,10 +65,10 @@ export default function Hero() {
         </motion.h1>
 
         <motion.p className={styles.bio} variants={itemVariants}>
-          Nearly four years of production experience building React and
-          TypeScript applications. U.S. Army Veteran and Biomedical Engineering
-          graduate, drawn to building things that actually make a difference.
-          Also, I have a thing for space, which explains all of this.
+          U.S. Army veteran with professional experience building React and
+          TypeScript applications that serve millions of users. Drawn to work
+          where the problem actually matters. Also, I have a thing for space,
+          which explains all of this.
         </motion.p>
 
         <motion.div className={styles.actions} variants={itemVariants}>

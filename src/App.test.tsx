@@ -20,10 +20,7 @@ describe('App', () => {
     // Assert
     expect(screen.getAllByRole('main')).toHaveLength(1)
     expect(
-      screen.getByRole('heading', { name: /building things/i })
-    ).toBeInTheDocument()
-    expect(
-      screen.getByRole('heading', { name: /where i've been/i })
+      screen.getByRole('heading', { name: /the signal so far/i })
     ).toBeInTheDocument()
   })
 
