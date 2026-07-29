@@ -96,20 +96,10 @@ developer builds things.
 
 ## Current Priority
 
-**Active initiative: full site revamp adopting mockup i1.** In progress on
-integration branch `redesign/mockup-i1` (branched off `main`), not `main`
-directly — this touches nearly every section and will land as 5 issues
-over about a week. Every issue branch for this initiative branches off
-`redesign/mockup-i1` and PRs into it, never into `main`. `main` stays
-untouched (and its Netlify auto-deploy stays safe for hotfixes) until the
-whole revamp is reviewed together and merged to `main` in one final PR.
-Source of truth: `/1-grill-me` interview is complete (see
-`docs/handoff/2026-07-27-mockup-i1-adoption-adjustments.md` for the
-original handoff plus the structural decisions resolved in that session —
-Experience section cut, Skills folded into About, full decor-system
-adoption, hero copy/scroll-cue, footer copy, resume link deferred as a
-follow-up). Remove this paragraph once `redesign/mockup-i1` merges to
-`main`.
+The mockup-i1 site revamp (decor system, Nav + Hero, About consolidation,
+Projects section, Testimonials + Footer, Contact section, misc cleanup)
+is complete and merged to `main`. Resume link is deferred as a follow-up,
+not yet filed as an issue.
 
 This session set up the Claude Code workflow (skills, accessibility
 tooling, contrast testing) ported from a more mature sibling project. What
@@ -137,8 +127,8 @@ that unlocked and what's still open:
   planned projects/case-study section is the next place to make that
   visible to visitors.
 - The hero/above-the-fold rebuild and the projects/case-study showcase
-  section flagged here previously are now underway as part of the active
-  mockup-i1 initiative above, not still-open items.
+  section flagged here previously are now done as part of the mockup-i1
+  revamp above, not still-open items.
 - Known follow-up, not yet filed as an issue: `ContactModal.tsx` calls
   `fetch` directly instead of going through `src/utils/`. Fine as-is since
   it's a single consumer (see `fe-standards.md`'s external-service rule),
