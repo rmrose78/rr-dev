@@ -1,14 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <rect width="32" height="32" rx="4" fill="#040d1a"/>
-  <text
-    x="50%"
-    y="52%"
-    dominant-baseline="middle"
-    text-anchor="middle"
-    font-family="monospace"
-    font-size="20"
-    font-weight="700"
-    letter-spacing="-1"
-    fill="#38bdf8"
-  >rr</text>
+  <line x1="16" y1="6" x2="16" y2="27" stroke="#38bdf8" stroke-opacity="0.45" stroke-width="1.5"/>
+  <circle cx="16" cy="9" r="7" fill="rgba(56, 189, 248, 0.35)"/>
+  <circle cx="16" cy="9" r="3.25" fill="#38bdf8"/>
 </svg>
