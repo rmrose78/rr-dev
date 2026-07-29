@@ -53,8 +53,29 @@ before writing any code or making any decisions.
 - All AI-assisted feature work goes through the pipeline: `/1-grill-me` →
   `/2-to-prd` → `/3-to-issues` → `/4-tdd`. Every issue gets its own GitHub
   issue and its own branch (`<issue-number>-<slug>`) before any code is
-  written — never implement directly on `main`. The skill never commits or
-  opens the PR automatically; both stay explicit, developer-initiated steps
+  written — never implement directly on `main`. `/4-tdd` never commits or
+  opens the PR automatically on its own initiative; the developer triggers
+  both explicitly. Once triggered, committing (including multiple commits
+  to structure a solution into a logical sequence) and opening the PR do
+  not need per-step permission — the review gate is the PR itself, which
+  the developer reviews as a whole before merging, not each individual
+  commit inside it. Never merge without the developer's explicit go-ahead
+  after they've reviewed the PR
+- Multi-issue initiative with a temporary integration branch (e.g. a
+  full-site revamp spanning several issues, like `redesign/mockup-i1`):
+  every issue's branch forks off that integration branch and its PR
+  targets that branch, not `main`. `main` stays untouched — and its
+  deploy stays safe — until the whole initiative is reviewed together and
+  merged to `main` in one final PR. Check CLAUDE.md's "Current Priority"
+  for whether one is currently active before branching
+- Batch issue check-in (distinct from `/4-tdd` above): when checking in a
+  set of already-decided changes as multiple issues at once (housekeeping,
+  chores, tooling additions the developer has already scoped, not a
+  feature being built fresh), create every GitHub issue up front, then for
+  each one create its branch, commit, push, and open the PR without asking
+  permission per git step. Never merge without the developer's explicit
+  go-ahead after they've verified the branch/PR themselves — that
+  verification step is the gate, not each individual commit
 - No em dashes in copy, prose, or commit messages — use periods or commas
 
 ## Collaboration Style
@@ -74,6 +95,11 @@ as engineered, not templated — the site itself is evidence of how the
 developer builds things.
 
 ## Current Priority
+
+The mockup-i1 site revamp (decor system, Nav + Hero, About consolidation,
+Projects section, Testimonials + Footer, Contact section, misc cleanup)
+is complete and merged to `main`. Resume link is deferred as a follow-up,
+not yet filed as an issue.
 
 This session set up the Claude Code workflow (skills, accessibility
 tooling, contrast testing) ported from a more mature sibling project. What
@@ -100,12 +126,9 @@ that unlocked and what's still open:
   Accessibility section documents the testing practice instead, and the
   planned projects/case-study section is the next place to make that
   visible to visitors.
-- Not yet done, and the next real work: the hero/above-the-fold section
-  has not been rebuilt, and there is no projects/architecture showcase
-  section yet. Run `/1-grill-me` to work through both — above-the-fold
-  content should sell the developer immediately, not just introduce the
-  site, and a projects section with real case-study depth is the strongest
-  evidence against "this looks AI-generated."
+- The hero/above-the-fold rebuild and the projects/case-study showcase
+  section flagged here previously are now done as part of the mockup-i1
+  revamp above, not still-open items.
 - Known follow-up, not yet filed as an issue: `ContactModal.tsx` calls
   `fetch` directly instead of going through `src/utils/`. Fine as-is since
   it's a single consumer (see `fe-standards.md`'s external-service rule),
@@ -121,3 +144,5 @@ that unlocked and what's still open:
 - Frontend conventions, SCSS architecture, folder structure →
   `.claude/skills/4-tdd/fe-standards.md`
 - Accessibility checklist → `.claude/skills/4-tdd/a11y-checklist.md`
+- Cross-project handoffs → `docs/handoff/` — check for pending handoff
+  docs from sibling projects (e.g. researchpulse) before starting new work

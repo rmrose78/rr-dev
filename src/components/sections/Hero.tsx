@@ -1,15 +1,28 @@
-import { useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
-import { useMolecularCanvas } from '@/hooks/useMolecularCanvas'
-import { useTypewriter } from '@/hooks/useTypewriter'
+import GitHubIcon from '@/components/ui/GitHubIcon'
+import LinkedInIcon from '@/components/ui/LinkedInIcon'
 import styles from './Hero.module.scss'
 
-/**
- * Hero section -- full viewport, molecular canvas background,
- * staggered fade-in on load, typewriter phrase cycling.
- * All animations respect prefers-reduced-motion.
- */
+// How far the page can scroll before the scroll cue (label + trail) fades
+// out entirely.
+const SCROLL_CUE_THRESHOLD_PX = 40
+
+function useIsAtTop(): boolean {
+  const [isAtTop, setIsAtTop] = useState(true)
+
+  useEffect(() => {
+    function handleScroll() {
+      setIsAtTop(window.scrollY < SCROLL_CUE_THRESHOLD_PX)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  return isAtTop
+}
 
 // Framer Motion variants -- named animation states
 // 'hidden' is the starting state, 'visible' is the end state
@@ -31,83 +44,72 @@ const itemVariants = {
   },
 } as const
 
-interface HeroProps {
-  onContactClick: () => void
-}
-
-export default function Hero({ onContactClick }: HeroProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+export default function Hero() {
   const reducedMotion = useReducedMotion()
-
-  useMolecularCanvas(canvasRef, reducedMotion)
-
-  const typewriterText = useTypewriter(reducedMotion)
+  const isAtTop = useIsAtTop()
 
   return (
-    <section id={'hero'} className={styles.hero}>
-      {/* Canvas Background -- aria-hidden so screen readers skip it */}
-      <canvas ref={canvasRef} className={styles.canvas} aria-hidden="true" />
-
+    <section id="hero" className={styles.hero}>
       <motion.div
         className={styles.content}
         variants={containerVariants}
         initial={reducedMotion ? 'visible' : 'hidden'}
         animate="visible"
       >
-        <motion.p className={styles.label} variants={itemVariants}>
-          Ryan Rose
+        <motion.p className={styles.eyebrow} variants={itemVariants}>
+          Software Developer
         </motion.p>
 
         <motion.h1 className={styles.heading} variants={itemVariants}>
-          Frontend
-          <br />
-          <span className={styles.last}>Developer.</span>
+          Build things that <span className={styles.accent}>matter</span>.
         </motion.h1>
 
-        <motion.div className={styles.description} variants={itemVariants}>
-          <span
-            className={styles.typewriter}
-            aria-label="Frontend Developer focused on crafting performant, accessible, and delightful web experiences."
-          >
-            {typewriterText}
-          </span>
-          <span className={styles.cursor} aria-hidden="true" />
-        </motion.div>
-
         <motion.p className={styles.bio} variants={itemVariants}>
-          React and TypeScript engineer with a background in Biomedical
-          Engineering and U.S. Army service. I build clean, accessible
-          interfaces and am drawn to work at the intersection of software and
-          science, whether that's health IT, research tooling, or defense
-          technology.
+          U.S. Army veteran with professional experience building React and
+          TypeScript applications that serve millions of users. Drawn to work
+          where the problem actually matters. Also, I have a thing for space,
+          which explains all of this.
         </motion.p>
 
         <motion.div className={styles.actions} variants={itemVariants}>
-          <button className={styles.btnPrimary} onClick={onContactClick}>
-            Get in Touch
-          </button>
-          <a
-            href="https://github.com/rmrose78"
-            target="_blank"
-            rel="noreferrer"
-            className={styles.btnGhost}
-          >
-            View GitHub
+          <div className={styles.iconRow}>
+            <a
+              href="https://github.com/rmrose78"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="GitHub"
+              className={styles.iconLink}
+            >
+              <GitHubIcon />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/ryan-rose-272626170/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn"
+              className={styles.iconLink}
+            >
+              <LinkedInIcon />
+            </a>
+          </div>
+          <a href="#projects" className={styles.btnOutline}>
+            Jump to Projects
           </a>
         </motion.div>
       </motion.div>
 
-      {/* Scroll cue */}
-      <motion.div
-        className={styles.scrollCue}
+      {/* Scroll cue -- a short star trail: a thin line with a small glowing
+          dot travelling down it on a loop, echoing the shooting-star motif
+          in the site-wide decor system. The whole cue (label + trail) only
+          shows while at the top of the page. Purely decorative. */}
+      <div
+        className={`${styles.scrollCue} ${reducedMotion ? styles.reducedMotion : ''} ${isAtTop ? '' : styles.scrollCueHidden}`}
         aria-hidden="true"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.8 }}
       >
-        <span className={styles.scrollText}>scroll</span>
+        <span className={styles.scrollText}>Scroll</span>
         <span className={styles.scrollLine} />
-      </motion.div>
+        <span className={styles.scrollDot} />
+      </div>
     </section>
   )
 }

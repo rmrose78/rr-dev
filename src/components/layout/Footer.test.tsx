@@ -18,6 +18,17 @@ describe('Footer', () => {
     )
   })
 
+  it('renders the Dune quote', () => {
+    // Arrange & Act
+    render(<Footer />)
+
+    // Assert
+    expect(
+      screen.getByText(/fear is the mind-killer/i)
+    ).toBeInTheDocument()
+    expect(screen.getByText('Frank Herbert, Dune')).toBeInTheDocument()
+  })
+
   it('has no accessibility violations', async () => {
     // Arrange
     const { container } = render(<Footer />)

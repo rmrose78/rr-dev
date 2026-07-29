@@ -1,6 +1,7 @@
 // Colors
 $navy: #040d1a;
 $electric-blue: #38bdf8;
+$blue-pale: #7dd3fc; // decorative-only (starfield/constellation accents), not used on text
 $teal: #64e4c8;
 $white: #ffffff;
 $gray-400: #94a3b8;
@@ -41,3 +42,5 @@ $text-muted: #6690b5; // 5.77:1 on $navy — was #4a6b8a (3.49:1, failed WCAG AA
 $electric-dim: #1e7aaa;
 $electric-glow: rgba(56, 189, 248, 0.15);
 $border-subtle: rgba(56, 189, 248, 0.12);
+$border-med: rgba(56, 189, 248, 0.24);
+$blue-glow: rgba(56, 189, 248, 0.35); // status-dot glow, distinct from $electric-glow (Nav CTA hover fill)

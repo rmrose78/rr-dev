@@ -13,16 +13,34 @@ describe('StatCard', () => {
     expect(screen.getByText('UTSA 2020')).toBeInTheDocument()
   })
 
-  it('has no accessibility violations', async () => {
+  it('renders the compact variant', () => {
+    // Arrange & Act
+    render(<StatCard label="Education" value="B.S." sub="UTSA 2020" compact />)
+
+    // Assert
+    expect(screen.getByText('Education')).toBeInTheDocument()
+    expect(screen.getByText('B.S.')).toBeInTheDocument()
+  })
+
+  it('has no accessibility violations, default and compact', async () => {
     // Arrange
-    const { container } = render(
+    const { container, rerender } = render(
       <StatCard label="Education" value="B.S." sub="UTSA 2020" />
     )
 
     // Act
-    const results = await axe(container)
+    const defaultResults = await axe(container)
 
     // Assert
-    expect(results).toHaveNoViolations()
+    expect(defaultResults).toHaveNoViolations()
+
+    // Act
+    rerender(
+      <StatCard label="Education" value="B.S." sub="UTSA 2020" compact />
+    )
+    const compactResults = await axe(container)
+
+    // Assert
+    expect(compactResults).toHaveNoViolations()
   })
 })

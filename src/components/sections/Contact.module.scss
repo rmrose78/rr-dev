@@ -2,94 +2,123 @@
 @use '@/styles/_mixins.scss' as *;
 
 .section {
-  padding: 4rem $section-px-mobile 6rem;
+  padding: $section-py-mobile $section-px-mobile;
   max-width: 1100px;
   margin: 0 auto;
-  text-align: center;
 
   @include desktop {
-    padding: 5rem $section-px-desktop 8rem;
+    padding: 3.5rem $section-px-desktop $section-py-desktop;
   }
 }
 
-// Card container with top gradient line accent
+// Panel with a soft radial-glow background, matching the mockup's
+// "broadcasting" motif -- two off-center electric-blue tints over the
+// shared navy-900 card surface, same rgba(56, 189, 248, x) ad-hoc tint
+// pattern already used elsewhere (e.g. ProjectCard's .tagPrimary).
 .inner {
-  background: $navy-900;
-  border: 1px solid $border-subtle;
-  border-radius: 4px;
-  padding: 2.5rem 1.5rem;
   position: relative;
+  border: 1px solid $border-med;
+  border-radius: 20px;
+  padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 4vw, 3.5rem);
+  background:
+    radial-gradient(
+      circle at 12% 18%,
+      rgba(56, 189, 248, 0.18),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 88% 82%,
+      rgba(56, 189, 248, 0.14),
+      transparent 55%
+    ),
+    $navy-900;
+  box-shadow: 0 40px 80px -40px $blue-glow;
   overflow: hidden;
 
-  @include desktop {
-    padding: 4rem 3rem;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.75rem;
 
-  // Gradient line across the top of the card
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(
-      to right,
-      transparent,
-      $electric-blue,
-      transparent
-    );
-    opacity: 0.4;
+  @include desktop {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
   }
 }
 
-.sectionLabel {
+.copy {
+  position: relative;
+}
+
+.eyebrow {
   font-family: $font-mono;
   font-size: 0.72rem;
   color: $electric-blue;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .title {
   font-family: $font-heading;
-  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-size: clamp(1.5rem, 5vw, 2rem);
   font-weight: 700;
   color: $text-primary;
-  margin-bottom: 1rem;
+  max-width: 28ch;
 }
 
-.sub {
-  font-size: 0.95rem;
-  color: $text-secondary;
-  max-width: 480px;
-  margin: 0 auto 2rem;
-  line-height: 1.7;
+.status {
+  display: inline-flex;
+  // flex-start, not center: the current copy is a short one-line location
+  // string, but this line has held longer, multi-line copy before and may
+  // again. Center-aligning the dot against a multi-line block floats it to
+  // the vertical middle of the paragraph instead of anchoring it beside the
+  // first line, like a bullet stranded mid-sentence. flex-start plus the
+  // dot's own margin-top (below) keeps it pinned beside the first line
+  // whether the text wraps or not.
+  align-items: flex-start;
+  gap: 0.4rem;
+  font-family: $font-mono;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $electric-blue;
+  margin-top: 0.6rem;
+  // Caps the line at a readable measure and, on wide desktop viewports,
+  // keeps this column narrow enough to sit beside the button on one row
+  // instead of claiming the full panel width and forcing the button onto
+  // its own row underneath (it did at 1440px before this cap existed).
+  max-width: 58ch;
+}
 
-  @include desktop {
-    font-size: 1rem;
-    margin-bottom: 2.5rem;
-  }
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: $electric-blue;
+  box-shadow: 0 0 6px $blue-glow;
+  flex-shrink: 0;
+  // Nudges the dot down from the line-box top to sit level with the
+  // first line's cap-height now that align-items is flex-start.
+  margin-top: 0.4em;
 }
 
 .btn {
+  // Same button treatment as Nav's "Get in Touch" CTA (both open the
+  // same ContactModal) -- a solid color swap on hover via the mixin's own
+  // ::before layer, not opacity. The old opacity: 0.85 hover faded the
+  // whole button (background AND text) toward the dark panel behind it
+  // simultaneously, collapsing their contrast instead of preserving it.
+  @include btn-outline-fill;
   font-family: $font-mono;
   font-size: 0.82rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: $navy;
-  background: $electric-blue;
-  border: none;
   padding: 0.85rem 2.5rem;
-  border-radius: 2px;
+  border-radius: 12px;
   cursor: pointer;
-  transition:
-    opacity $transition-base,
-    transform $transition-base;
-
-  &:hover {
-    opacity: 0.85;
-    transform: translateY(-1px);
-  }
+  flex-shrink: 0;
 }

@@ -54,8 +54,7 @@ export default function Testimonials() {
           whileInView={'visible'}
           viewport={{ once: true, amount: 0.2 }}
         >
-          <p className={styles.sectionLabel}>// 04 Recommendations</p>
-          <div className={styles.divider} />
+          <p className={styles.eyebrow}>Recommendations</p>
           <h2 className={styles.title} id="testimonials-heading">
             What others say.
           </h2>

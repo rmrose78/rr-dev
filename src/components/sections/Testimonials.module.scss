@@ -2,38 +2,36 @@
 @use '@/styles/_mixins.scss' as *;
 
 .section {
-  padding: $section-py-mobile 0;
+  padding: $section-py-mobile $section-px-mobile;
+  max-width: 1100px;
+  margin: 0 auto;
 
   @include desktop {
-    padding: $section-py-desktop 0;
+    // Reduced top AND bottom padding, matching every other section's
+    // compact rhythm (About, Projects). Bottom was still the full
+    // $section-py-desktop until this pass -- with a SectionDivider now
+    // added between Testimonials and Contact (there wasn't one before),
+    // that combination was producing a visibly larger gap than every
+    // other section transition on the page.
+    padding: 3.5rem $section-px-desktop;
   }
 }
 
 .header {
-  padding: 0 $section-px-mobile;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
 
   @include desktop {
-    padding: 0 $section-px-desktop;
-    margin-bottom: 3.5rem;
+    margin-bottom: 2rem;
   }
 }
 
-.sectionLabel {
+.eyebrow {
   font-family: $font-mono;
   font-size: 0.72rem;
   color: $electric-blue;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
-}
-
-.divider {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(to right, $electric-blue, transparent);
-  margin-bottom: 0.75rem;
-  opacity: 0.3;
 }
 
 .title {
@@ -86,6 +84,12 @@
 // The scrolling track -- contains all cards, animates infinitely
 .track {
   display: flex;
+  // stretch (the flexbox default): all cards in the row match the
+  // tallest card's height for a clean, aligned row. The gap that used to
+  // leave under shorter quotes is now addressed by shrinking the quote's
+  // font size and the card's padding instead of letting each card size
+  // to its own content.
+  align-items: stretch;
   gap: 1.5rem;
   width: max-content;
   cursor: grab;
@@ -103,15 +107,15 @@
 
 // Individual card
 .card {
-  background: rgba(12, 32, 64, 0.6);
+  background: $navy-900;
   border: 1px solid $border-subtle;
   border-radius: 4px;
-  padding: 1.75rem;
+  padding: 1.4rem;
   width: 360px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
   position: relative;
   overflow: hidden;
 
@@ -134,18 +138,18 @@
 
   @include desktop {
     width: 420px;
-    padding: 2rem;
+    padding: 1.1rem;
   }
 }
 
 .quote {
-  font-size: 0.9rem;
+  font-size: 0.84rem;
   color: $text-secondary;
-  line-height: 1.8;
+  line-height: 1.65;
   font-style: italic;
 
   @include desktop {
-    font-size: 0.95rem;
+    font-size: 0.88rem;
   }
 }
 
@@ -153,6 +157,10 @@
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
+  // Pins the author block to the bottom of the card now that .track's
+  // stretch makes every card the same (tallest-card) height -- keeps the
+  // name/role anchored at the bottom edge instead of floating right under
+  // a short quote.
   margin-top: auto;
 }
 
@@ -176,12 +184,10 @@
   align-items: center;
   justify-content: flex-start;
   gap: 0.5rem;
-  margin-top: 1.5rem;
-  padding: 0 $section-px-mobile;
+  margin-top: 1rem;
 
   @include desktop {
-    padding: 0 $section-px-desktop;
-    margin-top: 1.75rem;
+    margin-top: 1.25rem;
   }
 }
 
