@@ -13,18 +13,18 @@ describe('About', () => {
     ).toBeInTheDocument()
     expect(screen.getByText('Dispatch')).toBeInTheDocument()
     expect(screen.getByText('Stack')).toBeInTheDocument()
-    expect(screen.getByText('Currently scanning')).toBeInTheDocument()
+    expect(screen.getByText('Ground station')).toBeInTheDocument()
     expect(screen.getByText('Education')).toBeInTheDocument()
     expect(screen.getByText('Service')).toBeInTheDocument()
   })
 
-  it('renders the Dispatch bio before the Currently scanning focus-note', () => {
+  it('renders the Dispatch bio before the Ground station focus-note', () => {
     // Arrange & Act
     render(<About />)
 
     // Assert
     const dispatch = screen.getByText('Dispatch')
-    const focusNote = screen.getByText('Currently scanning')
+    const focusNote = screen.getByText('Ground station')
     expect(
       dispatch.compareDocumentPosition(focusNote) &
         Node.DOCUMENT_POSITION_FOLLOWING

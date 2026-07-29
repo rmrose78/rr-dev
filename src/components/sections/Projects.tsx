@@ -81,10 +81,11 @@ export default function Projects() {
             About this site
           </p>
           <p className={styles.metaText}>
-            Built to the same standard as the case studies below: SCSS
-            Modules, jest-axe and a real-browser accessibility sweep on
-            every component, and an AI-assisted review workflow that
-            speeds up checks without skipping manual verification.{' '}
+            Built to the same standard as the case studies below: Jest
+            test coverage, Lighthouse and real-browser accessibility
+            sweeps on every component, and an AI-assisted review workflow
+            that speeds up checks without skipping manual verification.
+            {' '}
             <a
               href="https://github.com/rmrose78/rr-dev"
               target="_blank"

@@ -98,7 +98,7 @@ export default function About() {
             </LogPanel>
 
             <div className={styles.focusNote}>
-              <p className={styles.focusNoteLabel}>Currently scanning</p>
+              <p className={styles.focusNoteLabel}>Ground station</p>
               <p className={styles.focusNoteText}>
                 Based in Pasadena, Maryland.
               </p>

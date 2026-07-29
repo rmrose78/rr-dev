@@ -1,15 +1,20 @@
-# Issue 7: Misc polish (About focus-note label, favicon)
+# Issue 7: Misc polish and final revamp cleanup
 
 ## What
 Two small, unrelated fixes that came up during review of the Contact
-section work: About's focus-note label read as implying active
-job-searching, and the favicon didn't reflect anything about the site's
-actual visual identity.
+section work (About's focus-note label, the favicon), plus the last
+round of loose ends before the mockup-i1 revamp's final integration:
+a button-radius tweak, a Projects.tsx copy fix, and removing the
+mockup/handoff docs the revamp no longer needs now that the design
+direction they described has actually been built.
 
 ## Why
-Neither of these belongs under the Contact section issue (they don't
-touch Contact at all) or the Testimonials/Footer issue, so they're
-tracked here rather than folded into either.
+Neither of the original two items belongs under the Contact section
+issue (they don't touch Contact at all) or the Testimonials/Footer
+issue, so they're tracked here rather than folded into either. The
+remaining items surfaced during final review, right before the
+integration branch merges to `main` — small enough to fold into this
+same "misc" issue rather than spin up another one.
 
 ## Acceptance Criteria
 - [x] About's focus-note label changed from "Currently scanning" to
@@ -27,12 +32,36 @@ tracked here rather than folded into either.
       `Contact`, and `Testimonials`. Uses only the site's existing color
       tokens ($navy, $electric-blue, $blue-glow), no new colors. Verified
       legible at 16px, 32px, and 128px
+- [x] Projects.tsx "About this site" blurb reworded: dropped "SCSS
+      Modules" (an internal implementation detail that doesn't land with
+      a non-frontend reader) in favor of "Jest test coverage" and
+      "Lighthouse", both recognizable names that actually signal testing
+      rigor to the section's audience
+- [x] Nav's `.cta` and Contact's `.btn` border-radius were adjusted via
+      direct IDE edits to 8px and 12px respectively, no longer matching
+      each other (issue #18 had unified them at 4px). Flagged to the
+      developer as a likely regression of that fix; developer's explicit
+      call was to ship the mismatch as-is rather than reconcile it
+- [x] `docs/mockups/mockup-i1-project-blocks.html`,
+      `docs/mockups/mockup-h4-blue-shootingstars-constellation.html`, and
+      `docs/handoff/2026-07-27-mockup-i1-adoption-adjustments.md` removed
+      — the mockup and handoff doc this whole revamp was built against,
+      no longer needed once the design direction they describe is
+      actually implemented in the live components
+- [x] `.claude/skills/4-tdd/SKILL.md` formatting/content update (branch
+      linking guidance) checked in — pre-existing local edit from earlier
+      in the initiative, unrelated to any single issue's code
 
 ## Layers Touched
-- [x] Components — `About.tsx` (focus-note label text)
+- [x] Components — `About.tsx` (focus-note label text), `Projects.tsx`
+      (about-this-site copy)
 - [x] Assets — `src/assets/favicon.svg` (full redesign)
+- [x] Styles — `Nav.module.scss`, `Contact.module.scss` (button radius,
+      see scope notes)
 - [x] Tests — `About.test.tsx` updated for the new label text (two
       assertions: presence and DOM-order relative to the Dispatch panel)
+- [x] Docs — removed the mockup-i1 source mockup, its superseded h4
+      predecessor, and the adoption handoff doc; skill doc update
 
 ### Scope notes
 - The favicon change has no test coverage by nature (a static asset with
@@ -44,6 +73,11 @@ tracked here rather than folded into either.
   `index.html`, likely leftover scaffolding from before this project's
   current design direction). It was deliberately left untouched here,
   out of scope for this issue.
+- The button-radius mismatch (Nav 8px / Contact 12px) is a known,
+  deliberate exception to this repo's usual contrast/consistency
+  discipline — called out explicitly to the developer before shipping,
+  not missed. Worth a follow-up if it turns out to bother anyone in
+  practice.
 
 ## Edge Cases
 None beyond the standard render/a11y checks.
