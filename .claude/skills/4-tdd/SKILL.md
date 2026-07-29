@@ -24,7 +24,17 @@ was run, developer sign-off.
 1. Confirm the current branch is specific to this issue (e.g.
    `<issue-number>-<slug>`) — if on `main`, or on a branch for a
    different issue, create/switch to the correct branch before writing
-   any code. Never implement an issue directly on `main`
+   any code. Never implement an issue directly on `main`. Create the
+   branch with `gh issue develop <issue-number> --name <issue-number>-<slug>
+   --base <base-branch> --checkout` (not plain `git checkout -b`) so
+   GitHub actually links the branch to the issue in its Development
+   panel — a name matching the issue number is not the same as a linked
+   branch, and an unlinked branch means the issue won't auto-close on
+   merge unless the PR merges to the repo's default branch (`main`),
+   which won't be true for issues on an integration branch like
+   `redesign/mockup-i1`. Confirmed missing on Issue 10: the branch was
+   never linked, so the PR's `Closes #10` never fired and the issue had
+   to be closed manually after merge
 2. Read `fe-standards.md` in this directory before writing any component
 3. If committing — run through `pre-commit.md` in this directory
 
