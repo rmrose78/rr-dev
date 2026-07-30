@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: write
+
 jobs:
   precommit:
     runs-on: ubuntu-latest
@@ -17,3 +20,18 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run precommit
+
+      # Coverage badge: only regenerated (and only ever committed) on
+      # pushes to main, never on PR builds, so PR branches stay untouched.
+      - name: Generate coverage badge
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          npm run test:coverage
+          npm run coverage:badge
+
+      - name: Commit coverage badge
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: update coverage badge [skip ci]'
+          file_pattern: badges/coverage.json

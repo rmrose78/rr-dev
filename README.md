@@ -1,5 +1,7 @@
 # rr-dev
 
+![Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/rmrose78/rr-dev/main/badges/coverage.json)
+
 Personal portfolio site for Ryan Rose, frontend developer.
 
 ## Quickstart
@@ -60,9 +62,13 @@ every component and verified in a real browser, are the evidence.
 - `npm run format` — Prettier
 - `npm test` — Jest
 - `npm run test:watch` — Jest watch mode
+- `npm run test:coverage` — Jest with a coverage report
 - `npm run test:a11y` — real-browser accessibility sweep (Playwright + axe-core)
 - `npm run lighthouse:a11y` — Lighthouse accessibility check (dev server must be running)
 - `npm run precommit` — build + lint + test in one command
+
+See `docs/reference/architecture.md` for how the pieces fit together
+(build, deploy, the one external integration).
 
 ## Structure
 

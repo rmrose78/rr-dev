@@ -2,6 +2,8 @@ export default {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['/node_modules/', '<rootDir>/e2e/'],
+  collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/**/*.test.{ts,tsx}'],
+  coverageReporters: ['text', 'json-summary'],
   setupFilesAfterEnv: [
     '@testing-library/jest-dom',
     'jest-axe/extend-expect',
