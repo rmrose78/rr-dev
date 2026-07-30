@@ -33,13 +33,14 @@
     left: 0;
     top: 50%;
     width: 100%;
-    min-width: 1.5px;
+    max-width: 1px;
+    min-width: 1px;
     height: var(--trail-len, 0px);
     transform-origin: top;
     transform: scaleY(var(--trail-dir, 1))
-      scaleX(calc(1 + var(--trail-intensity, 0) * 1.4));
+      scaleX(calc(1 + var(--trail-intensity, 0) * 0.5));
     opacity: var(--trail-intensity, 0);
-    background: linear-gradient(to bottom, rgba(203, 232, 253, 0.85), rgba(203, 232, 253, 0));
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
     border-radius: 2px;
   }
 }
