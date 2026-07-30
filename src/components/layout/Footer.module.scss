@@ -54,7 +54,14 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: $text-muted;
-  opacity: 0.7;
+  // 0.7 opacity blended this to an effective ~3.39:1 against navy --
+  // opacity blends the text color toward the background, so it isn't
+  // covered by the $text-muted-on-navy contrast check (that only knows
+  // the flat, undimmed token). Caught by the real-browser a11y sweep,
+  // not jest-axe (jsdom doesn't composite opacity for contrast purposes).
+  // 0.9 keeps most of the visual dimming from full $text-muted while
+  // landing at ~4.87:1, comfortably over the 4.5:1 minimum.
+  opacity: 0.9;
   margin-top: 0.15rem;
 }
 
