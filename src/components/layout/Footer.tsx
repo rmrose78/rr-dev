@@ -1,3 +1,4 @@
+import EmailIcon from '@/components/ui/EmailIcon'
 import GitHubIcon from '@/components/ui/GitHubIcon'
 import LinkedInIcon from '@/components/ui/LinkedInIcon'
 import styles from './Footer.module.scss'
@@ -19,6 +20,9 @@ export default function Footer() {
         </div>
       </div>
       <div className={styles.links}>
+        <a href="mailto:ryan.rose.dev@gmail.com" aria-label="Email">
+          <EmailIcon />
+        </a>
         <a
           href="https://github.com/rmrose78"
           target="_blank"

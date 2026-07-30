@@ -15,6 +15,17 @@
   color: $text-secondary;
   letter-spacing: 0.05em;
   margin-bottom: 1.75rem;
+
+  a {
+    color: $electric-blue;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: opacity $transition-base;
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
 }
 
 .field {
