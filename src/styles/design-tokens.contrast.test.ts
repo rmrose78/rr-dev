@@ -16,6 +16,14 @@ const tokens = {
   textSecondary: '#8ab4cc',
   textMuted: '#6690b5',
   electricBlue: '#38bdf8',
+  // Footer's .quoteSource is $text-muted at opacity: 0.9 over navy --
+  // opacity blends the text color toward the background, so the flat
+  // text-muted-on-navy check above doesn't cover it. This is the
+  // resulting composited color, computed by hand (0.9 * textMuted +
+  // 0.1 * navy per channel) -- recompute this if either $text-muted or
+  // that opacity value changes. A real-browser sweep caught this exact
+  // pairing failing at opacity: 0.7 (effective ~3.39:1, #496987).
+  footerQuoteSourceOnNavy: '#5c83a6',
 }
 
 describe('design token contrast ratios', () => {
@@ -102,6 +110,14 @@ describe('design token contrast ratios', () => {
   it('navy button text on electric-blue meets WCAG AA normal text (4.5:1)', () => {
     // Act
     const ratio = contrastRatio(tokens.navy, tokens.electricBlue)
+
+    // Assert
+    expect(ratio).toBeGreaterThanOrEqual(WCAG_AA_NORMAL_TEXT)
+  })
+
+  it("footer quote-source's opacity-blended color on navy meets WCAG AA normal text (4.5:1)", () => {
+    // Act
+    const ratio = contrastRatio(tokens.footerQuoteSourceOnNavy, tokens.navy)
 
     // Assert
     expect(ratio).toBeGreaterThanOrEqual(WCAG_AA_NORMAL_TEXT)
