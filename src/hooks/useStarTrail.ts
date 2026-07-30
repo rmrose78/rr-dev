@@ -29,11 +29,13 @@ const DECAY_DURATION_MS = 650
 
 // "Dropping out of hyperspace" entry burst -- far beyond the normal scroll
 // trail's max so the opening beat reads as a deliberate light-speed jump,
-// not just a big scroll. Direction is arbitrary (down); ease-out cubic
+// not just a big scroll. Direction is up (opposite the down-scroll trail's
+// dir=1) so the burst reads as surfacing out of a jump, not as an
+// oversized version of an ordinary scroll-down trail. Ease-out cubic
 // gives the fast-snap-then-gentle-settle feel of decelerating out of warp.
 const ENTRY_TRAIL_PX = 320
 const ENTRY_DURATION_MS = 900
-const ENTRY_DIR = 1
+const ENTRY_DIR = -1
 
 let hasPlayedLightspeedEntry = false
 
