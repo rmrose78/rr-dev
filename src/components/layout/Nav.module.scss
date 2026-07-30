@@ -257,7 +257,15 @@
 
 .mobileMenu {
   display: none;
-  position: absolute;
+  // fixed, not absolute: this is a sibling of .nav, not nested inside it,
+  // so .nav's own position: fixed doesn't establish a containing block
+  // for it. With no positioned ancestor, `position: absolute; inset: 0`
+  // anchors to the top of the document, not the viewport -- correct only
+  // at scroll position 0. After scrolling (e.g. a nav link jumps to a
+  // section), reopening the menu rendered off-screen above the current
+  // viewport. Fixed positioning anchors to the viewport regardless of
+  // scroll, matching .nav's own reasoning for using fixed.
+  position: fixed;
   inset: 0;
   background: rgba(4, 13, 26, 0.98);
   z-index: 105;
