@@ -2,6 +2,21 @@
 
 Personal portfolio site for Ryan Rose, frontend developer.
 
+## Quickstart
+
+```bash
+npm install
+cp .env.example .env.local   # fill in VITE_WEB3FORMS_KEY
+npm run dev                  # http://localhost:5173
+```
+
+**Env vars** (`.env.local`, gitignored):
+
+- `VITE_WEB3FORMS_KEY` — public form key for the contact modal
+  ([web3forms.com](https://web3forms.com))
+
+**Deploy**: push to `main` — Netlify builds and deploys automatically.
+
 ## Stack
 
 - Vite 8 + React 19 + TypeScript
