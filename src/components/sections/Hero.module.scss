@@ -132,9 +132,9 @@
     background-size:
       100% 100%,
       14px 10px;
-    transition:
-      width 0.4s ease-out,
-      background-color 0.15s ease-out;
+    // No transition here on purpose -- hover-off snaps the line straight
+    // back to width: 0 instead of animating the draw-in in reverse. The
+    // draw-in transition lives only in the :hover rule below.
   }
 
   &::before {
@@ -177,9 +177,17 @@
     &::after {
       width: 100%;
       background-color: rgba($electric-blue, 1);
+      // Second background-size value shrinks the star layer to nothing --
+      // delayed to start right as the width draw-in finishes, so the star
+      // rides the growing tip for the first 0.4s, then dissolves over the
+      // next 0.15s instead of lingering at the end once fully drawn.
+      background-size:
+        100% 100%,
+        0 0;
       transition:
         width 0.4s ease-out,
-        background-color 0.15s ease-out 0.4s;
+        background-color 0.15s ease-out 0.4s,
+        background-size 0.15s ease-out 0.4s;
     }
   }
 
