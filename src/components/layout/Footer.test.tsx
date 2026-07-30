@@ -18,6 +18,17 @@ describe('Footer', () => {
     )
   })
 
+  it('renders a mailto link for email', () => {
+    // Arrange & Act
+    render(<Footer />)
+
+    // Assert
+    expect(screen.getByRole('link', { name: /email/i })).toHaveAttribute(
+      'href',
+      'mailto:ryan.rose.dev@gmail.com'
+    )
+  })
+
   it('renders the Dune quote', () => {
     // Arrange & Act
     render(<Footer />)

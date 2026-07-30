@@ -96,7 +96,11 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
           <h2 className={styles.modalTitle} id="modal-heading">
             Get in Touch
           </h2>
-          <p className={styles.modalSub}>ryan.rose.dev@gmail.com</p>
+          <p className={styles.modalSub}>
+            <a href="mailto:ryan.rose.dev@gmail.com">
+              ryan.rose.dev@gmail.com
+            </a>
+          </p>
 
           <form onSubmit={handleSubmit} noValidate>
             <div className={styles.field}>
