@@ -24,8 +24,8 @@ import { useReducedMotion } from './useReducedMotion'
 
 const MAX_TRAIL_PX = 110
 const VELOCITY_SCALE = 24
-const IDLE_DELAY_MS = 120
-const DECAY_DURATION_MS = 500
+const IDLE_DELAY_MS = 100
+const DECAY_DURATION_MS = 300
 
 // "Dropping out of hyperspace" entry burst -- far beyond the normal scroll
 // trail's max so the opening beat reads as a deliberate light-speed jump,
