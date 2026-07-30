@@ -23,7 +23,10 @@
   border-radius: 50%;
 
   // Scroll-trail streak, driven by useStarTrail.ts setting --trail-len/
-  // --trail-dir on the document root. Zero height at rest.
+  // --trail-dir/--trail-intensity on the document root. Zero height (and
+  // zero opacity) at rest. --trail-intensity (0-1, how close velocity is
+  // to max) scales both width and opacity, so a fast scroll or the
+  // lightspeed entry burst reads as brighter/thicker, not just longer.
   &::after {
     content: '';
     position: absolute;
@@ -33,7 +36,9 @@
     min-width: 1.5px;
     height: var(--trail-len, 0px);
     transform-origin: top;
-    transform: scaleY(var(--trail-dir, 1));
+    transform: scaleY(var(--trail-dir, 1))
+      scaleX(calc(1 + var(--trail-intensity, 0) * 1.4));
+    opacity: var(--trail-intensity, 0);
     background: linear-gradient(to bottom, rgba(203, 232, 253, 0.85), rgba(203, 232, 253, 0));
     border-radius: 2px;
   }
