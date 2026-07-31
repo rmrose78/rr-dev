@@ -41,4 +41,27 @@ describe('Contact', () => {
     // Assert
     expect(results).toHaveNoViolations()
   })
+
+  it('still renders its content when motion is not reduced', () => {
+    // Arrange
+    jest.spyOn(window, 'matchMedia').mockImplementation((query: string) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    }))
+
+    // Act
+    render(<Contact onContactClick={jest.fn()} />)
+
+    // Assert
+    expect(
+      screen.getByRole('heading', { name: /have a project in mind\?/i })
+    ).toBeInTheDocument()
+    jest.restoreAllMocks()
+  })
 })

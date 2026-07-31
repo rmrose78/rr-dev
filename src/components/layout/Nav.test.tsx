@@ -70,6 +70,46 @@ describe('Nav', () => {
     expect(toggle).toHaveAttribute('aria-expanded', 'false')
   })
 
+  it('calls onContactClick and closes the mobile menu when its CTA is clicked', async () => {
+    // Arrange
+    const user = userEvent.setup()
+    const onContactClick = jest.fn()
+    render(<Nav onContactClick={onContactClick} />)
+    const toggle = screen.getByRole('button', {
+      name: /toggle navigation menu/i,
+    })
+    await user.click(toggle)
+    const mobileNav = screen.getByRole('navigation', {
+      name: /mobile navigation/i,
+    })
+
+    // Act
+    await user.click(
+      within(mobileNav).getByRole('button', { name: /open contact form/i })
+    )
+
+    // Assert
+    expect(onContactClick).toHaveBeenCalledTimes(1)
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+  })
+
+  it('restores body scroll when the hamburger re-toggles the menu closed', async () => {
+    // Arrange
+    const user = userEvent.setup()
+    render(<Nav onContactClick={jest.fn()} />)
+    const toggle = screen.getByRole('button', {
+      name: /toggle navigation menu/i,
+    })
+    await user.click(toggle)
+    expect(document.body.style.overflow).toBe('hidden')
+
+    // Act
+    await user.click(toggle)
+
+    // Assert
+    expect(document.body.style.overflow).toBe('')
+  })
+
   it('has no accessibility violations with the menu closed', async () => {
     // Arrange
     const { container } = render(<Nav onContactClick={jest.fn()} />)

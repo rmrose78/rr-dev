@@ -53,4 +53,27 @@ describe('Hero', () => {
     // Assert
     expect(results).toHaveNoViolations()
   })
+
+  it('still renders its content when motion is not reduced', () => {
+    // Arrange
+    jest.spyOn(window, 'matchMedia').mockImplementation((query: string) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    }))
+
+    // Act
+    render(<Hero />)
+
+    // Assert
+    expect(
+      screen.getByRole('link', { name: /jump to projects/i })
+    ).toBeInTheDocument()
+    jest.restoreAllMocks()
+  })
 })

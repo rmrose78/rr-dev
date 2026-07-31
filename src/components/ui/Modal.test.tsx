@@ -28,6 +28,20 @@ describe('Modal', () => {
     expect(screen.getByText('Modal body')).toBeInTheDocument()
   })
 
+  it('renders a visible title when titleVisible is true', () => {
+    // Arrange & Act
+    render(
+      <Modal open onClose={jest.fn()} title="Test Modal" titleVisible>
+        <p>Modal body</p>
+      </Modal>
+    )
+
+    // Assert
+    expect(
+      screen.getByRole('heading', { name: 'Test Modal' })
+    ).toBeVisible()
+  })
+
   it('calls onClose when the close button is clicked', async () => {
     // Arrange
     const user = userEvent.setup()

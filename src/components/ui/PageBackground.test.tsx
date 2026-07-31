@@ -65,4 +65,42 @@ describe('PageBackground', () => {
       expect.objectContaining({ passive: true })
     )
   })
+
+  it('runs the entry animation and scroll handler once without throwing', () => {
+    // Arrange
+    jest.spyOn(window, 'matchMedia').mockImplementation((query: string) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    }))
+    // Each distinct rAF callback (the entry-animation frame, the
+    // scroll-processing frame) runs exactly once -- enough to exercise the
+    // function bodies without letting either's self-rescheduling recurse
+    // into a real animation loop that never resolves in jsdom.
+    const invoked = new WeakSet<FrameRequestCallback>()
+    jest
+      .spyOn(window, 'requestAnimationFrame')
+      .mockImplementation((cb: FrameRequestCallback) => {
+        if (!invoked.has(cb)) {
+          invoked.add(cb)
+          cb(performance.now())
+        }
+        return 1
+      })
+    jest.spyOn(window, 'cancelAnimationFrame').mockImplementation(() => {})
+
+    // Act -- scrollY has to actually change for the scroll handler to do
+    // anything; a same-position scroll event is a no-op early return.
+    const { unmount } = render(<PageBackground />)
+    Object.defineProperty(window, 'scrollY', { value: 100, writable: true })
+    expect(() => window.dispatchEvent(new Event('scroll'))).not.toThrow()
+
+    // Assert
+    expect(() => unmount()).not.toThrow()
+  })
 })

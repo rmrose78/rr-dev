@@ -65,6 +65,24 @@ describe('ContactModal', () => {
     ).toBeInTheDocument()
   })
 
+  it('shows an error message when the server reports failure', async () => {
+    // Arrange
+    ;(global.fetch as jest.Mock).mockResolvedValue({
+      json: async () => ({ success: false }),
+    })
+    const user = userEvent.setup()
+    render(<ContactModal open onClose={jest.fn()} />)
+    await fillOutForm(user)
+
+    // Act
+    await user.click(screen.getByRole('button', { name: /send message/i }))
+
+    // Assert
+    expect(
+      await screen.findByText(/something went wrong/i)
+    ).toBeInTheDocument()
+  })
+
   it('has no accessibility violations on the idle form', async () => {
     // Arrange
     const { container } = render(<ContactModal open onClose={jest.fn()} />)

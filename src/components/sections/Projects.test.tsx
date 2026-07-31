@@ -83,4 +83,26 @@ describe('Projects', () => {
     // Assert
     expect(results).toHaveNoViolations()
   })
+
+  it('still renders both project cards when motion is not reduced', () => {
+    // Arrange
+    jest.spyOn(window, 'matchMedia').mockImplementation((query: string) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    }))
+
+    // Act
+    render(<Projects />)
+
+    // Assert
+    expect(screen.getByText('researchpulse')).toBeInTheDocument()
+    expect(screen.getByText('elpa-website')).toBeInTheDocument()
+    jest.restoreAllMocks()
+  })
 })

@@ -1,8 +1,29 @@
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 import App from './App'
 
 describe('App', () => {
+  it('opens and closes the contact modal', async () => {
+    // Arrange
+    const user = userEvent.setup()
+    render(<App />)
+
+    // Act
+    await user.click(
+      screen.getByRole('button', { name: /open contact form/i })
+    )
+    expect(
+      screen.getByRole('button', { name: /close modal/i })
+    ).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: /close modal/i }))
+
+    // Assert
+    expect(
+      screen.queryByRole('button', { name: /close modal/i })
+    ).not.toBeInTheDocument()
+  })
+
   it('renders a skip link as the first focusable element', () => {
     // Arrange & Act
     render(<App />)

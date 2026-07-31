@@ -61,4 +61,27 @@ describe('About', () => {
     // Assert
     expect(results).toHaveNoViolations()
   })
+
+  it('still renders its content when motion is not reduced', () => {
+    // Arrange
+    jest.spyOn(window, 'matchMedia').mockImplementation((query: string) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    }))
+
+    // Act
+    render(<About />)
+
+    // Assert
+    expect(
+      screen.getByRole('heading', { name: /the signal so far/i })
+    ).toBeInTheDocument()
+    jest.restoreAllMocks()
+  })
 })
