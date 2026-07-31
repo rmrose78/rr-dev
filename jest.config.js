@@ -13,15 +13,15 @@ export default {
     '!src/utils/env.ts',
   ],
   coverageReporters: ['text', 'json-summary'],
-  // Set just below the actual achieved numbers (84.51/76/82.41/86.06 as of
+  // Set just below the actual achieved numbers (88.02/80/84.78/89.43 as of
   // this writing) -- a small buffer so minor branch-count shifts don't
   // trip it, while still failing CI on a real regression.
   coverageThreshold: {
     global: {
-      statements: 84,
-      branches: 75,
-      functions: 82,
-      lines: 86,
+      statements: 87,
+      branches: 78,
+      functions: 84,
+      lines: 88,
     },
   },
   setupFilesAfterEnv: [
