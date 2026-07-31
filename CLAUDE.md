@@ -5,6 +5,15 @@ before writing any code or making any decisions.
 
 ---
 
+## Stack Declaration
+
+**This project is frontend-only. It has no backend, and none is
+planned.** Skills in `.claude/skills/` that have a backend-specific flow
+or file (`4-tdd/SKILL.md`'s backend flow, `4-tdd/be-standards.md`) exist
+so this repo stays consistent with sibling projects — they do not apply
+here. Don't read them, don't ask backend discovery questions, don't
+expect a `backend/` directory to exist.
+
 ## Skill Shortcuts
 - "write tests for <file>" → read `.claude/skills/4-tdd/fe-standards.md`
   and `.claude/skills/4-tdd/a11y-checklist.md`, then write Jest + RTL +
@@ -43,6 +52,14 @@ before writing any code or making any decisions.
 - Any new text/background color pairing gets checked against
   `src/utils/contrast-ratio.ts` before shipping — 4.5:1 normal text, 3:1
   large text/interactive elements. Don't eyeball contrast
+- Testability is a design constraint, not just a test-writing habit: keep
+  decision logic separate from I/O and side effects (fetch calls,
+  animation/timer calls) so the core logic can be unit-tested without
+  heavy mocking. This doesn't restrict what can be built — but if an
+  implementation choice would make a feature only testable via expensive
+  or brittle means (or not testable at all), flag that to the developer
+  before building it that way, don't silently skip the test. See
+  `fe-standards.md`'s Framer Motion section for a concrete pattern
 - Run tests before every commit
 - Never run Playwright visual verification automatically — always ask
   first, or wait to be explicitly told to run it
@@ -143,6 +160,8 @@ that unlocked and what's still open:
 - Tech stack → `docs/reference/tech-stack.md`
 - Frontend conventions, SCSS architecture, folder structure →
   `.claude/skills/4-tdd/fe-standards.md`
+- Backend standards → `.claude/skills/4-tdd/be-standards.md` (inert, see
+  Stack Declaration above — this repo has no backend)
 - Accessibility checklist → `.claude/skills/4-tdd/a11y-checklist.md`
 - Cross-project handoffs → `docs/handoff/` — check for pending handoff
   docs from sibling projects (e.g. researchpulse) before starting new work
