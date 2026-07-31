@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { axe } from 'jest-axe'
 import About from './About'
+import styles from './About.module.scss'
 
 describe('About', () => {
   it('renders the section heading, Dispatch and Stack panels, and both compact stat cards', () => {
@@ -60,5 +61,31 @@ describe('About', () => {
 
     // Assert
     expect(results).toHaveNoViolations()
+  })
+
+  it('starts panels in the pre-animation hidden state when motion is not reduced', () => {
+    // Arrange -- content being present doesn't depend on this prop at all
+    // (same JSX either way), so assert on the actual initial style Framer
+    // Motion applies instead: the "hidden" variant (opacity: 0,
+    // translateY) vs. the reduced-motion default of "visible" (opacity:
+    // 1, no transform).
+    jest.spyOn(window, 'matchMedia').mockImplementation((query: string) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    }))
+
+    // Act
+    const { container } = render(<About />)
+
+    // Assert
+    const col = container.querySelector(`.${styles.col}`)
+    expect(col).toHaveStyle({ opacity: '0' })
+    jest.restoreAllMocks()
   })
 })

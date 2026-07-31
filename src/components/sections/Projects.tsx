@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import ProjectCard from '@/components/ui/ProjectCard'
+import { getLiveUrl } from '@/utils/projects'
 import styles from './Projects.module.scss'
 
 const PROJECTS = [
@@ -114,7 +115,7 @@ export default function Projects() {
                 tags={project.tags}
                 outcome={project.outcome}
                 repoUrl={project.repoUrl}
-                liveUrl={'liveUrl' in project ? project.liveUrl : undefined}
+                liveUrl={getLiveUrl(project)}
                 media={project.media}
                 reverseMedia={project.reverseMedia}
               />
