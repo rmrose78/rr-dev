@@ -155,6 +155,10 @@ that unlocked and what's still open:
 
 ## Docs
 
+- Architecture (how the pieces fit together) → `README.md`'s Architecture
+  section — kept there, not in `docs/reference/`, since it's
+  evaluator-facing content for a solo portfolio project (see
+  `claude-md-organizer/SKILL.md`'s Scope note for why)
 - Design direction (palette, typography, spacing, component feel) →
   `docs/reference/design-direction.md`
 - Tech stack → `docs/reference/tech-stack.md`
