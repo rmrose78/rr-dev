@@ -14,6 +14,8 @@
     "format": "prettier --write src/**/*.{ts,tsx,scss}",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "coverage:badge": "node scripts/generate-coverage-badge.mjs",
     "test:a11y": "playwright test",
     "lighthouse:a11y": "lighthouse http://localhost:5173 --only-categories=accessibility --output=html --output-path=./lighthouse-a11y-report.html --chrome-flags='--headless' --view",
     "precommit": "npm run build && npm run lint && npm test"

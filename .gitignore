@@ -32,3 +32,6 @@ dist-ssr
 /playwright-report/
 lighthouse-a11y-report.html
 /.playwright-mcp/
+
+# Coverage (badges/coverage.json is committed by CI; the raw report isn't)
+/coverage/
