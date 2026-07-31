@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { axe } from 'jest-axe'
 import Projects from './Projects'
+import styles from './Projects.module.scss'
 
 describe('Projects', () => {
   it('renders the section heading', () => {
@@ -84,8 +85,10 @@ describe('Projects', () => {
     expect(results).toHaveNoViolations()
   })
 
-  it('still renders both project cards when motion is not reduced', () => {
-    // Arrange
+  it('starts each card in the pre-animation hidden state when motion is not reduced', () => {
+    // Arrange -- content being present doesn't depend on this prop at all
+    // (same JSX either way), so assert on the actual initial style Framer
+    // Motion applies instead.
     jest.spyOn(window, 'matchMedia').mockImplementation((query: string) => ({
       matches: false,
       media: query,
@@ -98,11 +101,11 @@ describe('Projects', () => {
     }))
 
     // Act
-    render(<Projects />)
+    const { container } = render(<Projects />)
 
     // Assert
-    expect(screen.getByText('researchpulse')).toBeInTheDocument()
-    expect(screen.getByText('elpa-website')).toBeInTheDocument()
+    const grid = container.querySelector(`.${styles.grid}`)
+    expect(grid?.firstElementChild).toHaveStyle({ opacity: '0' })
     jest.restoreAllMocks()
   })
 })

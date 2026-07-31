@@ -54,8 +54,12 @@ describe('Hero', () => {
     expect(results).toHaveNoViolations()
   })
 
-  it('still renders its content when motion is not reduced', () => {
-    // Arrange
+  it('starts staggered content in the pre-animation hidden state when motion is not reduced', () => {
+    // Arrange -- content being present doesn't depend on this prop at all
+    // (same JSX either way), so assert on the actual initial style Framer
+    // Motion applies instead. The container's own "hidden" variant is
+    // empty (it only carries the stagger timing), so the observable
+    // difference shows up on a staggered child instead.
     jest.spyOn(window, 'matchMedia').mockImplementation((query: string) => ({
       matches: false,
       media: query,
@@ -68,12 +72,12 @@ describe('Hero', () => {
     }))
 
     // Act
-    render(<Hero />)
+    const { container } = render(<Hero />)
 
     // Assert
-    expect(
-      screen.getByRole('link', { name: /jump to projects/i })
-    ).toBeInTheDocument()
+    expect(container.querySelector(`.${styles.eyebrow}`)).toHaveStyle({
+      opacity: '0',
+    })
     jest.restoreAllMocks()
   })
 })

@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 import Contact from './Contact'
+import styles from './Contact.module.scss'
 
 describe('Contact', () => {
   it('calls onContactClick when the send-a-message button is clicked', async () => {
@@ -42,8 +43,10 @@ describe('Contact', () => {
     expect(results).toHaveNoViolations()
   })
 
-  it('still renders its content when motion is not reduced', () => {
-    // Arrange
+  it('starts in the pre-animation hidden state when motion is not reduced', () => {
+    // Arrange -- content being present doesn't depend on this prop at all
+    // (same JSX either way), so assert on the actual initial style Framer
+    // Motion applies instead.
     jest.spyOn(window, 'matchMedia').mockImplementation((query: string) => ({
       matches: false,
       media: query,
@@ -56,12 +59,12 @@ describe('Contact', () => {
     }))
 
     // Act
-    render(<Contact onContactClick={jest.fn()} />)
+    const { container } = render(<Contact onContactClick={jest.fn()} />)
 
     // Assert
-    expect(
-      screen.getByRole('heading', { name: /have a project in mind\?/i })
-    ).toBeInTheDocument()
+    expect(container.querySelector(`.${styles.section}`)).toHaveStyle({
+      opacity: '0',
+    })
     jest.restoreAllMocks()
   })
 })
