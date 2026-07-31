@@ -11,6 +11,22 @@ load-bearing every session. On a project that's already fully set up,
 Pass 0 should be a quick no-op check, not busywork — don't manufacture
 changes where none are needed.
 
+## Scope: CLAUDE.md Only
+
+This skill governs CLAUDE.md, never README.md. The rationale for pushing
+reference material out of CLAUDE.md is per-session token cost — it
+reloads in full on every AI conversation. A README doesn't carry that
+cost: it's read by humans occasionally, not reloaded into AI context, and
+for a solo portfolio project it's the primary surface a hiring manager or
+recruiter actually opens. Content that's genuinely evaluator-facing (an
+architecture diagram, for instance) belongs directly in the README where
+it will actually be seen, not filed away in `docs/reference/` just because
+the same "keep it out of CLAUDE.md" instinct also feels applicable there.
+Never move, restructure, or thin out README content as a side effect of
+running this skill — if a CLAUDE.md section being relocated is also
+referenced from or duplicated in the README, leave the README's copy
+alone unless the developer separately asks for a README change.
+
 ## Pass 0 — Workflow Completeness Check
 
 **Intent**: for a new project, the flow is `/init` → this skill. `/init`
