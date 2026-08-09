@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import ImageLightboxModal from '@/components/ui/ImageLightboxModal'
 import styles from './ProjectCard.module.scss'
 
 type ProjectMedia =
@@ -29,94 +31,125 @@ export default function ProjectCard({
   media,
   reverseMedia,
 }: ProjectCardProps) {
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false)
+
   const mediaHref = liveUrl ?? repoUrl
   const mediaLinkLabel = liveUrl ? 'View live site' : 'View on GitHub'
-  // When there's no live site, the media panel's own link already points at
-  // the repo (mediaHref falls back to repoUrl above), so a second repo link
-  // would just repeat it. Only render the compact source link when the
-  // media panel is pointed somewhere else (the live site), so the repo
-  // stays reachable without a redundant line.
   const showSourceLink = Boolean(liveUrl)
 
   return (
-    <article
-      className={`${styles.card} ${reverseMedia ? styles.reverse : ''}`}
-    >
-      <div className={styles.bar}>
-        <span className={styles.dot} aria-hidden="true" />
-        <span className={styles.eyebrow}>{eyebrow}</span>
-      </div>
-
-      <div className={styles.split}>
-        <div className={styles.media}>
-          {media.kind === 'image' ? (
-            // The media panel's caption used to read "> {eyebrow}" and look
-            // clickable without being a link -- now it actually is one, so
-            // the caption text names its real destination instead of
-            // repeating the eyebrow.
-            <a
-              className={styles.mediaLink}
-              href={mediaHref}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`${mediaLinkLabel}: ${title}`}
-            >
-              <img
-                className={`${styles.mediaImage} ${
-                  media.focalPoint === 'top' ? styles.focalTop : ''
-                }`}
-                src={media.src}
-                alt={media.alt}
-                loading="lazy"
-              />
-              <p className={styles.mediaCaption}>{mediaLinkLabel} &rarr;</p>
-            </a>
-          ) : (
-            <p className={styles.placeholder}>{media.text}</p>
-          )}
-
-          {/* Only rendered when there's a live site, so the repo stays
-              reachable without repeating the media panel's own link. */}
-          {showSourceLink && (
-            <a
-              className={styles.sourceLink}
-              href={repoUrl}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`View source: ${title}`}
-            >
-              Source &#8599;
-            </a>
-          )}
+    <>
+      <article
+        className={`${styles.card} ${reverseMedia ? styles.reverse : ''}`}
+      >
+        <div className={styles.bar}>
+          <span className={styles.dot} aria-hidden="true" />
+          <span className={styles.eyebrow}>{eyebrow}</span>
         </div>
 
-        <div className={styles.body}>
-          <h3 className={styles.title}>{title}</h3>
+        <div className={styles.split}>
+          <div className={styles.media}>
+            {media.kind === 'image' ? (
+              <div className={styles.mediaContainer}>
+                <a
+                  className={styles.mediaLink}
+                  href={mediaHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`${mediaLinkLabel}: ${title}`}
+                >
+                  <img
+                    className={`${styles.mediaImage} ${
+                      media.focalPoint === 'top' ? styles.focalTop : ''
+                    }`}
+                    src={media.src}
+                    alt={media.alt}
+                    loading="lazy"
+                  />
+                  <p className={styles.mediaCaption}>{mediaLinkLabel} &rarr;</p>
+                </a>
 
-          <p className={styles.label}>Problem</p>
-          <p className={styles.text}>{problem}</p>
+                <button
+                  className={styles.lightboxBtn}
+                  onClick={() => setIsLightboxOpen(true)}
+                  aria-label={`Expand ${title} demo image`}
+                >
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <polyline points="15 3 21 3 21 9" />
+                    <polyline points="9 21 3 21 3 15" />
+                    <line x1="21" y1="3" x2="14" y2="10" />
+                    <line x1="3" y1="21" x2="10" y2="14" />
+                  </svg>
+                  Expand Demo
+                </button>
+              </div>
+            ) : (
+              <p className={styles.placeholder}>{media.text}</p>
+            )}
 
-          <p className={styles.label}>Approach</p>
-          <p className={styles.text}>{approach}</p>
+            {showSourceLink && (
+              <a
+                className={styles.sourceLink}
+                href={repoUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`View source: ${title}`}
+              >
+                Source &#8599;
+              </a>
+            )}
+          </div>
 
-          {/* eslint-disable jsx-a11y/no-redundant-roles */}
-          <ul
-            className={styles.tags}
-            role="list"
-            aria-label={`${title} tags`}
-          >
-            {tags.map((tag) => (
-              <li key={tag} role="listitem" className={styles.tag}>
-                {tag}
-              </li>
-            ))}
-          </ul>
-          {/* eslint-enable jsx-a11y/no-redundant-roles */}
+          <div className={styles.body}>
+            <h3 className={styles.title}>{title}</h3>
 
-          <p className={styles.label}>Outcome</p>
-          <p className={styles.outcome}>{outcome}</p>
+            <p className={styles.label}>Problem</p>
+            <p className={styles.text}>{problem}</p>
+
+            <p className={styles.label}>Approach</p>
+            <p className={styles.text}>{approach}</p>
+
+            {/* eslint-disable jsx-a11y/no-redundant-roles */}
+            <ul
+              className={styles.tags}
+              role="list"
+              aria-label={`${title} tags`}
+            >
+              {tags.map((tag) => (
+                <li key={tag} role="listitem" className={styles.tag}>
+                  {tag}
+                </li>
+              ))}
+            </ul>
+            {/* eslint-enable jsx-a11y/no-redundant-roles */}
+
+            <p className={styles.label}>Outcome</p>
+            <p className={styles.outcome}>{outcome}</p>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
+
+      {media.kind === 'image' && (
+        <ImageLightboxModal
+          isOpen={isLightboxOpen}
+          onClose={() => setIsLightboxOpen(false)}
+          src={media.src}
+          alt={media.alt}
+          title={title}
+          liveUrl={liveUrl}
+          repoUrl={repoUrl}
+        />
+      )}
+    </>
   )
 }
