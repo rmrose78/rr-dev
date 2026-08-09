@@ -32,6 +32,18 @@ describe('About', () => {
     ).toBeTruthy()
   })
 
+  it('renders the updated Dispatch bio text', () => {
+    // Arrange & Act
+    render(<About />)
+
+    // Assert
+    expect(
+      screen.getByText(
+        /Frontend Software Engineer with a focus on building production/i
+      )
+    ).toBeInTheDocument()
+  })
+
   it('drops Production Experience and Prior Clearance as their own stat tiles', () => {
     // Arrange & Act
     render(<About />)

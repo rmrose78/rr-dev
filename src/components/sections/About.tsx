@@ -7,8 +7,8 @@ import styles from './About.module.scss'
 const SPEC_CARDS = [
   {
     label: 'Education',
-    value: 'B.S. BME',
-    sub: 'Biomedical Engineering, UTSA',
+    value: 'B.S. UTSA',
+    sub: 'UT San Antonio',
   },
   {
     label: 'Service',
@@ -79,9 +79,8 @@ export default function About() {
           >
             <LogPanel label="Dispatch" footer="STATUS: TRANSMITTING">
               <p>
-                U.S. Army veteran first, then a Biomedical Engineering degree
-                at UTSA, where I got into programming. Developer training
-                through{' '}
+                Frontend Software Engineer with a focus on building production
+                React and TypeScript applications. Self-paced guidance through{' '}
                 <a
                   href="https://vetswhocode.io/"
                   target="_blank"
@@ -90,10 +89,9 @@ export default function About() {
                 >
                   #VetsWhoCode
                 </a>{' '}
-                followed, and I've spent my career since building production
-                React and TypeScript applications. More recently, I've been
-                branching out into full-stack projects, always picking up
-                new technologies to become a better developer.
+                launched my web engineering career following my service in the
+                U.S. Army. Today, I build high-performance, accessible digital
+                products while constantly optimizing AI-assisted workflows.
               </p>
             </LogPanel>
 

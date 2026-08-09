@@ -57,7 +57,7 @@ export default function Hero() {
         animate="visible"
       >
         <motion.p className={styles.eyebrow} variants={itemVariants}>
-          Software Developer
+          Software Engineer
         </motion.p>
 
         <motion.h1 className={styles.heading} variants={itemVariants}>
@@ -65,10 +65,9 @@ export default function Hero() {
         </motion.h1>
 
         <motion.p className={styles.bio} variants={itemVariants}>
-          U.S. Army veteran with professional experience building React and
-          TypeScript applications that serve millions of users. Drawn to work
-          where the problem actually matters. Also, I have a thing for space,
-          which explains all of this.
+          Software Engineer building responsive, accessible applications while
+          leveraging cutting-edge AI workflows to deliver fast, high-quality
+          software.
         </motion.p>
 
         <motion.div className={styles.actions} variants={itemVariants}>

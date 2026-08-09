@@ -47,7 +47,7 @@
   @include desktop {
     grid-template-columns: 1fr 1fr;
     gap: 2.5rem;
-    align-items: start;
+    align-items: stretch;
   }
 }
 
@@ -55,10 +55,8 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  height: 100%;
 
-  // Desktop-only: the left column has 3 children (LogPanel, focus-note,
-  // specs) so this gap balances its height against the right column's
-  // single-child Stack panel, which the gap doesn't touch at all.
   @include desktop {
     gap: 1.2rem;
   }
@@ -104,11 +102,22 @@
 .stackPanel {
   display: flex;
   flex-direction: column;
+  height: 100%;
+  flex: 1;
+
+  > div:nth-child(2) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .skillsChart {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  flex: 1;
 }
 
 .skillsRow {
@@ -118,6 +127,8 @@
   gap: 0.45rem;
   padding: 0.65rem 0;
   text-align: center;
+  flex: 1;
+  justify-content: center;
 
   & + & {
     border-top: 1px solid $border-subtle;
