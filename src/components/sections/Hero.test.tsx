@@ -19,6 +19,18 @@ describe('Hero', () => {
     )
   })
 
+  it('renders the updated story-driven bio text', () => {
+    // Arrange & Act
+    render(<Hero />)
+
+    // Assert
+    expect(
+      screen.getByText(
+        /Software Engineer building responsive, accessible/i
+      )
+    ).toBeInTheDocument()
+  })
+
   it('jumps to the projects section', () => {
     // Arrange & Act
     render(<Hero />)
