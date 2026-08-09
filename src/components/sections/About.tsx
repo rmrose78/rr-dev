@@ -77,7 +77,11 @@ export default function About() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
           >
-            <LogPanel label="Dispatch" footer="STATUS: TRANSMITTING">
+            <LogPanel
+              label="Dispatch"
+              footer="STATUS: TRANSMITTING"
+              className={styles.dispatchPanel}
+            >
               <p>
                 Software Engineer focused on building production web
                 applications. Self-paced guidance through{' '}
@@ -90,7 +94,7 @@ export default function About() {
                   #VetsWhoCode
                 </a>{' '}
                 launched my engineering career following my service in the U.S.
-                Army. Today, I build high-performance, accessible digital
+                Army. Today, I build high performance, accessible digital
                 products while constantly optimizing AI-assisted workflows.
               </p>
             </LogPanel>
