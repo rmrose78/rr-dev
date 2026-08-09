@@ -39,7 +39,7 @@ describe('About', () => {
     // Assert
     expect(
       screen.getByText(
-        /Frontend Software Engineer with a focus on building production/i
+        /Software Engineer focused on building production web/i
       )
     ).toBeInTheDocument()
   })

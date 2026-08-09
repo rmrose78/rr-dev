@@ -79,8 +79,8 @@ export default function About() {
           >
             <LogPanel label="Dispatch" footer="STATUS: TRANSMITTING">
               <p>
-                Frontend Software Engineer with a focus on building production
-                React and TypeScript applications. Self-paced guidance through{' '}
+                Software Engineer focused on building production web
+                applications. Self-paced guidance through{' '}
                 <a
                   href="https://vetswhocode.io/"
                   target="_blank"
@@ -89,8 +89,8 @@ export default function About() {
                 >
                   #VetsWhoCode
                 </a>{' '}
-                launched my web engineering career following my service in the
-                U.S. Army. Today, I build high-performance, accessible digital
+                launched my engineering career following my service in the U.S.
+                Army. Today, I build high-performance, accessible digital
                 products while constantly optimizing AI-assisted workflows.
               </p>
             </LogPanel>
