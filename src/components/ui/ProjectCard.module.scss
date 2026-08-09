@@ -72,6 +72,51 @@
   flex-direction: column;
 }
 
+.mediaContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  &:hover .lightboxBtn {
+    opacity: 1;
+  }
+}
+
+.lightboxBtn {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(4, 13, 26, 0.85);
+  backdrop-filter: blur(4px);
+  border: 1px solid $border-med;
+  border-radius: 6px;
+  color: $text-primary;
+  font-family: $font-mono;
+  font-size: 0.68rem;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: all $transition-base;
+
+  &:hover {
+    opacity: 1;
+    color: $electric-blue;
+    border-color: $electric-blue;
+    background: rgba(4, 13, 26, 0.95);
+  }
+
+  &:focus-visible {
+    opacity: 1;
+    outline: 2px solid $electric-blue;
+    outline-offset: 1px;
+  }
+}
+
 // The whole media panel (image + caption) is a real link now -- style it
 // so that's obvious: pointer cursor, a hover/focus state on the caption,
 // and a visible focus ring for keyboard users, same treatment as .link.
